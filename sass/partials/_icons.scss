@@ -1,0 +1,14 @@
+.loading {
+    background:url('/img/preloader.gif') no-repeat;
+    height:16px;
+    width:16px;
+    @include image-replacement;
+}
+
+.sync-icon {
+    background:url('/img/sync.gif') no-repeat;
+    display:inline-block;
+    height:16px;
+    width:16px;
+    @include image-replacement;
+}
