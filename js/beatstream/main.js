@@ -15,15 +15,17 @@ define(
         'jquery',
         'lib/store',
         'beatstream/api',
-        'beatstream/songlist',
         'beatstream/sidebar',
-        'beatstream/playlists',
         'beatstream/audio-modules/soundmanager2',
+
+        'beatstream/lastfm',
+        'beatstream/songlist',
+        'beatstream/playlists',
         'helpers/helpers',
         'lib/soundmanager2',
         'lib/jquery-ui'
     ],
-    function ($, store, api, songlist, Sidebar, undefined) {
+    function ($, store, api, Sidebar, SM2Audio) {
 
         var init = function (options_in) {
 
@@ -55,7 +57,6 @@ define(
 
             // init API
             api.init(options.apiUrl);
-
 
             // ::: INIT STUFF :::
             var beatAudio = null;
