@@ -35,6 +35,6 @@ define(
                 });
             }
         };
-
+        return Playlists;
     }
 );

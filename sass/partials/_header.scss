@@ -1,20 +1,16 @@
-header {
+.app-top {
     background:#333;
-    background: -webkit-linear-gradient(top, #242424, #424242);
-    background: -moz-linear-gradient(top, #242424, #424242);
-    background: -o-linear-gradient(top, #242424, #424242);
-    background: -ms-linear-gradient(top, #242424, #424242);
-    background:linear-gradient(top, #242424, #424242);
+    @include background(linear-gradient(top, #242424, #424242));
     color:#fff;
     height:55px;
     overflow: hidden;
     padding:0 20px 0 15px;
-    box-shadow: inset 0 1px 0 #302d2a;
+    @include box-shadow(inset 0 1px 0 #302d2a);
+}
 
-    #logo {
-        font:normal 30px/55px 'PT Sans', sans-serif;
-        float:left;
-    }
+.logo {
+    font:normal 30px/55px 'PT Sans', sans-serif;
+    float:left;
 }
 
 #user-panel {
@@ -25,7 +21,7 @@ header {
     a {
         color:#bbb;
         display:block;
-        
+
         &:hover *, &.act * {
             color:#fff;
             border-top-color:#fff;
@@ -88,7 +84,7 @@ header {
             position: absolute;
             z-index:2002;
         }
-    
+
     a {
         color:#222;
         display:block;

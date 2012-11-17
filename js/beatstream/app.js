@@ -10,15 +10,15 @@ define(
         'beatstream/api',
         'beatstream/sidebar',
         'beatstream/audio-modules/soundmanager2',
+        'beatstream/songlist',
 
         'beatstream/lastfm',
-        'beatstream/songlist',
         'beatstream/playlists',
         'helpers/helpers',
         'soundmanager2',
         'jquery-ui'
     ],
-    function ($, store, api, Sidebar, SM2Audio) {
+    function ($, store, api, Sidebar, SM2Audio, Songlist) {
 
         var init = function (options_in) {
 

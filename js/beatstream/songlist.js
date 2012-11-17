@@ -1,10 +1,3 @@
-//= require helpers
-//= require dragtooltip
-//= require slick.grid
-/*!
- * Abstracts SlickGrid away into oblivion!
- */
-
 define(
     ['helpers/helpers', 'helpers/dragtooltip', 'slickgrid'],
     function () {
@@ -393,7 +386,6 @@ define(
             this.dataView.syncGridCellCssStyles(this.grid, 'currentSong_playing');
         };
 
-        window.Songlist = Songlist;
-
+        return Songlist;
     }
 );

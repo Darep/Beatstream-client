@@ -10,10 +10,10 @@ var DragTooltip = {
         leftMargin: 5
     },
 
-	draginfo: $('#draginfo'),
+    draginfo: $('#draginfo'),
 
-	show: function (x, y, text) {
-        
+    show: function (x, y, text) {
+
         if (!this.draginfo.length) {
             this.draginfo = $('<div id="draginfo"></div>');
             $('body').append(this.draginfo);
@@ -27,7 +27,7 @@ var DragTooltip = {
                     zIndex: 9001
                 })
                 .show();
-	},
+    },
 
     update: function (x, y) {
         this.draginfo.css({

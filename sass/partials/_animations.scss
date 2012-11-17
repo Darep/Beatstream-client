@@ -1,0 +1,5 @@
+@-webkit-keyframes shake {
+    0%, 100% { -webkit-transform: translateX(0); }
+    10%, 30%, 50%, 70% { -webkit-transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { -webkit-transform: translateX(5px); }
+}
