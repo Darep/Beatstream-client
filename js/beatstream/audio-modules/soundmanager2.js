@@ -3,7 +3,7 @@
  */
 
 define(
-    ['jquery'],
+    ['jquery', 'soundmanager2'],
     function ($) {
 
         // SoundManager 2 options

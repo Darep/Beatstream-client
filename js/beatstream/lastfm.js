@@ -1,10 +1,6 @@
-/*!
- * Beatstream Scrobbling
- */
-
-(function ($, window, document, undefined) {
-
-    var lastfm = (function () {
+define(
+    ['jquery'],
+    function ($) {
 
         var scrobble_time = 240,
             song_scrobbled = false,
@@ -14,6 +10,7 @@
             var data = 'artist=' + encodeURIComponent(song.artist) +
                        '&title=' + encodeURIComponent(song.title);
 
+            // TODO: use Beatstream.Api instead
             $.ajax({
                 type: 'PUT',
                 url: '/api/v1/now-playing',
@@ -21,14 +18,14 @@
             });
         }
 
-        return {
+        var LastFM = {
             newSong: function (song_in) {
                 if (!song_in) return;
 
                 song = song_in;
 
                 scrobble_time = Math.floor(song.length/2, 10);
-                
+
                 if (scrobble_time > 240) {
                     scrobble_time = 240;
                 }
@@ -51,6 +48,7 @@
                 var data = 'artist=' + encodeURIComponent(song.artist) +
                            '&title=' + encodeURIComponent(song.title);
 
+                // TODO: use Beatstream.Api instead
                 $.ajax({
                     type: 'POST',
                     url: '/api/v1/scrobble',
@@ -61,8 +59,6 @@
             }
         };
 
-    }());
-
-    window.lastfm = lastfm;
-
-})(jQuery, window, document);
+        return LastFM;
+    }
+);

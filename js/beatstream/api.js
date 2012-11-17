@@ -1,11 +1,11 @@
 
 define(
     ['jquery'],
-    function () {
+    function ($) {
 
         var baseUrl = '';
 
-        return {
+        var Api = {
             init: function (apiBaseUrl) {
                 if (apiBaseUrl) {
                     baseUrl = apiBaseUrl;
@@ -56,5 +56,6 @@ define(
             }
         };
 
+        return Api;
     }
 );

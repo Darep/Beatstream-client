@@ -1,22 +1,18 @@
-//= require helpers
-//= require store.min
-
 /*
  * NOTE! This module might seem super dumb and not-needed, but I had plans to
  * add some localStorage optimization to this stuff and so on. Playlists can
  * be really heavy on the memory.
  */
 
-(function (Beatstream, $, window, document, undefined) {
-
-    Beatstream.Playlists = (function () {
+define(
+    ['beatstream/api'],
+    function (Api) {
 
         var playlists = {};
 
-        return {
+        var Playlists = {
             add: function (name, data) {
                 playlists[name] = data;
-                console.log(playlists);
             },
 
             getByName: function (name) {
@@ -25,17 +21,20 @@
             },
 
             load: function (name, callback) {
-                var req = Beatstream.Api.getPlaylist(name);
+
+                var self = this;
+
+                var req = Api.getPlaylist(name);
                 req.success(function (data) {
-                    Beatstream.Playlists.add(name, data);
+                    self.add(name, data);
 
                     if (callback) {
-                        var playlist = Beatstream.Playlists.getByName(name);
+                        var playlist = self.getByName(name);
                         callback(playlist);
                     }
                 });
             }
         };
-    }());
 
-})(window.Beatstream = window.Beatstream || {}, jQuery, window, document);
+    }
+);

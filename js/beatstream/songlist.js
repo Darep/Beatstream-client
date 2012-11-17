@@ -6,7 +6,7 @@
  */
 
 define(
-    ['helpers/helpers', 'helpers/dragtooltip', 'lib/slickgrid/slick.grid'],
+    ['helpers/helpers', 'helpers/dragtooltip', 'slickgrid'],
     function () {
 
         // set jQuery.event.drag plugin's default drag start distance

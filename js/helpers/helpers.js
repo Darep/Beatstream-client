@@ -1,7 +1,7 @@
-/*!
- * Helper functions
- *
+/**
+ * A bunch of helpers functions
  */
+
 
 var keyCode = {
     UP: 38,
@@ -68,6 +68,7 @@ function naturalsort(a, b) {
   }
   return aa.length - bb.length;
 }
+
 
 // function: window.template(selector)
 (function (document, window) {

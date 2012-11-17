@@ -1,9 +1,6 @@
-/*
- * ajk's Hot New Template
- * Made by ajk (ajk.fi)
+/**
+ * Beatstream CSS
  */
-/* RESET
------------------------------------------------------------------------------ */
 /* RESET */
 /* line 2, ../sass/partials/_reset.scss */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
@@ -49,11 +46,7 @@ abbr, acronym {
   border: 0;
 }
 
-/*------------------------------------*\
-    ELEMENTS
-\*------------------------------------*/
-/* BASE
------------------------------------------------------------------------------ */
+/* Base styles */
 /* line 2, ../sass/partials/_base.scss */
 html, body {
   height: 100%;
@@ -182,13 +175,6 @@ input[type="submit"] {
   bottom: 0;
 }
 
-/* TYPOGRAPHY
------------------------------------------------------------------------------ */
-/*------------------------------------*\
-    OBJECTS
-\*------------------------------------*/
-/* ICONS & ANIMATIONS
------------------------------------------------------------------------------ */
 /* line 1, ../sass/partials/_icons.scss */
 .loading {
   background: url("/img/preloader.gif") no-repeat;
@@ -210,15 +196,7 @@ input[type="submit"] {
   white-space: nowrap;
 }
 
-/* BUTTONS
------------------------------------------------------------------------------ */
-/* FORMS
------------------------------------------------------------------------------ */
-/*------------------------------------*\
-    COMPONENTS
-\*------------------------------------*/
-/* HEADER
------------------------------------------------------------------------------ */
+/* Modules */
 /* line 1, ../sass/partials/_header.scss */
 header {
   background: #333;
@@ -330,8 +308,6 @@ header #logo {
   color: #fff;
 }
 
-/* HEADER
------------------------------------------------------------------------------ */
 /* line 1, ../sass/partials/_songlist.scss */
 .page-header {
   overflow: hidden;
@@ -545,8 +521,6 @@ header #logo {
   font-weight: 700;
 }
 
-/* SIDEBAR
------------------------------------------------------------------------------ */
 /* line 1, ../sass/partials/_sidebar.scss */
 #sidebar {
   background: #eaeaea;
@@ -696,8 +670,6 @@ header #logo {
   }
 }
 
-/* SIDEBAR
------------------------------------------------------------------------------ */
 /* line 1, ../sass/partials/_player.scss */
 #player {
   background: #222;
@@ -866,11 +838,6 @@ header #logo {
   float: left;
 }
 
-/*------------------------------------*\
-    OTHER
-\*------------------------------------*/
-/* ALL THE REST
------------------------------------------------------------------------------ */
 /* mixins */
 /* modals */
 /* line 9, ../sass/partials/_other.scss */

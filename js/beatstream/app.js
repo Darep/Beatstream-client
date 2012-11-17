@@ -1,10 +1,3 @@
-//= require helpers
-//= require store.min
-//= require lastfm
-//= require songlist
-//= require api
-//= require sidebar
-//= require audio-modules/soundmanager2
 /*!
  * Main - The God particle
  * Wires all the stuff together and does some stuff too
@@ -13,7 +6,7 @@
 define(
     [
         'jquery',
-        'lib/store',
+        'store',
         'beatstream/api',
         'beatstream/sidebar',
         'beatstream/audio-modules/soundmanager2',
@@ -22,8 +15,8 @@ define(
         'beatstream/songlist',
         'beatstream/playlists',
         'helpers/helpers',
-        'lib/soundmanager2',
-        'lib/jquery-ui'
+        'soundmanager2',
+        'jquery-ui'
     ],
     function ($, store, api, Sidebar, SM2Audio) {
 
