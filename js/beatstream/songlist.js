@@ -124,13 +124,14 @@ define(
                 var cell = grid.getCellFromEvent(e);
                 var data = [];
                 var song_count = 0;
+                var dataitem;
 
                 // check if dragging selected rows
                 var rows = grid.getSelectedRows();
                 var draggingSelectedRows = false;
 
                 for (var i = 0; i < rows.length; i++) {
-                    var dataItem = grid.getDataItem(rows[i]);
+                    dataItem = grid.getDataItem(rows[i]);
                     data[i] = dataItem;
                     if (rows[i] === cell.row) {
                         draggingSelectedRows = true;
@@ -139,7 +140,7 @@ define(
                 }
 
                 if (draggingSelectedRows === false) {
-                    var dataItem = grid.getDataItem(cell.row);
+                    dataItem = grid.getDataItem(cell.row);
                     data = [];
                     data[0] = dataItem;
                     song_count = 1;
