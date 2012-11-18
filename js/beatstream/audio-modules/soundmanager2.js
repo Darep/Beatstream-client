@@ -6,24 +6,22 @@ define(
     ['jquery', 'soundmanager2'],
     function ($) {
 
+        var soundManagerIsReady = false;
+
         // SoundManager 2 options
         soundManager.setup({
             url: '/swf/',
-            flashVersion: 8, // optional: shiny features (default = 8)
             useFlashBlock: true, // optionally, enable when you're ready to dive in
             useHTML5Audio: true,
-            preferFlash: false,
-            debugMode: true
-        });
-
-        var soundManagerIsReady = false;
-
-        soundManager.onready(function() {
-            soundManagerIsReady = true;
-        });
-
-        soundManager.ontimeout(function (status) {
-            console.log(status);
+            useHighPerformance: true,
+            noSWFCache: true,
+            onready: function() {
+                soundManagerIsReady = true;
+            },
+            ontimeout: function (status) {
+                console.log(status);
+                var loaded = soundManager.getMoviePercent();
+            }
         });
 
 
