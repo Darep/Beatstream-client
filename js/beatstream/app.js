@@ -36,7 +36,7 @@ define(
                     var h = $(window).height() - $('.app-top').outerHeight(true) - $('.app-now-playing').outerHeight(true);
                     var w = $(window).width() - $('.app-nav').outerWidth(true);
                     $('#app > .wrapper').css('height', h);
-                    $('.app-main > .playlist').css('width', w);
+                    //$('.app-main > .playlist').css('width', w);
 
                     var h2 = h - $('.page-header').innerHeight();
                     $('.grid-container').css('height', h2);
