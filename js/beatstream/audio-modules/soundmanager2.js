@@ -16,6 +16,7 @@ define(
             events_in = events_in || {};
 
             var events = $.extend({
+                onReady: function () {},
                 onPlay : function () {},
                 onPaused : function () {},
                 onSongEnd : function () {},
@@ -23,11 +24,14 @@ define(
                 onDurationParsed : function (duration_in_seconds) {},
                 onError : function () {}
             }, events_in);
+
+            this.events = events;
         }
 
 
         AudioModule.prototype.start = function () {
             var defer = $.Deferred();
+            var self = this;
 
             soundManager.setup({
                 url: '/swf/',
@@ -36,7 +40,8 @@ define(
                 useHighPerformance: true,
                 noSWFCache: true,
                 onready: function() {
-                    soundManagerIsReady = true;
+                    self.isReady = true;
+                    self.events.onReady();
                     defer.resolve();
                 },
                 ontimeout: function (status) {
@@ -53,6 +58,13 @@ define(
             this.startDefer = defer;
 
             return defer;
+        };
+
+
+        AudioModule.prototype.ready = function (callback) {
+            if (callback !== undefined) {
+                this.events.onReady = callback;
+            }
         };
 
 

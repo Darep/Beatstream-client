@@ -21,7 +21,11 @@ p {
 
 
 a {
-    color:inherit;
+    color:#49e;
     cursor: pointer;
-    text-decoration:none;
+    text-decoration:underline;
+
+    &:hover {
+        color:#e49;
+    }
 }

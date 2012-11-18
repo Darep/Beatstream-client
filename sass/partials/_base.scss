@@ -8,7 +8,11 @@ body {
     font-family:sans-serif;
     margin:0 auto;
     overflow:hidden;
+
     -webkit-font-smoothing: antialiased;
+
+    /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
+    -webkit-backface-visibility: hidden;
 }
 
 
@@ -27,10 +31,5 @@ body {
     margin:15px 0;
     padding:10px 12px;
     text-align:center
-}
-
-
-input[type="submit"] {
-    cursor:pointer;
 }
 

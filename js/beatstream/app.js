@@ -13,12 +13,13 @@ define(
         'beatstream/songlist',
         'beatstream/lastfm',
         'beatstream/playlists',
+        'beatstream/views/preloader',
 
         'helpers/helpers',
         'soundmanager2',
         'jquery-ui'
     ],
-    function ($, store, api, Sidebar, SM2Audio, Songlist, LastFM, Playlists) {
+    function ($, store, api, Sidebar, SM2Audio, Songlist, LastFM, Playlists, preloaderView) {
 
         var App = {
             init: function (options_in) {
@@ -31,21 +32,7 @@ define(
 
 
                 audio = new SM2Audio();
-                var audioStart = audio.start();
-                var playlistLoad = openInitialPlaylist();
-
-                $.when(audioStart, playlistLoad).done(function (audioResult, openMusicResult) {
-                    console.log(audioResult);
-                    console.log(openMusicResult);
-                });
-
-                audioStart.fail(function () {
-                    console.log('audio fail');
-                });
-
-                playlistLoad.fail(function () {
-                    console.log('could not load playlist');
-                });
+                startPreload(audio.start(), openInitialPlaylist(), audio);
 
                 // TODO: use jQuery bind() and trigger() if we need more than one event handler
                 audio.setOnPlay(function () {
@@ -102,10 +89,6 @@ define(
                         songlist.resizeCanvas();
                     }
                 }
-
-
-                // init API
-                api.init(options.apiUrl, showLogin);
 
 
                 // ::: INIT STUFF :::
@@ -244,8 +227,6 @@ define(
                     var req = api.getAllMusic();
 
                     req.done(function (data) {
-                        $('.preloader').remove();
-
                         openPlaylist('All music', data);
 
                         // update "All music" song count on sidebar
@@ -419,6 +400,29 @@ define(
         var showLogin = function () {
             var login = $('.login');
             login.show();
+        };
+
+
+        var startPreload = function (audioStart, playlistLoad, audio) {
+
+            $.when(audioStart, playlistLoad).done(function (audioResult, openMusicResult) {
+                console.log('start: success!');
+                preloaderView.hide();
+            });
+
+            audioStart.fail(function () {
+                preloaderView.showError('no-flash');
+
+                // Hide the error if the audio can be started later on
+                audio.ready(function () {
+                    preloaderView.hideError('no-flash');
+                });
+            });
+
+            playlistLoad.fail(function () {
+                preloaderView.showError('playlist-error');
+            });
+
         };
 
 

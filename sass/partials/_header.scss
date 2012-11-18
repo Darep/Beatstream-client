@@ -9,8 +9,13 @@
 }
 
 .logo {
-    font:normal 30px/55px 'PT Sans', sans-serif;
-    float:left;
+    font: normal 30px/55px 'PT Sans', sans-serif;
+    float: left;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 }
 
 #user-panel {

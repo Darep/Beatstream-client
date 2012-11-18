@@ -106,12 +106,22 @@
         margin-top:$baseline;
         text-align:left;
 
-        div + div {
+        > div {
+            -webkit-animation: bounceIn .7s;
+               -moz-animation: bounceIn .7s;
+                 -o-animation: bounceIn .7s;
+                    animation: bounceIn .7s;
+            -webkit-animation-fill-mode: both;
+               -moz-animation-fill-mode: both;
+                 -o-animation-fill-mode: both;
+                    animation-fill-mode: both;
+        }
+
+        > div + div {
             margin-top:$baseline;
         }
 
         .icon {
-            background:#ddd;
             display:inline-block;
             float: left;
             height:24px;
