@@ -23,9 +23,67 @@ define(
         var App = {
             init: function (options_in) {
 
+                var songlist, audio, error_counter = 0;
+
                 var options = $.extend({
                     apiUrl: '/'
                 }, options_in);
+
+
+                audio = new SM2Audio();
+                var audioStart = audio.start();
+                var playlistLoad = openInitialPlaylist();
+
+                $.when(audioStart, playlistLoad).done(function (audioResult, openMusicResult) {
+                    console.log(audioResult);
+                    console.log(openMusicResult);
+                });
+
+                audioStart.fail(function () {
+                    console.log('audio fail');
+                });
+
+                playlistLoad.fail(function () {
+                    console.log('could not load playlist');
+                });
+
+                // TODO: use jQuery bind() and trigger() if we need more than one event handler
+                audio.setOnPlay(function () {
+                    playPause.addClass('playing');
+                });
+
+                audio.setOnPaused(function () {
+                    playPause.removeClass('playing');
+                });
+
+                audio.setOnSongEnd(function () {
+                    songlist.nextSong(getShuffle(), getRepeat());
+                });
+
+                audio.setOnTimeChange(function (elaps) {
+                    elapsedTimeChanged(elaps);
+
+                    if (!user_is_seeking) {
+                        seekbar.slider('option', 'value', elaps);
+                    }
+                });
+
+                audio.setOnDurationParsed(function (duration_in_seconds) {
+                    durationChanged(duration_in_seconds);
+                    seekbar.slider('option', 'disabled', false);
+                });
+
+                audio.setOnError(function () {
+                    if (error_counter > 2) {
+                        audio.pause();
+                        error_counter = 0;
+                        return;
+                    }
+                    songlist.nextSong(getShuffle(), getRepeat());
+                    error_counter = error_counter + 1;
+                });
+
+                return false;
 
 
                 // resize the main-area to correct height
@@ -36,7 +94,6 @@ define(
                     var h = $(window).height() - $('.app-top').outerHeight(true) - $('.app-now-playing').outerHeight(true);
                     var w = $(window).width() - $('.app-nav').outerWidth(true);
                     $('#app > .wrapper').css('height', h);
-                    //$('.app-main > .playlist').css('width', w);
 
                     var h2 = h - $('.page-header').innerHeight();
                     $('.grid-container').css('height', h2);
@@ -52,15 +109,14 @@ define(
 
 
                 // ::: INIT STUFF :::
-                var beatAudio = null;
-                var songlist = new Songlist({
+                songlist = new Songlist({
                     onPlay: function (song) {
-                        beatAudio.play(api.getSongURI(song.path));
+                        audio.play(api.getSongURI(song.path));
                         playerTrack.text(song.nice_title);
                         LastFM.newSong(song);
                     },
                     onStop: function () {
-                        beatAudio.stop();
+                        audio.stop();
                         songlist.resetPlaying();
 
                         // TODO: hide now playing icon from slickgrid
@@ -154,40 +210,6 @@ define(
                 var volume_label = $('#player-volume-label');
                 var seekbar = $('#seekbar-slider');
 
-                // init audio player module
-                var error_counter = 0;
-                beatAudio = new SM2Audio({
-                    onPlay: function () {
-                        playPause.addClass('playing');
-                    },
-                    onPaused: function () {
-                        playPause.removeClass('playing');
-                    },
-                    onSongEnd: function () {
-                        songlist.nextSong(getShuffle(), getRepeat());
-                    },
-                    onTimeChange: function (elaps) {
-                        elapsedTimeChanged(elaps);
-
-                        if (!user_is_seeking) {
-                            seekbar.slider('option', 'value', elaps);
-                        }
-                    },
-                    onDurationParsed: function (duration_in_seconds) {
-                        durationChanged(duration_in_seconds);
-                        seekbar.slider('option', 'disabled', false);
-                    },
-                    onError: function () {
-                        if (error_counter > 2) {
-                            beatAudio.pause();
-                            error_counter = 0;
-                            return;
-                        }
-                        songlist.nextSong(getShuffle(), getRepeat());
-                        error_counter = error_counter + 1;
-                    }
-                });
-
                 // init sidebar
                 var sidebar = new Sidebar({
                     onOpenAllMusic: function () {
@@ -212,11 +234,16 @@ define(
                     updatePlaylistHeader(name, data.length);
                 }
 
-                // TODO: open the current playlist when launching (according to the url?)
-                // atm. always open the "All music" -playlist
+
+                function openInitialPlaylist() {
+                    // TODO: open the current playlist when launching
+                    return openAllMusic();
+                }
+
                 function openAllMusic() {
                     var req = api.getAllMusic();
-                    req.success(function (data) {
+
+                    req.done(function (data) {
                         $('.preloader').remove();
 
                         openPlaylist('All music', data);
@@ -225,8 +252,9 @@ define(
                         var count = commify( parseInt( data.length, 10 ) );
                         $('.medialibrary.count').text(count);
                     });
+
+                    return req;
                 }
-                openAllMusic();
 
 
                 function updatePlaylistHeader(name, songCount) {
@@ -250,7 +278,7 @@ define(
                 }
 
                 if (volume >= 0 && volume <= 100) {
-                    beatAudio.setVolume(volume);
+                    audio.setVolume(volume);
                     volume_label.attr('title', volume);
                 }
 
@@ -261,7 +289,7 @@ define(
                     min: 0,
                     range: 'min',
                     slide: function (event, ui) {
-                        beatAudio.setVolume(ui.value);
+                        audio.setVolume(ui.value);
                         volume_label.attr('title', ui.value);
                     },
                     stop: function (event, ui) {
@@ -285,7 +313,7 @@ define(
                         user_is_seeking = true;
                     },
                     stop: function(event, ui) {
-                        beatAudio.seekTo(ui.value);
+                        audio.seekTo(ui.value);
                         user_is_seeking = false;
                     }
                 });
@@ -300,7 +328,7 @@ define(
                         return;
                     }
 
-                    beatAudio.togglePause();
+                    audio.togglePause();
                 });
 
                 nextButton.click(function (e) {

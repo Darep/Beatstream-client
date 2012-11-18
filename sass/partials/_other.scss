@@ -75,10 +75,14 @@
             }
 }
 
+
 /* preloader */
 .preloader {
     background:rgba(0,0,0, 0.75);
+    color:#fff;
+    font-size:14px;
     height:100%;
+    position: absolute;
     position:fixed;
     top:0;
     left:0;
@@ -86,27 +90,46 @@
     width:100%;
     z-index:1000;
 
-    * {
-        color:#fff;
+    .preloader-wrap {
+        position:absolute;
         top:50%;
         left:50%;
-        position:absolute;
+        width:300px;
+        margin:-16px 0 0 -150px;
     }
+
     .loading {
-        margin:-8px 0 0 -8px;
+        margin:0 auto;
+    }
+
+    .notifications {
+        margin-top:$baseline;
+        text-align:left;
+
+        div + div {
+            margin-top:$baseline;
+        }
+
+        .icon {
+            background:#ddd;
+            display:inline-block;
+            float: left;
+            height:24px;
+            margin-right: 5px;
+            width:24px;
+        }
+
+        h3, p {
+            display: inline-block;
+        }
     }
 }
 
 
 /* SoundManager 2 */
 #sm2-container {
-    height:300px;
-    position:absolute;
-    left:40%;
-    top:30%;
-    text-align:center;
-    visibility:visible;
-    width:400px;
+    min-height:1em;
+    width:100%;
     z-index:auto !important;
 
     div {
@@ -128,6 +151,8 @@
     &.swf_loaded {
         /* Applied if movie loads, regardless of whether
         it was initially blocked */
+        top:-100px;
+        left:-100px;
         height:0;
         width:0;
         visibility:hidden;

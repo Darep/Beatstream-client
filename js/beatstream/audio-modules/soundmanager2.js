@@ -6,26 +6,15 @@ define(
     ['jquery', 'soundmanager2'],
     function ($) {
 
-        var soundManagerIsReady = false;
-
-        // SoundManager 2 options
-        soundManager.setup({
-            url: '/swf/',
-            useFlashBlock: true, // optionally, enable when you're ready to dive in
-            useHTML5Audio: true,
-            useHighPerformance: true,
-            noSWFCache: true,
-            onready: function() {
-                soundManagerIsReady = true;
-            },
-            ontimeout: function (status) {
-                console.log(status);
-                var loaded = soundManager.getMoviePercent();
-            }
-        });
-
-
         function AudioModule(events_in) {
+            this.song = null;
+            this.events = events;
+            this.volume = 0;
+            this.isReady = false;
+            this.startDefer = null;
+
+            events_in = events_in || {};
+
             var events = $.extend({
                 onPlay : function () {},
                 onPaused : function () {},
@@ -34,12 +23,38 @@ define(
                 onDurationParsed : function (duration_in_seconds) {},
                 onError : function () {}
             }, events_in);
-
-            this.song = null;
-            this.events = events;
-            this.volume = 0;
-
         }
+
+
+        AudioModule.prototype.start = function () {
+            var defer = $.Deferred();
+
+            soundManager.setup({
+                url: '/swf/',
+                useFlashBlock: true, // optionally, enable when you're ready to dive in
+                useHTML5Audio: true,
+                useHighPerformance: true,
+                noSWFCache: true,
+                onready: function() {
+                    soundManagerIsReady = true;
+                    defer.resolve();
+                },
+                ontimeout: function (status) {
+                    console.log(status);
+                    var loaded = soundManager.getMoviePercent();
+                    defer.reject();
+                }
+            });
+
+            setTimeout(function () {
+                defer.reject();
+            }, 1500);
+
+            this.startDefer = defer;
+
+            return defer;
+        };
+
 
         AudioModule.prototype.setVolume = function (volume) {
             this.volume = volume;
@@ -47,6 +62,7 @@ define(
             if (this.song === null) return;
             this.song.setVolume(volume);
         };
+
 
         AudioModule.prototype.play = function (uri) {
             if (!soundManagerIsReady) {

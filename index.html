@@ -127,15 +127,25 @@
     <div class="dialog settings" id="settings-dialog">
 
     </div>
-    <div class="notification no-flash" id="no-flash-dialog">
-        <h3>No Flash</h3>
-        <p>Can't seem to find your Flash. Cool. But I need Flash to work.</p>
-        <div id="sm2-container"></div>
-    </div>
 </div>
 
 <div class="preloader">
-    <div class="loading">Loading&hellip;</div>
+    <div class="preloader-wrap">
+        <p class="loading">Loading&hellip;</p>
+        <div class="notifications">
+            <div class="no-flash">
+                <i class="icon icon-notify"></i>
+                <h3>No Flash</h3>
+                <p>Can't seem to find your Flash. That's cool. But I need Flash to work.</p>
+                <div id="sm2-container"></div>
+            </div>
+            <div class="playlist-error">
+                <i class="icon icon-notify"></i>
+                <h3>Cannot load playlist</h3>
+                <p>Could not load the current playlist. Please, try <em>something</em>.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="templates" style="display:none;">

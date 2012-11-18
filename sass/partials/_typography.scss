@@ -1,15 +1,25 @@
-h1 {
-    font-size:32px;
-    line-height:1.4em;
-}
 h2 {
     font-size:24px;
     font-weight:700;
-    line-height:1.4em;
+    line-height:$baseline*2;
 }
+
+h3 {
+    font-size:$font-size-body;
+    font-weight:700;
+    line-height:$baseline;
+}
+
 h5 {
     font-weight:700;
 }
+
+p {
+    font-size:$font-size-body;
+    line-height:$baseline;
+}
+
+
 a {
     color:inherit;
     cursor: pointer;
