@@ -1,0 +1,17 @@
+module.exports = {
+
+  path: ".",
+
+  match: [
+    "*.html",
+    "*.css",
+    "*.js",
+    "*.png",
+    "*.ico",
+    "*.jpg",
+    "*.jpeg",
+    "*.svg",
+    "*.ttf"
+  ]
+
+};
