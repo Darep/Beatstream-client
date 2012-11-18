@@ -203,6 +203,76 @@ a {
   color: #fff;
 }
 
+/* line 1, ../sass/partials/_sliders.scss */
+.ui-slider {
+  background: #131313;
+  border: 1px solid #2e2e2e;
+  border-top-color: #000;
+  height: 8px;
+  position: relative;
+  text-align: left;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* line 12, ../sass/partials/_sliders.scss */
+.ui-slider-range {
+  background: #f6a828;
+  background: -webkit-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
+  background: -moz-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
+  background: -o-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
+  background: -ms-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
+  background: linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
+  display: block;
+  height: 8px;
+  position: absolute;
+  z-index: 1;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* line 27, ../sass/partials/_sliders.scss */
+.ui-slider-handle {
+  background: #eee;
+  background: -webkit-linear-gradient(top, #faf9f8, #c3c2c1);
+  background: -moz-linear-gradient(top, #faf9f8, #c3c2c1);
+  background: -o-linear-gradient(top, #faf9f8, #c3c2c1);
+  background: -ms-linear-gradient(top, #faf9f8, #c3c2c1);
+  background: linear-gradient(top, #faf9f8, #c3c2c1);
+  border: 1px solid #bbb;
+  border-top: 1px solid #fafafa;
+  display: block;
+  height: 8px;
+  margin-left: -5px;
+  position: absolute;
+  top: -1px;
+  width: 8px;
+  z-index: 2;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+}
+
+/* line 50, ../sass/partials/_sliders.scss */
+.ui-slider-handle:focus {
+  outline: 0;
+}
+
+/* line 53, ../sass/partials/_sliders.scss */
+.ui-slider-handle.ui-state-hover {
+  background: #ccc;
+}
+
+/* line 56, ../sass/partials/_sliders.scss */
+.ui-slider-handle.ui-state-active {
+  background: #ddd;
+}
+
 /*
 IMPORTANT:
 In order to preserve the uniform grid appearance, all cell styles need to have padding, margin and border sizes.
@@ -856,7 +926,7 @@ classes should alter those!
 }
 /* line 14, ../sass/partials/_player.scss */
 .app-now-playing button {
-  background: transparent url("/assets/icons.png") no-repeat;
+  background: transparent url("/img/icons.png") no-repeat;
   border: 0;
   height: 40px;
   width: 40px;
@@ -913,7 +983,7 @@ classes should alter those!
 
 /* line 54, ../sass/partials/_player.scss */
 #repeat, #shuffle {
-  background: transparent url("/assets/icons.png") no-repeat;
+  background: transparent url("/img/icons.png") no-repeat;
   display: inline-block;
   height: 24px;
   margin: 0 0 0 5px;
@@ -941,7 +1011,7 @@ classes should alter those!
 
 /* line 77, ../sass/partials/_player.scss */
 #player-volume-label {
-  background: url("/assets/icons.png") no-repeat -160px -197px;
+  background: url("/img/icons.png") no-repeat -160px -197px;
   display: inline-block;
   float: left;
   height: 16px;
@@ -1112,8 +1182,8 @@ classes should alter those!
   margin: -8px 0 0 -8px;
 }
 
-/* soundmanager 2 */
-/* line 98, ../sass/partials/_other.scss */
+/* SoundManager 2 */
+/* line 99, ../sass/partials/_other.scss */
 #sm2-container {
   height: 300px;
   position: absolute;
@@ -1124,16 +1194,45 @@ classes should alter those!
   width: 400px;
   z-index: auto !important;
 }
-/* line 108, ../sass/partials/_other.scss */
+/* line 109, ../sass/partials/_other.scss */
+#sm2-container div {
+  min-height: 32px;
+  height: 100%;
+  position: relative;
+}
+/* line 115, ../sass/partials/_other.scss */
+#sm2-container.swf_timedout {
+  /* Didn't load before time-out, show to user.
+  Maybe highlight on-screen, red border, etc..? */
+}
+/* line 120, ../sass/partials/_other.scss */
+#sm2-container.swf_unblocked {
+  /* Applied if movie loads successfully after
+  an unblock (flash started, so move off-screen etc.) */
+}
+/* line 125, ../sass/partials/_other.scss */
 #sm2-container.swf_loaded {
+  /* Applied if movie loads, regardless of whether
+  it was initially blocked */
   height: 0;
   width: 0;
   visibility: hidden;
   z-index: 0;
 }
-/* line 114, ../sass/partials/_other.scss */
-#sm2-container div {
-  min-height: 32px;
-  height: 100%;
-  position: relative;
+/* line 134, ../sass/partials/_other.scss */
+#sm2-container.swf_error {
+  /* "Fatal" error case: SWF loaded,
+  but SM2 was unable to start for some reason.
+  (Flash security or other error case.) */
+}
+/* line 140, ../sass/partials/_other.scss */
+#sm2-container.high_performance {
+  /* Additional modifier for "high performance" mode
+  should apply position:fixed and left/bottom 0 to stay on-screen
+  at all times (better flash performance) */
+}
+/* line 146, ../sass/partials/_other.scss */
+#sm2-container.flash_debug {
+  /* Additional modifier for flash debug output mode
+  should use width/height 100% so you can read debug messages */
 }

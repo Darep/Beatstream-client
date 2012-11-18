@@ -12,7 +12,7 @@
     @include box-shadow(0 -1px 0 #000);
 
     button {
-        background:transparent url('/assets/icons.png') no-repeat;
+        background:transparent url('/img/icons.png') no-repeat;
         border:0;
         height:40px;
         width:40px;
@@ -52,7 +52,7 @@
     background-position:-148px -92px;
 }
 #repeat, #shuffle {
-    background:transparent url('/assets/icons.png') no-repeat;
+    background:transparent url('/img/icons.png') no-repeat;
     display:inline-block;
     height:24px;
     margin:0 0 0 5px;
@@ -75,7 +75,7 @@
 }
 
 #player-volume-label {
-    background:url('/assets/icons.png') no-repeat -160px -197px;
+    background:url('/img/icons.png') no-repeat -160px -197px;
     display:inline-block;
     float:left;
     height:16px;

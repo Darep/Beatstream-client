@@ -58,7 +58,7 @@ define(
                     onPlay: function (song) {
                         beatAudio.play(api.getSongURI(song.path));
                         playerTrack.text(song.nice_title);
-                        lastfm.newSong(song);
+                        LastFM.newSong(song);
                     },
                     onStop: function () {
                         beatAudio.stop();
@@ -383,7 +383,7 @@ define(
 
                     elapsed.text((mins > 9 ? mins : '0' + mins) + ':' + (secs > 9 ? secs : '0' + secs));
 
-                    lastfm.scrobble(elaps);
+                    LastFM.scrobble(elaps);
                 }
             }
         };
