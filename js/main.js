@@ -16,7 +16,7 @@ require.config({
     },
 
     paths: {
-        'soundmanager2': 'components/SoundManager2/script/soundmanager2-nodebug-jsmin',
+        'soundmanager2': 'components/SoundManager2/script/soundmanager2',
         'jquery': 'components/jquery/jquery.min',
         'jquery-ui': 'components/jquery-ui/ui/jquery-ui',
         'store': 'components/store.js/store.min',

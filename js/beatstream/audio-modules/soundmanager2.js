@@ -7,10 +7,14 @@ define(
     function ($) {
 
         // SoundManager 2 options
-        soundManager.url = '/swf/';
-        soundManager.flashVersion = 8; // optional: shiny features (default = 8)
-        soundManager.useFlashBlock = true; // optionally, enable when you're ready to dive in
-        soundManager.useHTML5Audio = true;
+        soundManager.setup({
+            url: '/swf/',
+            flashVersion: 8, // optional: shiny features (default = 8)
+            useFlashBlock: true, // optionally, enable when you're ready to dive in
+            useHTML5Audio: true,
+            preferFlash: false,
+            debugMode: true
+        });
 
         var soundManagerIsReady = false;
 

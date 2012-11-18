@@ -27,9 +27,6 @@ define(
                     apiUrl: '/'
                 }, options_in);
 
-                soundManager.onready(function () {
-                    // Should do something, audio playback won't work until this event has been fired
-                });
 
                 // resize the main-area to correct height
                 resizeMain();
@@ -49,8 +46,10 @@ define(
                     }
                 }
 
+
                 // init API
-                api.init(options.apiUrl);
+                api.init(options.apiUrl, showLogin);
+
 
                 // ::: INIT STUFF :::
                 var beatAudio = null;
@@ -387,6 +386,14 @@ define(
                 }
             }
         };
+
+
+        var showLogin = function () {
+            var login = $('.login');
+            login.show();
+        };
+
+
         return App;
     }
 );

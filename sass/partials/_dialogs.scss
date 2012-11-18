@@ -1,0 +1,42 @@
+.dialogs, .login {
+    position:absolute;
+    height:100%;
+    width:100%;
+    z-index:100;
+}
+
+
+.login {
+    background:#f1f1f1;
+}
+
+
+.dialog {
+    margin:10% auto 0;
+    width: 320px;
+}
+
+
+.login-dialog {
+    text-align:center;
+    width:500px;
+
+    div {
+        margin-bottom:5px;
+    }
+
+    label {
+        display:inline-block;
+        margin-right:10px;
+        text-align:right;
+        text-transform:lowercase;
+        width:120px;
+    }
+
+    .submit {
+        background:transparent;
+        border:0;
+        cursor:pointer;
+        position:absolute;
+    }
+}

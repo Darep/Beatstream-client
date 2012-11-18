@@ -25,7 +25,22 @@
 </head>
 <body>
 
-<div class="login">
+<div class="login" style="display:none;">
+    <div class="dialog login-dialog">
+        <form accept-charset="UTF-8" action="/login" method="post">
+            <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+            <div>
+                <label>Username</label>
+                <input id="username" name="username" type="text" />
+            </div>
+
+            <div>
+                <label>Password</label>
+                <input id="password" name="password" type="password" />
+                <input class="submit" name="commit" type="submit" value="Log in" />
+            </div>
+        </form>
+    </div>
 </div>
 
 <div id="app">
@@ -115,6 +130,7 @@
     <div class="notification no-flash" id="no-flash-dialog">
         <h3>No Flash</h3>
         <p>Can't seem to find your Flash. Cool. But I need Flash to work.</p>
+        <div id="sm2-container"></div>
     </div>
 </div>
 

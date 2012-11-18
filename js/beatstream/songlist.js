@@ -5,7 +5,7 @@ define(
         // set jQuery.event.drag plugin's default drag start distance
         jQuery.event.special.drag.defaults.distance = 7;
 
-        function Songlist(events_in) {
+        var Songlist = function(events_in) {
 
             var events = $.extend({
                 onPlay : function (song) {},
@@ -343,32 +343,39 @@ define(
             this.grid = grid;
             this.dataView = dataView;
             this.searchString = searchString;
-        }
+        };
+
 
         Songlist.prototype.resizeCanvas = function () {
             this.grid.resizeCanvas();
         };
+
 
         Songlist.prototype.scrollNowPlayingIntoView = function () {
             var row = this.dataView.getRowById(this.grid.playingSongId);
             this.grid.scrollRowIntoView(row);
         };
 
+
         Songlist.prototype.nextSong = function (shuffle, manual) {
             this.grid.nextSong(shuffle, manual);
         };
+
 
         Songlist.prototype.prevSong = function () {
             this.grid.prevSong();
         };
 
+
         Songlist.prototype.isPlaying = function () {
             return (this.grid.playingSongId !== null);
         };
 
+
         Songlist.prototype.resetPlaying = function () {
             this.grid.playingSongId = null;
         };
+
 
         Songlist.prototype.loadPlaylist = function (data) {
 
@@ -386,6 +393,7 @@ define(
             this.dataView.syncGridSelection(this.grid, false);
             this.dataView.syncGridCellCssStyles(this.grid, 'currentSong_playing');
         };
+
 
         return Songlist;
     }
