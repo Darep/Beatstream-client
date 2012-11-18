@@ -1211,12 +1211,14 @@ classes should alter those!
 
 /* line 94, ../sass/partials/_player.scss */
 #player-time {
+  font-size: 11px;
+  line-height: 14px;
   margin-top: 18px;
   text-align: center;
   width: 80px;
 }
 
-/* line 99, ../sass/partials/_player.scss */
+/* line 101, ../sass/partials/_player.scss */
 #seekbar {
   margin: 0 75px 0 365px;
   padding: 0 15px;
@@ -1225,13 +1227,13 @@ classes should alter those!
   top: 19px;
 }
 
-/* line 106, ../sass/partials/_player.scss */
+/* line 108, ../sass/partials/_player.scss */
 #player-buttons-2 {
   float: right;
   margin: 12px 10px 0 0;
 }
 
-/* line 112, ../sass/partials/_player.scss */
+/* line 114, ../sass/partials/_player.scss */
 #player-song {
   border-bottom: 1px solid #000;
   margin-bottom: 8px;
@@ -1241,24 +1243,24 @@ classes should alter those!
   -moz-box-shadow: 0 1px 0 #434343;
   box-shadow: 0 1px 0 #434343;
 }
-/* line 121, ../sass/partials/_player.scss */
+/* line 123, ../sass/partials/_player.scss */
 #player-song .label {
   color: #999;
 }
 
-/* line 125, ../sass/partials/_player.scss */
+/* line 127, ../sass/partials/_player.scss */
 #player-song, #player-controls {
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 129, ../sass/partials/_player.scss */
+/* line 131, ../sass/partials/_player.scss */
 #player-controls {
   height: 48px;
   vertical-align: middle;
 }
 
-/* line 133, ../sass/partials/_player.scss */
+/* line 135, ../sass/partials/_player.scss */
 #player-buttons, #player-volume, #player-time {
   float: left;
 }
@@ -1357,6 +1359,13 @@ classes should alter those!
   z-index: 1000;
 }
 /* line 93, ../sass/partials/_other.scss */
+.preloader.hide {
+  top: -100px;
+  left: -100px;
+  height: 0;
+  width: 0;
+}
+/* line 100, ../sass/partials/_other.scss */
 .preloader .preloader-wrap {
   position: absolute;
   top: 50%;
@@ -1364,16 +1373,16 @@ classes should alter those!
   width: 300px;
   margin: -16px 0 0 -150px;
 }
-/* line 101, ../sass/partials/_other.scss */
+/* line 108, ../sass/partials/_other.scss */
 .preloader .loading {
   margin: 0 auto;
 }
-/* line 105, ../sass/partials/_other.scss */
+/* line 112, ../sass/partials/_other.scss */
 .preloader .notifications {
   margin-top: 21px;
   text-align: left;
 }
-/* line 109, ../sass/partials/_other.scss */
+/* line 116, ../sass/partials/_other.scss */
 .preloader .notifications > div {
   -webkit-animation: bounceIn .7s;
   -moz-animation: bounceIn .7s;
@@ -1384,11 +1393,11 @@ classes should alter those!
   -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-/* line 120, ../sass/partials/_other.scss */
+/* line 127, ../sass/partials/_other.scss */
 .preloader .notifications > div + div {
   margin-top: 21px;
 }
-/* line 124, ../sass/partials/_other.scss */
+/* line 131, ../sass/partials/_other.scss */
 .preloader .notifications .icon {
   display: inline-block;
   float: left;
@@ -1396,35 +1405,35 @@ classes should alter those!
   margin-right: 5px;
   width: 24px;
 }
-/* line 132, ../sass/partials/_other.scss */
+/* line 139, ../sass/partials/_other.scss */
 .preloader .notifications h3, .preloader .notifications p {
   display: inline-block;
 }
 
 /* SoundManager 2 */
-/* line 140, ../sass/partials/_other.scss */
+/* line 147, ../sass/partials/_other.scss */
 #sm2-container {
   min-height: 1em;
   width: 100%;
   z-index: auto !important;
 }
-/* line 145, ../sass/partials/_other.scss */
+/* line 152, ../sass/partials/_other.scss */
 #sm2-container div {
   min-height: 32px;
   height: 100%;
   position: relative;
 }
-/* line 151, ../sass/partials/_other.scss */
+/* line 158, ../sass/partials/_other.scss */
 #sm2-container.swf_timedout {
   /* Didn't load before time-out, show to user.
   Maybe highlight on-screen, red border, etc..? */
 }
-/* line 156, ../sass/partials/_other.scss */
+/* line 163, ../sass/partials/_other.scss */
 #sm2-container.swf_unblocked {
   /* Applied if movie loads successfully after
   an unblock (flash started, so move off-screen etc.) */
 }
-/* line 161, ../sass/partials/_other.scss */
+/* line 168, ../sass/partials/_other.scss */
 #sm2-container.swf_loaded {
   /* Applied if movie loads, regardless of whether
   it was initially blocked */
@@ -1435,19 +1444,19 @@ classes should alter those!
   visibility: hidden;
   z-index: 0;
 }
-/* line 172, ../sass/partials/_other.scss */
+/* line 179, ../sass/partials/_other.scss */
 #sm2-container.swf_error {
   /* "Fatal" error case: SWF loaded,
   but SM2 was unable to start for some reason.
   (Flash security or other error case.) */
 }
-/* line 178, ../sass/partials/_other.scss */
+/* line 185, ../sass/partials/_other.scss */
 #sm2-container.high_performance {
   /* Additional modifier for "high performance" mode
   should apply position:fixed and left/bottom 0 to stay on-screen
   at all times (better flash performance) */
 }
-/* line 184, ../sass/partials/_other.scss */
+/* line 191, ../sass/partials/_other.scss */
 #sm2-container.flash_debug {
   /* Additional modifier for flash debug output mode
   should use width/height 100% so you can read debug messages */

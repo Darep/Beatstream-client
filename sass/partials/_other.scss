@@ -90,6 +90,13 @@
     width:100%;
     z-index:1000;
 
+    &.hide {
+        top:-100px;
+        left:-100px;
+        height:0;
+        width:0;
+    }
+
     .preloader-wrap {
         position:absolute;
         top:50%;

@@ -16,11 +16,12 @@ require.config({
     },
 
     paths: {
-        'soundmanager2': 'components/SoundManager2/script/soundmanager2',
-        'jquery': 'components/jquery/jquery.min',
+        'jquery': 'components/jquery/jquery',
         'jquery-ui': 'components/jquery-ui/ui/jquery-ui',
-        'store': 'components/store.js/store.min',
-        'slickgrid': 'components/SlickGrid/slick.grid'
+        'mediator': 'components/Mediator.js/mediator',
+        'slickgrid': 'components/SlickGrid/slick.grid',
+        'soundmanager2': 'components/SoundManager2/script/soundmanager2',
+        'store': 'components/store.js/store.min'
     },
 
     urlArgs: "timestamp=" + new Date().getTime(),

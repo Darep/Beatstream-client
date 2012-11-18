@@ -3,29 +3,21 @@
  */
 
 define(
-    ['jquery', 'soundmanager2'],
-    function ($) {
+    ['jquery', 'beatstream/mediator', 'beatstream/api', 'soundmanager2'],
+    function ($, mediator, api) {
 
-        function AudioModule(events_in) {
+        function AudioModule() {
             this.song = null;
-            this.events = events;
             this.volume = 0;
             this.isReady = false;
             this.startDefer = null;
 
-            events_in = events_in || {};
-
-            var events = $.extend({
-                onReady: function () {},
-                onPlay : function () {},
-                onPaused : function () {},
-                onSongEnd : function () {},
-                onTimeChange : function (elapsed_in_seconds) {},
-                onDurationParsed : function (duration_in_seconds) {},
-                onError : function () {}
-            }, events_in);
-
-            this.events = events;
+            var self = this;
+            mediator.Subscribe("songlist:selectSong", function (song) {
+                console.log('aaa');
+                var url = api.getSongURI(song.path);
+                self.play(url);
+            });
         }
 
 
@@ -41,7 +33,7 @@ define(
                 noSWFCache: true,
                 onready: function() {
                     self.isReady = true;
-                    self.events.onReady();
+                    mediator.Publish("audio:ready");
                     defer.resolve();
                 },
                 ontimeout: function (status) {
@@ -61,13 +53,6 @@ define(
         };
 
 
-        AudioModule.prototype.ready = function (callback) {
-            if (callback !== undefined) {
-                this.events.onReady = callback;
-            }
-        };
-
-
         AudioModule.prototype.setVolume = function (volume) {
             this.volume = volume;
 
@@ -77,7 +62,7 @@ define(
 
 
         AudioModule.prototype.play = function (uri) {
-            if (!soundManagerIsReady) {
+            if (!this.isReady) {
                 alert('SoundManager 2 is not ready to play music yet!');
                 return;
             }
@@ -85,6 +70,7 @@ define(
             if (this.song !== null) {
                 this.song.destruct();
             }
+            console.log(uri);
             var song = soundManager.createSound('mySound', uri);
 
             var self = this;
@@ -93,24 +79,24 @@ define(
 
                 // register events
                 onplay: function () {
-                    self.events.onPlay();
+                    mediator.Publish("audio:play");
                 },
                 onresume: function () {
-                    self.events.onPlay();
+                    mediator.Publish("audio:play");
                 },
                 onpause: function () {
-                    self.events.onPaused();
+                    mediator.Publish("audio:pause");
                 },
                 onfinish: function () {
-                    self.events.onSongEnd();
+                    mediator.Publish("audio:songEnd");
                 },
                 onload: function (success) {
                     var duration_in_seconds = parseInt(song.duration / 1000, 10);
-                    self.events.onDurationParsed(duration_in_seconds);
+                    mediator.Publish("audio:parseDuration", duration_in_seconds);
                 },
                 whileplaying: function () {
                     var elapsed_in_seconds = parseInt(song.position / 1000, 10);
-                    self.events.onTimeChange(elapsed_in_seconds);
+                    mediator.Publish("audio:timeChange", elapsed_in_seconds);
                 }
             });
 

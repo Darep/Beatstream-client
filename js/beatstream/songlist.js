@@ -1,6 +1,6 @@
 define(
-    ['helpers/helpers', 'helpers/dragtooltip', 'slickgrid'],
-    function () {
+    ['beatstream/mediator', 'helpers/helpers', 'helpers/dragtooltip', 'slickgrid'],
+    function (mediator) {
 
         // set jQuery.event.drag plugin's default drag start distance
         jQuery.event.special.drag.defaults.distance = 7;
@@ -179,8 +179,7 @@ define(
                 }
 
                 var song = dataView.getItemById(id);
-
-                events.onPlay(song);
+                mediator.Publish("songlist:selectSong", song);
 
                 grid.playingSongId = song.id;
 
@@ -206,7 +205,7 @@ define(
 
                 if (current_row === undefined) {
                     // current song is not in the grid, stop playing
-                    events.onStop();
+                    this.grid.stop();
                     return;
                 }
 
@@ -227,7 +226,7 @@ define(
 
                     if (current_row === undefined) {
                         // current song is not in the grid, stop playing
-                        events.onStop();
+                        this.grid.stop();
                         return;
                     }
                 }
@@ -241,7 +240,7 @@ define(
                 }
                 else if ((manual === undefined || manual === false) && repeat === false) {
                     // last song and not repeating -> stop playing
-                    events.onStop();
+                    stop();
                     return;
                 }
                 else {
@@ -251,6 +250,12 @@ define(
 
                 grid.playSongAtRow(new_row);
             };
+
+            grid.stop = function () {
+                mediator.Publish("songlist:listEnd");
+                // TODO: hide now playing icon from slickgrid
+            };
+
 
             // wire up model events to drive the grid
             dataView.onRowCountChanged.subscribe(function (e, args) {

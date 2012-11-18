@@ -6,20 +6,21 @@
 define(
     [
         'jquery',
-        'store',
+        'beatstream/mediator',
         'beatstream/api',
         'beatstream/sidebar',
         'beatstream/audio-modules/soundmanager2',
         'beatstream/songlist',
         'beatstream/lastfm',
         'beatstream/playlists',
+        'beatstream/now-playing',
         'beatstream/views/preloader',
 
         'helpers/helpers',
         'soundmanager2',
         'jquery-ui'
     ],
-    function ($, store, api, Sidebar, SM2Audio, Songlist, LastFM, Playlists, preloaderView) {
+    function ($, mediator, api, Sidebar, SM2Audio, Songlist, LastFM, Playlists, NowPlaying, preloaderView) {
 
         var App = {
             init: function (options_in) {
@@ -30,16 +31,6 @@ define(
                     apiUrl: '/'
                 }, options_in);
 
-                // player buttons
-                var playerTrack = $('#player-song .track');
-                var playPause = $('#play-pause');
-                var prevButton = $('#prev');
-                var nextButton = $('#next');
-                var elapsed = $('#player-time .elapsed');
-                var duration = $('#player-time .duration');
-                var volume_label = $('#player-volume-label');
-                var seekbar = $('#seekbar-slider');
-
 
                 // initialize the API
                 api.init(options.apiUrl);
@@ -48,44 +39,6 @@ define(
                 // start preload
                 audio = new SM2Audio();
                 startPreload(audio.start(), openInitialPlaylist(), audio);
-
-
-                // audio event handling
-                // TODO: better event handling (mediator or jQuery's .on())
-                audio.setOnPlay(function () {
-                    playPause.addClass('playing');
-                });
-
-                audio.setOnPaused(function () {
-                    playPause.removeClass('playing');
-                });
-
-                audio.setOnSongEnd(function () {
-                    songlist.nextSong(getShuffle(), getRepeat());
-                });
-
-                audio.setOnTimeChange(function (elaps) {
-                    elapsedTimeChanged(elaps);
-
-                    if (!user_is_seeking) {
-                        seekbar.slider('option', 'value', elaps);
-                    }
-                });
-
-                audio.setOnDurationParsed(function (duration_in_seconds) {
-                    durationChanged(duration_in_seconds);
-                    seekbar.slider('option', 'disabled', false);
-                });
-
-                audio.setOnError(function () {
-                    if (error_counter > 2) {
-                        audio.pause();
-                        error_counter = 0;
-                        return;
-                    }
-                    songlist.nextSong(getShuffle(), getRepeat());
-                    error_counter = error_counter + 1;
-                });
 
 
                 // resize the main-area to correct height
@@ -106,25 +59,77 @@ define(
                 }
 
 
+                // Event hooks
+                // TODO: move these to modules or move all the :ibes from modules here
+                mediator.Subscribe("songlist:selectSong", function (song) {
+                    LastFM.newSong(song);
+                });
+
+                mediator.Subscribe("songlist:listEnd", function () {
+                    audio.stop();
+                    songlist.resetPlaying();
+                });
+
+                mediator.Subscribe("audio:timeChange", function (elaps) {
+                    // try to scrobble
+                    // won't scrobble if we should not scrobble
+                    LastFM.tryScrobble();
+
+                    // TODO: maybe we should use setTimeout instead?
+                    //       create a timer when song starts to play, erase old timer
+                });
+
+                mediator.Subscribe("audio:songEnd", function () {
+                    songlist.nextSong(NowPlaying.getShuffle(), NowPlaying.getRepeat());
+                });
+
+                mediator.Subscribe("audio:error", function () {
+                    if (error_counter > 2) {
+                        audio.pause();
+                        error_counter = 0;
+                        return;
+                    }
+                    songlist.nextSong(getShuffle(), getRepeat());
+                    error_counter = error_counter + 1;
+                });
+
+                mediator.Subscribe("buttons:seek", function (value) {
+                    audio.seekTo(value);
+                });
+
+                mediator.Subscribe("buttons:togglePause", function () {
+                    // if not playing anything, start playing the first song on the playlist
+                    if (!songlist.isPlaying()) {
+                        songlist.nextSong(getShuffle(), getRepeat());
+                        return;
+                    }
+
+                    audio.togglePause();
+                });
+
+                mediator.Subscribe("buttons:nextSong", function (shuffle, repeat) {
+                    songlist.nextSong(shuffle, repeat, true);
+                });
+
+                mediator.Subscribe("buttons:prevSong", function () {
+                    songlist.prevSong();
+                });
+
+                mediator.Subscribe("buttons:showNowPlaying", function () {
+                    songlist.scrollNowPlayingIntoView();
+                });
+
+                mediator.Subscribe("buttons:setVolume", function (volume) {
+                    console.log(volume);
+                    audio.setVolume(volume);
+                });
+
+                // initiali volume for audio
+                audio.setVolume(NowPlaying.getVolume());
+
+
                 // initialize songlist
                 songlist = new Songlist({
-                    onPlay: function (song) {
-                        audio.play(api.getSongURI(song.path));
-                        playerTrack.text(song.nice_title);
-                        LastFM.newSong(song);
-                    },
-                    onStop: function () {
-                        audio.stop();
-                        songlist.resetPlaying();
-
-                        // TODO: hide now playing icon from slickgrid
-
-                        elapsedTimeChanged(0);
-                        durationChanged(0);
-                        seekbar.slider('value', 0);
-                        seekbar.slider('option', 'disabled', true);
-                        playerTrack.text('None');
-                    },
                     onDragStart: function (e, dd) {
                         var song_count = dd.draggedSongs.length;
 
@@ -257,152 +262,6 @@ define(
                     $('.page-header.text').html( pluralize(songCount, 'song', 'songs') );
                     $('.page-header .info h2').html(name);
                 }
-
-
-                // volume slider
-                var volume = 20;
-
-                if (store.get('volume')) {
-                    volume = parseFloat(store.get('volume'));
-                }
-
-                if (volume >= 0 && volume <= 100) {
-                    audio.setVolume(volume);
-                    volume_label.attr('title', volume);
-                }
-
-                $('#player-volume-slider').slider({
-                    orientation: 'horizontal',
-                    value: volume,
-                    max: 100,
-                    min: 0,
-                    range: 'min',
-                    slide: function (event, ui) {
-                        audio.setVolume(ui.value);
-                        volume_label.attr('title', ui.value);
-                    },
-                    stop: function (event, ui) {
-                        store.set('volume', ui.value);
-                    }
-                });
-
-
-                // seekbar
-                var user_is_seeking = false;
-                seekbar.slider({
-                    orientation: 'horizontal',
-                    disabled: true,
-                    value: 0,
-                    max: 100,
-                    min: 0,
-                    range: 'min',
-                    slide: function (event, ui) {
-
-                    },
-                    start: function(event, ui) {
-                        user_is_seeking = true;
-                    },
-                    stop: function(event, ui) {
-                        audio.seekTo(ui.value);
-                        user_is_seeking = false;
-                    }
-                });
-
-
-                // playback buttons
-                playPause.click(function (e) {
-                    e.preventDefault();
-
-                    // if not playing anything, start playing the first song on the playlist
-                    if (!songlist.isPlaying()) {
-                        songlist.nextSong(getShuffle(), getRepeat());
-                        return;
-                    }
-
-                    audio.togglePause();
-                });
-
-                nextButton.click(function (e) {
-                    e.preventDefault();
-                    songlist.nextSong(getShuffle(), getRepeat(), true);
-                });
-
-                prevButton.click(function (e) {
-                    e.preventDefault();
-                    songlist.prevSong();
-                });
-
-                playerTrack.dblclick(function (e) {
-                    e.preventDefault();
-
-                    songlist.scrollNowPlayingIntoView();
-                });
-
-
-                // enable buttons
-                $('#player-buttons button').removeAttr('disabled');
-
-                // repeat & shuffle buttons
-
-                var repeatButton = $('#repeat');
-                var shuffleButton = $('#shuffle');
-                var shuffle = false;
-                var repeat = false;
-
-                function newToggleButton(button, key, value) {
-                    if (store.get(key)) {
-                        value = store.get(key);
-                    }
-
-                    if (value) {
-                        button.addClass('enabled');
-                    }
-
-                    button.click(function (e) {
-                        e.preventDefault();
-
-                        value = !value;
-                        store.set(key, value);
-
-                        $(this).toggleClass('enabled');
-                    });
-                }
-                newToggleButton(repeatButton, 'repeat', repeat);
-                newToggleButton(shuffleButton, 'shuffle', shuffle);
-
-                function storeGet(key) {
-                    if (key && store.get(key)) {
-                        return store.get(key);
-                    }
-
-                    return false;
-                }
-
-                function getShuffle() {
-                    return storeGet('shuffle');
-                }
-
-                function getRepeat() {
-                    return storeGet('repeat');
-                }
-
-                function durationChanged(dur) {
-                    var mins = Math.floor(dur/60, 10),
-                        secs = dur - mins*60;
-
-                    duration.text((mins > 9 ? mins : '0' + mins) + ':' + (secs > 9 ? secs : '0' + secs));
-
-                    seekbar.slider('option', 'max', dur);
-                }
-
-                function elapsedTimeChanged(elaps) {
-                    var mins = Math.floor(elaps/60, 10),
-                        secs = elaps - mins*60;
-
-                    elapsed.text((mins > 9 ? mins : '0' + mins) + ':' + (secs > 9 ? secs : '0' + secs));
-
-                    LastFM.scrobble(elaps);
-                }
             }
         };
 
@@ -424,8 +283,11 @@ define(
                 preloaderView.showError('no-flash');
 
                 // Hide the error if the audio can be started later on
-                audio.ready(function () {
+                mediator.Subscribe("audio:ready", function () {
                     preloaderView.hideError('no-flash');
+
+                    // unsubscribe
+                    mediator.Remove("audio:ready", this);
                 });
             });
 

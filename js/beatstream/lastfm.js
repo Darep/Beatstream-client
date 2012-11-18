@@ -40,7 +40,7 @@ define(
                 }
             },
 
-            scrobble: function (elaps) {
+            tryScrobble: function (elaps) {
                 if (song_scrobbled === true || elaps < scrobble_time || !song) {
                     return;
                 }

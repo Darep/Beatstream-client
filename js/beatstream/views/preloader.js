@@ -25,7 +25,7 @@ define(
 
             this.hide = function () {
                 el.fadeOut('slow', function () {
-                    el.remove();
+                    el.addClass('hide').show();
                 });
             };
 
