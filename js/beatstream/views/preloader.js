@@ -17,6 +17,10 @@ define(
                 errorStack.splice(index, 1);
 
                 el.find('.' + key).hide();
+
+                if (errorStack.length === 0) {
+                    this.hide();
+                }
             };
 
             this.hide = function () {

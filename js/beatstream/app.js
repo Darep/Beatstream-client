@@ -30,11 +30,28 @@ define(
                     apiUrl: '/'
                 }, options_in);
 
+                // player buttons
+                var playerTrack = $('#player-song .track');
+                var playPause = $('#play-pause');
+                var prevButton = $('#prev');
+                var nextButton = $('#next');
+                var elapsed = $('#player-time .elapsed');
+                var duration = $('#player-time .duration');
+                var volume_label = $('#player-volume-label');
+                var seekbar = $('#seekbar-slider');
 
+
+                // initialize the API
+                api.init(options.apiUrl);
+
+
+                // start preload
                 audio = new SM2Audio();
                 startPreload(audio.start(), openInitialPlaylist(), audio);
 
-                // TODO: use jQuery bind() and trigger() if we need more than one event handler
+
+                // audio event handling
+                // TODO: better event handling (mediator or jQuery's .on())
                 audio.setOnPlay(function () {
                     playPause.addClass('playing');
                 });
@@ -70,8 +87,6 @@ define(
                     error_counter = error_counter + 1;
                 });
 
-                return false;
-
 
                 // resize the main-area to correct height
                 resizeMain();
@@ -91,7 +106,7 @@ define(
                 }
 
 
-                // ::: INIT STUFF :::
+                // initialize songlist
                 songlist = new Songlist({
                     onPlay: function (song) {
                         audio.play(api.getSongURI(song.path));
@@ -183,17 +198,8 @@ define(
                     }
                 });
 
-                // player buttons
-                var playerTrack = $('#player-song .track');
-                var playPause = $('#play-pause');
-                var prevButton = $('#prev');
-                var nextButton = $('#next');
-                var elapsed = $('#player-time .elapsed');
-                var duration = $('#player-time .duration');
-                var volume_label = $('#player-volume-label');
-                var seekbar = $('#seekbar-slider');
 
-                // init sidebar
+                // initialize the sidebar
                 var sidebar = new Sidebar({
                     onOpenAllMusic: function () {
                         openAllMusic();
@@ -212,6 +218,8 @@ define(
                     }
                 });
 
+
+                // functions
                 function openPlaylist(name, data) {
                     songlist.loadPlaylist(data);
                     updatePlaylistHeader(name, data.length);
@@ -278,6 +286,7 @@ define(
                     }
                 });
 
+
                 // seekbar
                 var user_is_seeking = false;
                 seekbar.slider({
@@ -298,6 +307,7 @@ define(
                         user_is_seeking = false;
                     }
                 });
+
 
                 // playback buttons
                 playPause.click(function (e) {

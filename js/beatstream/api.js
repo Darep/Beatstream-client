@@ -4,27 +4,26 @@ define(
     function ($) {
 
         var baseUrl = '';
-        var errorHandler = function () {};
-        var unauthorizedHandler = function () {};
+
 
         var Api = function (apiBaseUrl, onAuth) {
             this.init(apiBaseUrl, onAuth);
+            this.events = {
+                onAuth: function () {}
+            };
         };
 
         Api.prototype.init = function (apiBaseUrl, onAuth) {
             if (apiBaseUrl) {
                 baseUrl = apiBaseUrl;
             }
+        };
 
-            errorHandler = function (req, textStatus, errorThrown) {
-                console.log('Api AJAX error:');
-                console.log(req);
-                if (req.status === 401) {
-                    if (onAuth !== undefined) {
-                        onAuth();
-                    }
-                }
-            };
+
+        Api.prototype.onAuth = function (callback) {
+            if (callback !== undefined) {
+                this.events.onAuth = callback;
+            }
         };
 
 
@@ -89,6 +88,16 @@ define(
 
         Api.prototype.getSongURI = function (songPath) {
             return baseUrl + '/songs/play/?file=' + encodeURIComponent(songPath);
+        };
+
+
+        var errorHandler = function (req, textStatus, errorThrown) {
+            console.log('Api AJAX error:');
+            console.log(req);
+            var self = this;
+            if (req.status === 401) {
+                self.events.onAuth();
+            }
         };
 
 
