@@ -629,48 +629,57 @@ classes should alter those!
 /* line 1, ../sass/partials/_header.scss */
 .app-top {
   background: #333;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #242424), color-stop(100%, #424242));
-  background: -webkit-linear-gradient(top, #242424, #424242);
-  background: -moz-linear-gradient(top, #242424, #424242);
-  background: -o-linear-gradient(top, #242424, #424242);
-  background: linear-gradient(top, #242424, #424242);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #424242), color-stop(100%, #242424));
+  background: -webkit-linear-gradient(top, #424242, #242424);
+  background: -moz-linear-gradient(top, #424242, #242424);
+  background: -o-linear-gradient(top, #424242, #242424);
+  background: linear-gradient(top, #424242, #242424);
   color: #fff;
   height: 55px;
   overflow: hidden;
   padding: 0 20px 0 15px;
-  -webkit-box-shadow: inset 0 1px 0 #302d2a;
-  -moz-box-shadow: inset 0 1px 0 #302d2a;
-  box-shadow: inset 0 1px 0 #302d2a;
+  -webkit-box-shadow: inset 0 1px 0 black, inset 0 2px 0 #505050;
+  -moz-box-shadow: inset 0 1px 0 black, inset 0 2px 0 #505050;
+  box-shadow: inset 0 1px 0 black, inset 0 2px 0 #505050;
 }
 
 /* line 11, ../sass/partials/_header.scss */
 .logo {
-  font: normal 30px/55px "PT Sans", sans-serif;
+  font: 700 30px/55px "PT Sans", sans-serif;
   float: left;
+  position: relative;
+  text-shadow: 0 1px 3px #000;
 }
-/* line 15, ../sass/partials/_header.scss */
+/* line 17, ../sass/partials/_header.scss */
 .logo a {
   color: inherit;
   text-decoration: none;
 }
+/* line 22, ../sass/partials/_header.scss */
+.logo small {
+  font-size: 0.5em;
+  position: absolute;
+  top: -7px;
+  right: -40px;
+}
 
-/* line 21, ../sass/partials/_header.scss */
+/* line 30, ../sass/partials/_header.scss */
 #user-panel {
   float: right;
   font-size: 12px;
   font-weight: 700;
 }
-/* line 26, ../sass/partials/_header.scss */
+/* line 35, ../sass/partials/_header.scss */
 #user-panel a {
   color: #bbb;
   display: block;
 }
-/* line 30, ../sass/partials/_header.scss */
+/* line 39, ../sass/partials/_header.scss */
 #user-panel a:hover *, #user-panel a.act * {
   color: #fff;
   border-top-color: #fff;
 }
-/* line 35, ../sass/partials/_header.scss */
+/* line 44, ../sass/partials/_header.scss */
 #user-panel img {
   background: #444;
   border: 0;
@@ -679,12 +688,12 @@ classes should alter those!
   margin: 12px 10px 0 0;
   width: 24px;
 }
-/* line 43, ../sass/partials/_header.scss */
+/* line 52, ../sass/partials/_header.scss */
 #user-panel .name {
   line-height: 50px;
   margin-right: 2px;
 }
-/* line 47, ../sass/partials/_header.scss */
+/* line 56, ../sass/partials/_header.scss */
 #user-panel .dropdown {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -694,7 +703,7 @@ classes should alter those!
   top: -1px;
 }
 
-/* line 57, ../sass/partials/_header.scss */
+/* line 66, ../sass/partials/_header.scss */
 #user-menu {
   background: #fff;
   border: 1px solid #ccc;
@@ -713,7 +722,7 @@ classes should alter those!
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-/* line 75, ../sass/partials/_header.scss */
+/* line 84, ../sass/partials/_header.scss */
 #user-menu .head {
   overflow: hidden;
   position: absolute;
@@ -723,7 +732,7 @@ classes should alter those!
   width: 16px;
   z-index: 2001;
 }
-/* line 84, ../sass/partials/_header.scss */
+/* line 93, ../sass/partials/_header.scss */
 #user-menu span {
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
@@ -732,14 +741,14 @@ classes should alter those!
   position: absolute;
   z-index: 2002;
 }
-/* line 93, ../sass/partials/_header.scss */
+/* line 102, ../sass/partials/_header.scss */
 #user-menu a {
   color: #222;
   display: block;
   font-weight: 400;
   padding: .4em 2em;
 }
-/* line 99, ../sass/partials/_header.scss */
+/* line 108, ../sass/partials/_header.scss */
 #user-menu a:hover {
   background: #888;
   color: #fff;
@@ -748,7 +757,7 @@ classes should alter those!
 /* line 1, ../sass/partials/_songlist.scss */
 .page-header {
   overflow: hidden;
-  padding: 21px 20px;
+  padding: 21px 20px 14px;
   position: relative;
 }
 /* line 6, ../sass/partials/_songlist.scss */
