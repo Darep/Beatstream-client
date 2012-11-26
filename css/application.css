@@ -126,7 +126,7 @@ body {
 h2 {
   font-size: 24px;
   font-weight: 700;
-  line-height: 42px;
+  line-height: 21px;
 }
 
 /* line 7, ../sass/partials/_typography.scss */
@@ -748,26 +748,26 @@ classes should alter those!
 /* line 1, ../sass/partials/_songlist.scss */
 .page-header {
   overflow: hidden;
-  padding: 15px 20px;
+  padding: 21px 20px;
   position: relative;
 }
 /* line 6, ../sass/partials/_songlist.scss */
 .page-header .info {
   float: left;
 }
-/* line 9, ../sass/partials/_songlist.scss */
+/* line 10, ../sass/partials/_songlist.scss */
 .page-header .meta {
   font-size: 13px;
 }
 
-/* line 13, ../sass/partials/_songlist.scss */
+/* line 16, ../sass/partials/_songlist.scss */
 .search {
   float: right;
   margin-top: 5px;
   position: relative;
 }
 
-/* line 18, ../sass/partials/_songlist.scss */
+/* line 21, ../sass/partials/_songlist.scss */
 #search {
   border: 1px solid #bbb;
   border-radius: 12px;
@@ -784,22 +784,22 @@ classes should alter those!
   transition: all 100ms ease-in;
 }
 
-/* line 28, ../sass/partials/_songlist.scss */
+/* line 31, ../sass/partials/_songlist.scss */
 #search::-webkit-input-placeholder {
   font-style: italic;
 }
 
-/* line 31, ../sass/partials/_songlist.scss */
+/* line 34, ../sass/partials/_songlist.scss */
 #search:-moz-input-placeholder {
   font-style: italic;
 }
 
-/* line 34, ../sass/partials/_songlist.scss */
+/* line 37, ../sass/partials/_songlist.scss */
 #search:focus {
   border-color: #999;
 }
 
-/* line 37, ../sass/partials/_songlist.scss */
+/* line 40, ../sass/partials/_songlist.scss */
 .search .clear {
   background: url("/img/close.png") no-repeat 0 -14px;
   display: inline-block;
@@ -811,12 +811,12 @@ classes should alter those!
   width: 14px;
 }
 
-/* line 47, ../sass/partials/_songlist.scss */
+/* line 50, ../sass/partials/_songlist.scss */
 .search .clear:hover {
   background-position: 0 0;
 }
 
-/* line 51, ../sass/partials/_songlist.scss */
+/* line 54, ../sass/partials/_songlist.scss */
 .grid-container {
   background: #f1f1f1;
   position: relative;
@@ -824,7 +824,7 @@ classes should alter those!
 }
 
 /* slickgrid */
-/* line 58, ../sass/partials/_songlist.scss */
+/* line 62, ../sass/partials/_songlist.scss */
 #slickgrid {
   background: #fff;
   color: #222;
@@ -838,13 +838,13 @@ classes should alter those!
   width: 100%;
 }
 
-/* line 70, ../sass/partials/_songlist.scss */
+/* line 74, ../sass/partials/_songlist.scss */
 #slickgrid .slick-header {
   background: #fafafa;
-  background: -webkit-linear-gradient(top, white, white 50%, #eeeeee);
-  background: -moz-linear-gradient(top, white, white 50%, #eeeeee);
-  background: -o-linear-gradient(top, white, white 50%, #eeeeee);
-  background: -ms-linear-gradient(top, white, white 50%, #eeeeee);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(50%, #ffffff), color-stop(100%, #eeeeee));
+  background: -webkit-linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
+  background: -moz-linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
+  background: -o-linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
   background: linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
   border-top: 1px solid #d1d1d1;
   border-bottom: 1px solid #bbb;
@@ -855,69 +855,69 @@ classes should alter those!
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
 }
 
-/* line 85, ../sass/partials/_songlist.scss */
+/* line 83, ../sass/partials/_songlist.scss */
 #slickgrid .slick-header-column {
   padding-left: 10px;
 }
 
-/* line 88, ../sass/partials/_songlist.scss */
+/* line 86, ../sass/partials/_songlist.scss */
 .slick-header:before, .slick-header:after {
   content: '';
   display: table;
 }
 
-/* line 92, ../sass/partials/_songlist.scss */
+/* line 90, ../sass/partials/_songlist.scss */
 .slick-header:after {
   clear: both;
 }
 
-/* line 95, ../sass/partials/_songlist.scss */
+/* line 93, ../sass/partials/_songlist.scss */
 #slickgrid .slick-row {
   line-height: 22px;
 }
 
-/* line 98, ../sass/partials/_songlist.scss */
+/* line 96, ../sass/partials/_songlist.scss */
 #slickgrid .slick-cell {
   border: 0;
   padding-left: 10px;
 }
 
-/* line 102, ../sass/partials/_songlist.scss */
+/* line 100, ../sass/partials/_songlist.scss */
 #slickgrid .slick-cell.l0 {
   padding-left: 5px;
 }
 
-/* line 105, ../sass/partials/_songlist.scss */
+/* line 103, ../sass/partials/_songlist.scss */
 #slickgrid .selected {
   background: #4c96e5;
   color: #fff;
 }
 
-/* line 109, ../sass/partials/_songlist.scss */
+/* line 107, ../sass/partials/_songlist.scss */
 #slickgrid .playing {
   background-image: url("/img/icons.png");
   background-repeat: no-repeat;
   background-position: -232px -194px;
 }
 
-/* line 114, ../sass/partials/_songlist.scss */
+/* line 112, ../sass/partials/_songlist.scss */
 #slickgrid .playing.selected {
   background-position: -232px -151px;
 }
 
-/* line 117, ../sass/partials/_songlist.scss */
+/* line 115, ../sass/partials/_songlist.scss */
 .slick-cell.tracknum {
   text-align: right;
   padding-right: 10px;
 }
 
-/* line 123, ../sass/partials/_songlist.scss */
+/* line 121, ../sass/partials/_songlist.scss */
 #slickgrid .even {
   background: #f7f7f7;
 }
 
 /* overlay */
-/* line 128, ../sass/partials/_songlist.scss */
+/* line 127, ../sass/partials/_songlist.scss */
 .overlay {
   background: rgba(0, 0, 0, 0.5);
   height: 100%;
@@ -929,27 +929,25 @@ classes should alter those!
   z-index: 9000;
 }
 
-/* line 138, ../sass/partials/_songlist.scss */
+/* line 137, ../sass/partials/_songlist.scss */
 .overlay .content {
   background: #fff;
+  border-radius: 4px;
   position: absolute;
   top: 50%;
   left: 50%;
-  padding: 30px 40px;
   margin: -30px 0 0 -200px;
   overflow: hidden;
+  padding: 30px 40px;
   text-align: center;
   width: 400px;
   z-index: 9001;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
 }
 
-/* line 156, ../sass/partials/_songlist.scss */
+/* line 151, ../sass/partials/_songlist.scss */
 .overlay h3 {
   font-size: 24px;
   font-weight: 700;

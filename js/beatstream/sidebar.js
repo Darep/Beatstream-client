@@ -1,29 +1,29 @@
-//= require helpers
-//= require playlists
-//= require songlist
-//= require transparency.min
-/*!
- * Sidebar
- *
- */
-
 define(
-    ['helpers/helpers'],
-    function () {
+    ['beatstream/mediator', 'helpers/helpers'],
+    function (mediator) {
 
-        function Sidebar(events_in) {
-            var NEW_PLAYLIST_NAME = 'New playlist';
+        var NEW_PLAYLIST_NAME = 'New playlist';
 
-            var events = $.extend({
+        function Sidebar(selector, events_in) {
+
+            var events, $sidebar, activePlaylist;
+
+            events = $.extend({
                 onOpenPlaylist: function (listName) {},
                 onOpenAllMusic: function () {}
             }, events_in);
 
             this.events = events;
 
+            mediator.Subscribe('playlists:allMusic', function (data) {
+                // update "All music" song count on sidebar
+                var count = commify( parseInt( data.length, 10 ) );
+                $('.medialibrary.count').text(count);
+            });
+
             var self = this;
-            var $sidebar = $('#sidebar');
-            var activePlaylist = $sidebar.find('.all-music a');
+            $sidebar = $(selector);
+            activePlaylist = $sidebar.find('.all-music a');
 
             this.playlistList = $sidebar.find('.playlists');
 
@@ -129,7 +129,9 @@ define(
             }
         }
 
-        Sidebar.prototype.getPlaylists = function () { return this.playlistList.find('a'); };
+        Sidebar.prototype.getPlaylists = function () {
+            return this.playlistList.find('a');
+        };
 
         return Sidebar;
 

@@ -4,17 +4,12 @@
 
 (function ($, window, document, undefined) {
 
-    function AudioModule(events_in) {
-        var audio = $('<audio />');
-        
-        var events = $.extend({
-            onPlay : function () {},
-            onPaused : function () {},
-            onSongEnd : function () {},
-            onTimeChange : function (elapsed_in_seconds) {},
-            onDurationParsed : function (duration_in_seconds) {},
-            onError : function () {}
-        }, events_in);
+    function AudioModule() {
+        var audio, error_counter;
+        var self = this;
+
+        error_counter = 0;
+        audio = $('<audio />');
 
         // <audio> events
         audio.bind('play', function() {
@@ -43,6 +38,34 @@
             events.onError();
         });
 
+
+        // events from other modules
+        mediator.Subscribe("songlist:listEnd", function () {
+            self.stop();
+        });
+
+        mediator.Subscribe("audio:error", function () {
+            if (error_counter > 2) {
+                self.pause();
+                error_counter = 0;
+                return;
+            }
+            else {
+                error_counter = error_counter + 1;
+            }
+        });
+
+        mediator.Subscribe("buttons:togglePause", function () {
+            audio.togglePause();
+        });
+
+        mediator.Subscribe("buttons:seek", function (value) {
+            self.seekTo(value);
+        });
+
+        mediator.Subscribe("buttons:setVolume", function (volume) {
+            self.setVolume(volume);
+        });
 
         this.audio = audio;
         this.events = events;

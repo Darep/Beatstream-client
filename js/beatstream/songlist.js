@@ -5,7 +5,7 @@ define(
         // set jQuery.event.drag plugin's default drag start distance
         jQuery.event.special.drag.defaults.distance = 7;
 
-        var Songlist = function(events_in) {
+        function Songlist(selector, events_in) {
 
             var events = $.extend({
                 onPlay : function (song) {},
@@ -16,6 +16,43 @@ define(
             }, events_in);
 
             this.events = events;
+
+            var self = this;
+
+            // events from other modules
+            mediator.Subscribe("playlists:allMusic", function (data) {
+                self.loadPlaylist(data);
+                updatePlaylistHeader('All Music', data.length);
+            });
+
+            mediator.Subscribe("audio:songEnd", function () {
+                self.nextSong(NowPlaying.getShuffle(), NowPlaying.getRepeat());
+            });
+
+            mediator.Subscribe("audio:error", function () {
+                self.nextSong(getShuffle(), getRepeat());
+            });
+
+            mediator.Subscribe("buttons:togglePause", function () {
+                // if not playing anything, start playing the first song on the playlist
+                if (!self.isPlaying()) {
+                    self.nextSong(getShuffle(), getRepeat());
+                    return;
+                }
+            });
+
+            mediator.Subscribe("buttons:nextSong", function (shuffle, repeat) {
+                self.nextSong(shuffle, repeat, true);
+            });
+
+            mediator.Subscribe("buttons:prevSong", function () {
+                self.prevSong();
+            });
+
+            mediator.Subscribe("buttons:showNowPlaying", function () {
+                self.scrollNowPlayingIntoView();
+            });
+
 
             // SlickGrid
 
@@ -254,6 +291,7 @@ define(
             grid.stop = function () {
                 mediator.Publish("songlist:listEnd");
                 // TODO: hide now playing icon from slickgrid
+                self.resetPlaying();
             };
 
 
@@ -348,7 +386,7 @@ define(
             this.grid = grid;
             this.dataView = dataView;
             this.searchString = searchString;
-        };
+        }
 
 
         Songlist.prototype.resizeCanvas = function () {
@@ -398,6 +436,19 @@ define(
             this.dataView.syncGridSelection(this.grid, false);
             this.dataView.syncGridCellCssStyles(this.grid, 'currentSong_playing');
         };
+
+
+        function updatePlaylistHeader(name, songCount) {
+            // update playlist header data
+            if (songCount === undefined) {
+                songCount = 0;
+            }
+
+            var prettyCount = commify( parseInt( songCount, 10 ) );
+            $('.page-header .count').text(prettyCount);
+            $('.page-header.text').html( pluralize(songCount, 'song', 'songs') );
+            $('.page-header .info h2').html(name);
+        }
 
 
         return Songlist;

@@ -1,40 +1,48 @@
-/*
- * NOTE! This module might seem super dumb and not-needed, but I had plans to
- * add some localStorage optimization to this stuff and so on. Playlists can
- * be really heavy on the memory.
- */
-
 define(
-    ['beatstream/api'],
-    function (Api) {
+    ['beatstream/mediator'],
+    function (mediator) {
 
-        var playlists = {};
+        function Playlists(api) {
+            this.playlists = {};
+            this.api = api;
+        }
 
-        var Playlists = {
-            add: function (name, data) {
-                playlists[name] = data;
-            },
-
-            getByName: function (name) {
-                var playlist = playlists[name];
-                return playlist;
-            },
-
-            load: function (name, callback) {
-
-                var self = this;
-
-                var req = Api.getPlaylist(name);
-                req.success(function (data) {
-                    self.add(name, data);
-
-                    if (callback) {
-                        var playlist = self.getByName(name);
-                        callback(playlist);
-                    }
-                });
-            }
+        Playlists.prototype.add = function (name, data) {
+            this.playlists[name] = data;
         };
+
+        Playlists.prototype.getByName = function (name) {
+            var playlist = this.playlists[name];
+            return playlist;
+        };
+
+        Playlists.prototype.load = function (name, callback) {
+            var self = this;
+            var req = this.api.getPlaylist(name);
+            req.success(function (data) {
+                self.add(name, data);
+
+                if (callback) {
+                    var playlist = self.getByName(name);
+                    callback(playlist);
+                }
+            });
+        };
+
+        Playlists.prototype.getAllMusic = function() {
+            var req = this.api.getAllMusic();
+
+            req.done(function (data) {
+                mediator.Publish('playlists:allMusic', data);
+            });
+
+            return req;
+        };
+
+        Playlists.prototype.getPlaylist = function () {
+            return req;
+        };
+
         return Playlists;
     }
 );

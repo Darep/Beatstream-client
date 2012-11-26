@@ -8,44 +8,33 @@ define(
         'jquery',
         'beatstream/mediator',
         'beatstream/api',
-        'beatstream/sidebar',
         'beatstream/audio-modules/soundmanager2',
-        'beatstream/songlist',
         'beatstream/lastfm',
         'beatstream/playlists',
-        'beatstream/now-playing',
+        'beatstream/top-panel',
+        'beatstream/songlist',
+        'beatstream/sidebar',
+        'beatstream/player',
+        'beatstream/login',
         'beatstream/views/preloader',
 
         'helpers/helpers',
-        'soundmanager2',
-        'jquery-ui'
+        'soundmanager2'
     ],
-    function ($, mediator, api, Sidebar, SM2Audio, Songlist, LastFM, Playlists, NowPlaying, preloaderView) {
+    function ($, mediator, Api, SM2Audio, LastFM, Playlists, TopPanel, Songlist, Sidebar, Player, Login, preloaderView) {
 
         var App = {
             init: function (options_in) {
 
-                var songlist, audio, error_counter = 0;
+                var api, audio, lastfm, top, songlist, sidebar, player, login, options;
 
-                var options = $.extend({
-                    apiUrl: '/'
+                options = $.extend({
+                    apiUrl: '/api/v1/'
                 }, options_in);
 
 
-                // initialize the API
-                api.init(options.apiUrl);
-
-
-                // start preload
-                audio = new SM2Audio();
-                startPreload(audio.start(), openInitialPlaylist(), audio);
-
-
                 // resize the main-area to correct height
-                resizeMain();
-                $(window).resize(function () { resizeMain(); });
-
-                function resizeMain() {
+                var resizeMain = function () {
                     var h = $(window).height() - $('.app-top').outerHeight(true) - $('.app-now-playing').outerHeight(true);
                     var w = $(window).width() - $('.app-nav').outerWidth(true);
                     $('#app > .wrapper').css('height', h);
@@ -56,224 +45,117 @@ define(
                     if (songlist) {
                         songlist.resizeCanvas();
                     }
-                }
+                };
+                $(window).resize(function () { resizeMain(); });
+                resizeMain();
 
+                // initiate the modules
+                api       = new Api(options.apiUrl);
+                audio     = new SM2Audio(api);
+                playlists = new Playlists(api);
+                login     = new Login();
+                lastfm    = new LastFM(api);
+                top       = new TopPanel('.app-top');
+                songlist  = new Songlist('#slickgrid', this.songlistEvents);
+                sidebar   = new Sidebar('.app-nav', this.sidebarEvents);
+                player    = new Player('.app-now-playing');
 
-                // Event hooks
-                // TODO: move these to modules or move all the :ibes from modules here
-                mediator.Subscribe("songlist:selectSong", function (song) {
-                    LastFM.newSong(song);
-                });
+                startPreload( audio.start(), playlists.getAllMusic() );
+            },
+            songlistEvents: {
+                onDragStart: function (e, dd) {
+                    var song_count = dd.draggedSongs.length;
 
-                mediator.Subscribe("songlist:listEnd", function () {
-                    audio.stop();
-                    songlist.resetPlaying();
-                });
+                    DragTooltip.show(dd.startX, dd.startY, song_count + ' song');
 
-                mediator.Subscribe("audio:timeChange", function (elaps) {
-                    // try to scrobble
-                    // won't scrobble if we should not scrobble
-                    LastFM.tryScrobble();
-
-                    // TODO: maybe we should use setTimeout instead?
-                    //       create a timer when song starts to play, erase old timer
-                });
-
-                mediator.Subscribe("audio:songEnd", function () {
-                    songlist.nextSong(NowPlaying.getShuffle(), NowPlaying.getRepeat());
-                });
-
-                mediator.Subscribe("audio:error", function () {
-                    if (error_counter > 2) {
-                        audio.pause();
-                        error_counter = 0;
-                        return;
-                    }
-                    songlist.nextSong(getShuffle(), getRepeat());
-                    error_counter = error_counter + 1;
-                });
-
-                mediator.Subscribe("buttons:seek", function (value) {
-                    audio.seekTo(value);
-                });
-
-                mediator.Subscribe("buttons:togglePause", function () {
-                    // if not playing anything, start playing the first song on the playlist
-                    if (!songlist.isPlaying()) {
-                        songlist.nextSong(getShuffle(), getRepeat());
-                        return;
+                    if (song_count != 1) {
+                        DragTooltip.append('s');
                     }
 
-                    audio.togglePause();
-                });
+                    // make playlists hilight
+                    $('#sidebar .playlists li').addClass('targeted');
+                },
+                onDrag: function (e, dd) {
+                    DragTooltip.update(e.clientX, e.clientY);
 
-                mediator.Subscribe("buttons:nextSong", function (shuffle, repeat) {
-                    songlist.nextSong(shuffle, repeat, true);
-                });
+                    var drop_target = $(document.elementFromPoint(e.clientX, e.clientY));
 
-                mediator.Subscribe("buttons:prevSong", function () {
-                    songlist.prevSong();
-                });
-
-                mediator.Subscribe("buttons:showNowPlaying", function () {
-                    songlist.scrollNowPlayingIntoView();
-                });
-
-                mediator.Subscribe("buttons:setVolume", function (volume) {
-                    console.log(volume);
-                    audio.setVolume(volume);
-                });
-
-                // initiali volume for audio
-                audio.setVolume(NowPlaying.getVolume());
-
-
-                // initialize songlist
-                songlist = new Songlist({
-                    onDragStart: function (e, dd) {
-                        var song_count = dd.draggedSongs.length;
-
-                        DragTooltip.show(dd.startX, dd.startY, song_count + ' song');
-
-                        if (song_count != 1) {
-                            DragTooltip.append('s');
-                        }
-
-                        // make playlists hilight
-                        $('#sidebar .playlists li').addClass('targeted');
-                    },
-                    onDrag: function (e, dd) {
-                        DragTooltip.update(e.clientX, e.clientY);
-
-                        var drop_target = $(document.elementFromPoint(e.clientX, e.clientY));
-
-                        if (drop_target === undefined ||
-                            (drop_target.parent().hasClass('playlists') === false &&
-                             drop_target.parent().parent().hasClass('playlists') === false))
-                        {
-                            // these are not the drops you are looking for
-                            $('#sidebar .playlists li').removeClass('hover');
-                            return;
-                        }
-
+                    if (drop_target === undefined ||
+                        (drop_target.parent().hasClass('playlists') === false &&
+                         drop_target.parent().parent().hasClass('playlists') === false))
+                    {
+                        // these are not the drops you are looking for
                         $('#sidebar .playlists li').removeClass('hover');
-                        drop_target.parent().addClass('hover');
-                    },
-                    onDragEnd: function (e, dd) {
-                        DragTooltip.hide();
-
-                        $('#sidebar .playlists li').removeClass('targeted').removeClass('hover');
-
-                        var drop_target = $(document.elementFromPoint(e.clientX, e.clientY));
-
-                        if (drop_target === undefined ||
-                            (drop_target.parent().hasClass('playlists') === false &&
-                             drop_target.parent().parent().hasClass('playlists') === false))
-                        {
-                            // these are not the drops you are looking for
-                            console.log('these are not the drops you are looking for');
-                            return;
-                        }
-
-                        if ( drop_target.is('a.name') === false ) {
-                            // still wrong drop target
-                            return;
-                        }
-
-                        // TODO: add dragged things into playlist (if things can be added)
-
-                        var name = drop_target.text();
-                        var playlist = Playlists.getByName(name);
-
-                        // load the playlist if it has not been loaded yet
-                        if (playlist === undefined) {
-
-                            Playlists.load(name, function (playlist) {
-                                if (playlist === undefined) {
-                                    console.log('whattafaaaak, no such playlist: ' + name);
-                                }
-
-                                playlist.push.apply(data, dd.draggedSongs);
-                            });
-
-                        }
-                        else {
-                            playlist.push.apply(playlist, dd.draggedSongs);
-                        }
-                    }
-                });
-
-
-                // initialize the sidebar
-                var sidebar = new Sidebar({
-                    onOpenAllMusic: function () {
-                        openAllMusic();
-                    },
-                    onOpenPlaylist: function (listName) {
-                        var playlist = Playlists.getByName(listName);
-
-                        if (playlist === undefined) {
-                            Playlists.load(listName, function (data) {
-                                openPlaylist(listName, data);
-                            });
-                            return;
-                        }
-
-                        openPlaylist(listName, playlist);
-                    }
-                });
-
-
-                // functions
-                function openPlaylist(name, data) {
-                    songlist.loadPlaylist(data);
-                    updatePlaylistHeader(name, data.length);
-                }
-
-
-                function openInitialPlaylist() {
-                    // TODO: open the current playlist when launching
-                    return openAllMusic();
-                }
-
-                function openAllMusic() {
-                    var req = api.getAllMusic();
-
-                    req.done(function (data) {
-                        openPlaylist('All music', data);
-
-                        // update "All music" song count on sidebar
-                        var count = commify( parseInt( data.length, 10 ) );
-                        $('.medialibrary.count').text(count);
-                    });
-
-                    return req;
-                }
-
-
-                function updatePlaylistHeader(name, songCount) {
-                    // update playlist header data
-                    if (songCount === undefined) {
-                        songCount = 0;
+                        return;
                     }
 
-                    var prettyCount = commify( parseInt( songCount, 10 ) );
-                    $('.page-header .count').text(prettyCount);
-                    $('.page-header.text').html( pluralize(songCount, 'song', 'songs') );
-                    $('.page-header .info h2').html(name);
+                    $('#sidebar .playlists li').removeClass('hover');
+                    drop_target.parent().addClass('hover');
+                },
+                onDragEnd: function (e, dd) {
+                    DragTooltip.hide();
+
+                    $('#sidebar .playlists li').removeClass('targeted').removeClass('hover');
+
+                    var drop_target = $(document.elementFromPoint(e.clientX, e.clientY));
+
+                    if (drop_target === undefined ||
+                        (drop_target.parent().hasClass('playlists') === false &&
+                         drop_target.parent().parent().hasClass('playlists') === false))
+                    {
+                        // these are not the drops you are looking for
+                        console.log('these are not the drops you are looking for');
+                        return;
+                    }
+
+                    if ( drop_target.is('a.name') === false ) {
+                        // still wrong drop target
+                        return;
+                    }
+
+                    // TODO: add dragged things into playlist (if things can be added)
+
+                    var name = drop_target.text();
+                    var playlist = Playlists.getByName(name);
+
+                    // load the playlist if it has not been loaded yet
+                    if (playlist === undefined) {
+
+                        Playlists.load(name, function (playlist) {
+                            if (playlist === undefined) {
+                                console.log('whattafaaaak, no such playlist: ' + name);
+                            }
+
+                            playlist.push.apply(data, dd.draggedSongs);
+                        });
+
+                    }
+                    else {
+                        playlist.push.apply(playlist, dd.draggedSongs);
+                    }
+                }
+            },
+            sidebarEvents: {
+                onOpenAllMusic: function () {
+                    openAllMusic();
+                },
+                onOpenPlaylist: function (listName) {
+                    var playlist = Playlists.getByName(listName);
+
+                    if (playlist === undefined) {
+                        Playlists.load(listName, function (data) {
+                            openPlaylist(listName, data);
+                        });
+                        return;
+                    }
+
+                    openPlaylist(listName, playlist);
                 }
             }
         };
 
 
-        var showLogin = function () {
-            var login = $('.login');
-            login.show();
-        };
-
-
-        var startPreload = function (audioStart, playlistLoad, audio) {
-
+        var startPreload = function (audioStart, playlistLoad) {
             $.when(audioStart, playlistLoad).done(function (audioResult, openMusicResult) {
                 console.log('start: success!');
                 preloaderView.hide();
@@ -294,7 +176,6 @@ define(
             playlistLoad.fail(function () {
                 preloaderView.showError('playlist-error');
             });
-
         };
 
 

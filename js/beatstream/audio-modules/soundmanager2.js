@@ -3,25 +3,77 @@
  */
 
 define(
-    ['jquery', 'beatstream/mediator', 'beatstream/api', 'soundmanager2'],
-    function ($, mediator, api) {
+    ['jquery', 'beatstream/mediator', 'soundmanager2'],
+    function ($, mediator) {
 
-        function AudioModule() {
+        function AudioModule(api) {
+            var errorCounter = 0;
+
             this.song = null;
             this.volume = 0;
             this.isReady = false;
             this.startDefer = null;
 
             var self = this;
+
+
+            // events from other modules
             mediator.Subscribe("songlist:selectSong", function (song) {
-                console.log('aaa');
                 var url = api.getSongURI(song.path);
                 self.play(url);
+            });
+
+            mediator.Subscribe("songlist:listEnd", function () {
+                self.stop();
+            });
+
+            mediator.Subscribe("audio:error", function () {
+                if (errorCounter > 2) {
+                    pause();
+                    errorCounter = 0;
+                    return;
+                }
+                else {
+                    errorCounter = errorCounter + 1;
+                }
+            });
+
+            mediator.Subscribe("buttons:togglePause", function () {
+                self.togglePause();
+            });
+
+            mediator.Subscribe("buttons:seek", function (value) {
+                self.seekTo(value);
+            });
+
+            mediator.Subscribe("buttons:setVolume", function (volume) {
+                self.setVolume(volume);
             });
         }
 
 
-        AudioModule.prototype.start = function () {
+        AudioModule.prototype.togglePause = function() {
+            if (this.song === null) return;
+
+            this.song.togglePause();
+        };
+
+
+        AudioModule.prototype.stop = function() {
+            if (this.song === null) return;
+
+            this.song.stop();
+        };
+
+
+        AudioModule.prototype.seekTo = function(seconds) {
+            if (this.song === null) return;
+
+            this.song.setPosition(seconds * 1000);
+        };
+
+
+        AudioModule.prototype.start = function() {
             var defer = $.Deferred();
             var self = this;
 
@@ -53,15 +105,19 @@ define(
         };
 
 
-        AudioModule.prototype.setVolume = function (volume) {
+        AudioModule.prototype.setVolume = function(volume) {
             this.volume = volume;
 
-            if (this.song === null) return;
-            this.song.setVolume(volume);
+            if (this.song !== null) {
+                this.song.setVolume(volume);
+            }
+            else {
+                // do nothing, no song currently playing
+            }
         };
 
 
-        AudioModule.prototype.play = function (uri) {
+        AudioModule.prototype.play = function(uri) {
             if (!this.isReady) {
                 alert('SoundManager 2 is not ready to play music yet!');
                 return;
@@ -101,24 +157,6 @@ define(
             });
 
             this.song = song;
-        };
-
-        AudioModule.prototype.togglePause = function () {
-            if (this.song === null) return;
-
-            this.song.togglePause();
-        };
-
-        AudioModule.prototype.stop = function () {
-            if (this.song === null) return;
-
-            this.song.stop();
-        };
-
-        AudioModule.prototype.seekTo = function (seconds) {
-            if (this.song === null) return;
-
-            this.song.setPosition(seconds * 1000);
         };
 
 

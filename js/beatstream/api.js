@@ -5,24 +5,9 @@ define(
 
         var baseUrl = '';
 
-
-        var Api = function (apiBaseUrl, onAuth) {
-            this.init(apiBaseUrl, onAuth);
-            this.events = {
-                onAuth: function () {}
-            };
-        };
-
-        Api.prototype.init = function (apiBaseUrl, onAuth) {
+        var Api = function (apiBaseUrl) {
             if (apiBaseUrl) {
                 baseUrl = apiBaseUrl;
-            }
-        };
-
-
-        Api.prototype.onAuth = function (callback) {
-            if (callback !== undefined) {
-                this.events.onAuth = callback;
             }
         };
 
@@ -91,16 +76,16 @@ define(
         };
 
 
-        var errorHandler = function (req, textStatus, errorThrown) {
+        function errorHandler(req, textStatus, errorThrown) {
             console.log('Api AJAX error:');
             console.log(req);
             var self = this;
             if (req.status === 401) {
-                self.events.onAuth();
+                mediator.Publish('error:noAuth');
             }
-        };
+        }
 
 
-        return new Api();  // return a singleton
+        return Api;
     }
 );
