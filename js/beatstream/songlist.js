@@ -6,18 +6,16 @@ define(
         jQuery.event.special.drag.defaults.distance = 7;
 
         function Songlist(selector, events_in) {
+            var events;
+            var self = this;
 
-            var events = $.extend({
-                onPlay : function (song) {},
-                onStop : function () {},
+            events = $.extend({
                 onDragStart : function (e, dd) {},
                 onDrag: function (e, dd) {},
                 onDragEnd: function (e, dd) {}
             }, events_in);
 
             this.events = events;
-
-            var self = this;
 
             // events from other modules
             mediator.Subscribe("playlists:allMusic", function (data) {
@@ -37,7 +35,6 @@ define(
                 // if not playing anything, start playing the first song on the playlist
                 if (!self.isPlaying()) {
                     self.nextSong(getShuffle(), getRepeat());
-                    return;
                 }
             });
 

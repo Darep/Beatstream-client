@@ -6,8 +6,19 @@ define(
             var errorStack = [];
 
             this.showError = function (key) {
-                el.find('.' + key).show();
+                var error = el.find('.' + key);
+
+                error.css({
+                    display: 'none',
+                    visibility: 'visible'
+                });
+
                 errorStack.push(key);
+
+                // little pause so the animation plays
+                setTimeout(function () {
+                    error.show();
+                }, 1);
             };
 
             this.hideError = function (key) {

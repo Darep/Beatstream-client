@@ -20,8 +20,9 @@ require.config({
         'jquery-ui': 'components/jquery-ui/ui/jquery-ui',
         'mediator': 'components/Mediator.js/mediator',
         'slickgrid': 'components/SlickGrid/slick.grid',
-        'soundmanager2': 'components/SoundManager2/script/soundmanager2',
-        'store': 'components/store.js/store.min'
+        'soundmanager2': 'components/SoundManager2/script/soundmanager2', //-nodebug-jsmin',
+        'store': 'components/store.js/store.min',
+        'pathjs': 'components/pathjs/path.min'
     },
 
     urlArgs: "timestamp=" + new Date().getTime(),

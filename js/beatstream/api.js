@@ -1,7 +1,7 @@
 
 define(
-    ['jquery'],
-    function ($) {
+    ['jquery', 'beatstream/mediator'],
+    function ($, mediator) {
 
         var baseUrl = '';
 
