@@ -645,17 +645,18 @@ classes should alter those!
 
 /* line 11, ../sass/partials/_header.scss */
 .logo {
+  color: #f1f1f1;
   font: 700 30px/55px "PT Sans", sans-serif;
   float: left;
   position: relative;
   text-shadow: 0 1px 3px #000;
 }
-/* line 17, ../sass/partials/_header.scss */
+/* line 18, ../sass/partials/_header.scss */
 .logo a {
   color: inherit;
   text-decoration: none;
 }
-/* line 22, ../sass/partials/_header.scss */
+/* line 23, ../sass/partials/_header.scss */
 .logo small {
   font-size: 0.5em;
   position: absolute;
@@ -663,23 +664,23 @@ classes should alter those!
   right: -40px;
 }
 
-/* line 30, ../sass/partials/_header.scss */
+/* line 31, ../sass/partials/_header.scss */
 #user-panel {
   float: right;
   font-size: 12px;
   font-weight: 700;
 }
-/* line 35, ../sass/partials/_header.scss */
+/* line 36, ../sass/partials/_header.scss */
 #user-panel a {
   color: #bbb;
   display: block;
 }
-/* line 39, ../sass/partials/_header.scss */
+/* line 40, ../sass/partials/_header.scss */
 #user-panel a:hover *, #user-panel a.act * {
   color: #fff;
   border-top-color: #fff;
 }
-/* line 44, ../sass/partials/_header.scss */
+/* line 45, ../sass/partials/_header.scss */
 #user-panel img {
   background: #444;
   border: 0;
@@ -688,12 +689,12 @@ classes should alter those!
   margin: 12px 10px 0 0;
   width: 24px;
 }
-/* line 52, ../sass/partials/_header.scss */
+/* line 53, ../sass/partials/_header.scss */
 #user-panel .name {
   line-height: 50px;
   margin-right: 2px;
 }
-/* line 56, ../sass/partials/_header.scss */
+/* line 57, ../sass/partials/_header.scss */
 #user-panel .dropdown {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -703,7 +704,7 @@ classes should alter those!
   top: -1px;
 }
 
-/* line 66, ../sass/partials/_header.scss */
+/* line 67, ../sass/partials/_header.scss */
 #user-menu {
   background: #fff;
   border: 1px solid #ccc;
@@ -722,7 +723,7 @@ classes should alter those!
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-/* line 84, ../sass/partials/_header.scss */
+/* line 85, ../sass/partials/_header.scss */
 #user-menu .head {
   overflow: hidden;
   position: absolute;
@@ -732,7 +733,7 @@ classes should alter those!
   width: 16px;
   z-index: 2001;
 }
-/* line 93, ../sass/partials/_header.scss */
+/* line 94, ../sass/partials/_header.scss */
 #user-menu span {
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
@@ -741,14 +742,14 @@ classes should alter those!
   position: absolute;
   z-index: 2002;
 }
-/* line 102, ../sass/partials/_header.scss */
+/* line 103, ../sass/partials/_header.scss */
 #user-menu a {
   color: #222;
   display: block;
   font-weight: 400;
   padding: .4em 2em;
 }
-/* line 108, ../sass/partials/_header.scss */
+/* line 109, ../sass/partials/_header.scss */
 #user-menu a:hover {
   background: #888;
   color: #fff;
@@ -859,74 +860,75 @@ classes should alter those!
   border-bottom: 1px solid #bbb;
   font-weight: 700;
   overflow: visible !important;
-  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
-  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
-/* line 83, ../sass/partials/_songlist.scss */
+/* line 84, ../sass/partials/_songlist.scss */
 #slickgrid .slick-header-column {
   padding-left: 10px;
 }
 
-/* line 86, ../sass/partials/_songlist.scss */
+/* line 87, ../sass/partials/_songlist.scss */
 .slick-header:before, .slick-header:after {
   content: '';
   display: table;
 }
 
-/* line 90, ../sass/partials/_songlist.scss */
+/* line 91, ../sass/partials/_songlist.scss */
 .slick-header:after {
   clear: both;
 }
 
-/* line 93, ../sass/partials/_songlist.scss */
+/* line 94, ../sass/partials/_songlist.scss */
 #slickgrid .slick-row {
   line-height: 22px;
 }
 
-/* line 96, ../sass/partials/_songlist.scss */
+/* line 97, ../sass/partials/_songlist.scss */
 #slickgrid .slick-cell {
   border: 0;
   padding-left: 10px;
 }
 
-/* line 100, ../sass/partials/_songlist.scss */
+/* line 101, ../sass/partials/_songlist.scss */
 #slickgrid .slick-cell.l0 {
   padding-left: 5px;
 }
 
-/* line 103, ../sass/partials/_songlist.scss */
+/* line 104, ../sass/partials/_songlist.scss */
 #slickgrid .selected {
   background: #4c96e5;
   color: #fff;
 }
 
-/* line 107, ../sass/partials/_songlist.scss */
+/* line 108, ../sass/partials/_songlist.scss */
 #slickgrid .playing {
   background-image: url("/img/icons.png");
   background-repeat: no-repeat;
   background-position: -232px -194px;
 }
 
-/* line 112, ../sass/partials/_songlist.scss */
+/* line 113, ../sass/partials/_songlist.scss */
 #slickgrid .playing.selected {
   background-position: -232px -151px;
 }
 
-/* line 115, ../sass/partials/_songlist.scss */
+/* line 116, ../sass/partials/_songlist.scss */
 .slick-cell.tracknum {
   text-align: right;
   padding-right: 10px;
 }
 
-/* line 121, ../sass/partials/_songlist.scss */
+/* line 122, ../sass/partials/_songlist.scss */
 #slickgrid .even {
   background: #f7f7f7;
 }
 
 /* overlay */
-/* line 127, ../sass/partials/_songlist.scss */
+/* line 128, ../sass/partials/_songlist.scss */
 .overlay {
   background: rgba(0, 0, 0, 0.5);
   height: 100%;
@@ -938,7 +940,7 @@ classes should alter those!
   z-index: 9000;
 }
 
-/* line 137, ../sass/partials/_songlist.scss */
+/* line 138, ../sass/partials/_songlist.scss */
 .overlay .content {
   background: #fff;
   border-radius: 4px;
@@ -956,7 +958,7 @@ classes should alter those!
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* line 151, ../sass/partials/_songlist.scss */
+/* line 152, ../sass/partials/_songlist.scss */
 .overlay h3 {
   font-size: 24px;
   font-weight: 700;
@@ -1010,56 +1012,60 @@ classes should alter those!
 .app-nav li.hover a {
   color: #222;
 }
-/* line 50, ../sass/partials/_sidebar.scss */
+/* line 46, ../sass/partials/_sidebar.scss */
+.app-nav li a.act:after {
+  background-color: #f18c06;
+}
+/* line 52, ../sass/partials/_sidebar.scss */
 .app-nav .count {
   font-weight: 400;
   float: right;
 }
-/* line 55, ../sass/partials/_sidebar.scss */
+/* line 57, ../sass/partials/_sidebar.scss */
 .app-nav .common {
   font-size: 13px;
   font-weight: 700;
 }
-/* line 59, ../sass/partials/_sidebar.scss */
+/* line 61, ../sass/partials/_sidebar.scss */
 .app-nav .common a {
   color: #222;
 }
-/* line 64, ../sass/partials/_sidebar.scss */
+/* line 66, ../sass/partials/_sidebar.scss */
 .app-nav .none {
   padding-bottom: 0;
 }
-/* line 68, ../sass/partials/_sidebar.scss */
+/* line 70, ../sass/partials/_sidebar.scss */
 .app-nav .insync {
   font-style: italic;
 }
-/* line 71, ../sass/partials/_sidebar.scss */
+/* line 73, ../sass/partials/_sidebar.scss */
 .app-nav .insync a:hover {
   color: #777;
   cursor: default;
 }
-/* line 76, ../sass/partials/_sidebar.scss */
+/* line 78, ../sass/partials/_sidebar.scss */
 .app-nav .sync-icon {
   margin-left: 5px;
   position: relative;
 }
-/* line 81, ../sass/partials/_sidebar.scss */
+/* line 83, ../sass/partials/_sidebar.scss */
 .app-nav .playlist-input {
   margin-top: 10px;
 }
-/* line 85, ../sass/partials/_sidebar.scss */
+/* line 87, ../sass/partials/_sidebar.scss */
 .app-nav .btn-new-list {
   display: block;
   margin: 0 auto;
   width: 82px;
 }
-/* line 91, ../sass/partials/_sidebar.scss */
+/* line 93, ../sass/partials/_sidebar.scss */
 .app-nav .new-list {
   border: 1px solid #bbb;
   font-size: 11px;
   margin: 0 20px;
   padding: 3px 4px;
 }
-/* line 97, ../sass/partials/_sidebar.scss */
+/* line 99, ../sass/partials/_sidebar.scss */
 .app-nav .new-list.error {
   border: 1px solid red;
   -webkit-animation: shake 1s ease;
@@ -1068,20 +1074,20 @@ classes should alter those!
   -o-animation: shake 1s ease;
   animation: shake 1s ease;
 }
-/* line 102, ../sass/partials/_sidebar.scss */
+/* line 104, ../sass/partials/_sidebar.scss */
 .app-nav p.error {
   color: #c22;
   margin: 0 20px;
 }
 
-/* line 108, ../sass/partials/_sidebar.scss */
+/* line 110, ../sass/partials/_sidebar.scss */
 .app-nav-wrap {
   padding: 10px 20px;
   min-width: 100px;
 }
 
 /* draginfo */
-/* line 115, ../sass/partials/_sidebar.scss */
+/* line 117, ../sass/partials/_sidebar.scss */
 #draginfo {
   background: #fff;
   background: rgba(255, 255, 255, 0.8);

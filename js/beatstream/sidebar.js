@@ -4,16 +4,9 @@ define(
 
         var NEW_PLAYLIST_NAME = 'New playlist';
 
-        function Sidebar(selector, events_in) {
+        function Sidebar(selector) {
 
-            var events, $sidebar, activePlaylist;
-
-            events = $.extend({
-                onOpenPlaylist: function (listName) {},
-                onOpenAllMusic: function () {}
-            }, events_in);
-
-            this.events = events;
+            var $sidebar, activePlaylist, playlistList;
 
             mediator.Subscribe('playlists:allMusic', function (data) {
                 // update "All music" song count on sidebar
@@ -24,26 +17,29 @@ define(
             var self = this;
             $sidebar = $(selector);
             activePlaylist = $sidebar.find('.all-music a');
+            playlistList = $sidebar.find('.playlists');
 
-            this.playlistList = $sidebar.find('.playlists');
+            // show current playlists on the sidebar
+
 
             // show playlist when playlist name is clicked
-            this.getPlaylists().live('click', function (e) {
+            playlistList.find('a').live('click', function (e) {
                 e.preventDefault();
 
                 var $this = $(this);
 
+                // don't show syncing or active playlists
                 if ($this.hasClass('insync') || $this.hasClass('act')) {
                     return;
                 }
 
                 setActivePlaylist($this);
 
-                //alert('Playlists haven\'t been implemented yet. Stay tuned!');
-
                 // load the playlist from URL x
                 var name = $this.text();
-                events.onOpenPlaylist(name);
+
+                // TODO: tell modules that a playlist was selected
+                //events.onOpenPlaylist(name);
             });
 
             // show "All music" on click
@@ -59,12 +55,13 @@ define(
 
                 setActivePlaylist($this);
 
-                events.onOpenAllMusic();
+                // TODO: tell modules that all music was selected
+                //events.onOpenAllMusic();
             });
 
 
             // New playlist
-            var newPlaylistInput = this.playlistList.find('.playlist-input');
+            var newPlaylistInput = playlistList.find('.playlist-input');
             var nameField = newPlaylistInput.find('input');
             var nameErrorField = nameField.next('.error');
 
@@ -109,16 +106,17 @@ define(
                 });
 
                 //  hide "no playlists" text
-                self.playlistList.prev('.none').hide();
+                playlistList.prev('.none').hide();
             });
 
-            $('#sidebar .btn-new-list').click(function (e) {
+            $sidebar.find('.btn-new-list').click(function (e) {
                 e.preventDefault();
 
                 nameField.val(NEW_PLAYLIST_NAME);
                 newPlaylistInput.show();
                 nameField.focus().select();
             });
+
 
             function setActivePlaylist($this) {
                 if (activePlaylist !== undefined && activePlaylist.length) {
@@ -129,11 +127,6 @@ define(
             }
         }
 
-        Sidebar.prototype.getPlaylists = function () {
-            return this.playlistList.find('a');
-        };
-
         return Sidebar;
-
     }
 );

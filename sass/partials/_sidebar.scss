@@ -42,8 +42,10 @@
             color:#222;
         }
 
-        &.act {
-
+        a.act {
+            &:after {
+                background-color:#f18c06;
+            }
         }
     }
 
