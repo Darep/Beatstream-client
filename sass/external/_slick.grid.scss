@@ -73,6 +73,11 @@ classes should alter those!
   background: silver;
 }
 
+.slick-viewport {
+  display: block;
+  z-index: 1;
+}
+
 .grid-canvas {
   position: relative;
   outline: 0;

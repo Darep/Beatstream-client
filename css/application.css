@@ -538,19 +538,25 @@ classes should alter those!
 }
 
 /* line 76, ../sass/external/_slick.grid.scss */
+.slick-viewport {
+  display: block;
+  z-index: 1;
+}
+
+/* line 81, ../sass/external/_slick.grid.scss */
 .grid-canvas {
   position: relative;
   outline: 0;
 }
 
-/* line 81, ../sass/external/_slick.grid.scss */
+/* line 86, ../sass/external/_slick.grid.scss */
 .slick-row.ui-widget-content, .slick-row.ui-state-active {
   position: absolute;
   border: 0px;
   width: 100%;
 }
 
-/* line 87, ../sass/external/_slick.grid.scss */
+/* line 92, ../sass/external/_slick.grid.scss */
 .slick-cell, .slick-headerrow-column {
   position: absolute;
   border: 1px solid transparent;
@@ -567,12 +573,12 @@ classes should alter those!
   cursor: default;
 }
 
-/* line 110, ../sass/external/_slick.grid.scss */
+/* line 115, ../sass/external/_slick.grid.scss */
 .slick-group-toggle {
   display: inline-block;
 }
 
-/* line 114, ../sass/external/_slick.grid.scss */
+/* line 119, ../sass/external/_slick.grid.scss */
 .slick-cell.highlighted {
   background: lightskyblue;
   background: rgba(0, 0, 255, 0.2);
@@ -581,12 +587,12 @@ classes should alter those!
   transition: all 0.5s;
 }
 
-/* line 122, ../sass/external/_slick.grid.scss */
+/* line 127, ../sass/external/_slick.grid.scss */
 .slick-cell.flashing {
   border: 1px solid red !important;
 }
 
-/* line 126, ../sass/external/_slick.grid.scss */
+/* line 131, ../sass/external/_slick.grid.scss */
 .slick-cell.editable {
   z-index: 11;
   overflow: visible;
@@ -595,12 +601,12 @@ classes should alter those!
   border-style: solid;
 }
 
-/* line 134, ../sass/external/_slick.grid.scss */
+/* line 139, ../sass/external/_slick.grid.scss */
 .slick-cell:focus {
   outline: none;
 }
 
-/* line 138, ../sass/external/_slick.grid.scss */
+/* line 143, ../sass/external/_slick.grid.scss */
 .slick-reorder-proxy {
   display: inline-block;
   background: blue;
@@ -609,7 +615,7 @@ classes should alter those!
   cursor: move;
 }
 
-/* line 146, ../sass/external/_slick.grid.scss */
+/* line 151, ../sass/external/_slick.grid.scss */
 .slick-reorder-guide {
   display: inline-block;
   height: 2px;
@@ -618,7 +624,7 @@ classes should alter those!
   filter: alpha(opacity=70);
 }
 
-/* line 154, ../sass/external/_slick.grid.scss */
+/* line 159, ../sass/external/_slick.grid.scss */
 .slick-selection {
   z-index: 10;
   position: absolute;
@@ -674,37 +680,31 @@ classes should alter those!
 #user-panel a {
   color: #bbb;
   display: block;
+  text-decoration: none;
 }
-/* line 40, ../sass/partials/_header.scss */
-#user-panel a:hover *, #user-panel a.act * {
-  color: #fff;
-  border-top-color: #fff;
+/* line 42, ../sass/partials/_header.scss */
+#user-panel .username {
+  line-height: 50px;
+  /* Dropdown arrow */
 }
 /* line 45, ../sass/partials/_header.scss */
-#user-panel img {
-  background: #444;
-  border: 0;
-  float: left;
-  height: 24px;
-  margin: 12px 10px 0 0;
-  width: 24px;
+#user-panel .username:hover, #user-panel .username:hover:after {
+  border-top-color: #fff;
+  color: #fff;
 }
-/* line 53, ../sass/partials/_header.scss */
-#user-panel .name {
-  line-height: 50px;
-  margin-right: 2px;
-}
-/* line 57, ../sass/partials/_header.scss */
-#user-panel .dropdown {
+/* line 51, ../sass/partials/_header.scss */
+#user-panel .username:after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 4px solid #bbb;
+  content: '';
   display: inline-block;
+  margin-left: 5px;
   position: relative;
   top: -1px;
 }
 
-/* line 67, ../sass/partials/_header.scss */
+/* line 64, ../sass/partials/_header.scss */
 #user-menu {
   background: #fff;
   border: 1px solid #ccc;
@@ -723,7 +723,7 @@ classes should alter those!
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-/* line 85, ../sass/partials/_header.scss */
+/* line 82, ../sass/partials/_header.scss */
 #user-menu .head {
   overflow: hidden;
   position: absolute;
@@ -733,7 +733,7 @@ classes should alter those!
   width: 16px;
   z-index: 2001;
 }
-/* line 94, ../sass/partials/_header.scss */
+/* line 91, ../sass/partials/_header.scss */
 #user-menu span {
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
@@ -742,14 +742,14 @@ classes should alter those!
   position: absolute;
   z-index: 2002;
 }
-/* line 103, ../sass/partials/_header.scss */
+/* line 100, ../sass/partials/_header.scss */
 #user-menu a {
   color: #222;
   display: block;
   font-weight: 400;
   padding: .4em 2em;
 }
-/* line 109, ../sass/partials/_header.scss */
+/* line 106, ../sass/partials/_header.scss */
 #user-menu a:hover {
   background: #888;
   color: #fff;
@@ -863,7 +863,7 @@ classes should alter those!
   -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  z-index: 2;
 }
 
 /* line 84, ../sass/partials/_songlist.scss */

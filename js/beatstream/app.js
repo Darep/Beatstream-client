@@ -19,6 +19,7 @@ define(
         'beatstream/views/preloader',
 
         'helpers/helpers',
+        'pathjs',
         'soundmanager2'
     ],
     function ($, mediator, Api, SM2Audio, LastFM, Playlists, TopPanel, Songlist, Sidebar, Player, Login, preloaderView) {
@@ -49,7 +50,6 @@ define(
                 $(window).resize(function () { resizeMain(); });
                 resizeMain();
 
-
                 // initiate the modules
                 api       = new Api(options.apiUrl);
                 audio     = new SM2Audio(api);
@@ -60,21 +60,9 @@ define(
                 songlist  = new Songlist('#slickgrid', this.songlistEvents);
                 sidebar   = new Sidebar('.app-nav', this.sidebarEvents);
                 player    = new Player('.app-now-playing');
-                router    = new Router();
 
                 startPreload( audio.start(), playlists.getAllMusic() );
-
-
-                this.setupRoutes();
             },
-            setupRoutes: function () {
-                Path.map("#!/settings").to(showSettings);
-            },
-
-            showSettings: function () {
-                // TODO: this
-            },
-
             songlistEvents: {
                 onDragStart: function (e, dd) {
                     var song_count = dd.draggedSongs.length;
