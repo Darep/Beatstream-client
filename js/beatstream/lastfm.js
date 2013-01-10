@@ -10,11 +10,11 @@ define(
 
 
         var LastFM = function (api) {
-            mediator.Subscribe("songlist:selectSong", function (song) {
+            mediator.subscribe("songlist:selectSong", function (song) {
                 newSong(song);
             });
 
-            mediator.Subscribe("audio:timeChange", function (elaps) {
+            mediator.subscribe("audio:timeChange", function (elaps) {
                 // try to scrobble
                 // won't scrobble if we should not scrobble
                 tryScrobble();

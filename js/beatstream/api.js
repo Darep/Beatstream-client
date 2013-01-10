@@ -81,7 +81,7 @@ define(
             console.log(req);
             var self = this;
             if (req.status === 401) {
-                mediator.Publish('error:noAuth');
+                mediator.publish('error:noAuth');
             }
         }
 

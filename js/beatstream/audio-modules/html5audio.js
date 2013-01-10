@@ -40,11 +40,11 @@
 
 
         // events from other modules
-        mediator.Subscribe("songlist:listEnd", function () {
+        mediator.subscribe("songlist:listEnd", function () {
             self.stop();
         });
 
-        mediator.Subscribe("audio:error", function () {
+        mediator.subscribe("audio:error", function () {
             if (error_counter > 2) {
                 self.pause();
                 error_counter = 0;
@@ -55,15 +55,15 @@
             }
         });
 
-        mediator.Subscribe("buttons:togglePause", function () {
+        mediator.subscribe("buttons:togglePause", function () {
             audio.togglePause();
         });
 
-        mediator.Subscribe("buttons:seek", function (value) {
+        mediator.subscribe("buttons:seek", function (value) {
             self.seekTo(value);
         });
 
-        mediator.Subscribe("buttons:setVolume", function (volume) {
+        mediator.subscribe("buttons:setVolume", function (volume) {
             self.setVolume(volume);
         });
 

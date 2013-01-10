@@ -166,7 +166,7 @@ define(
                 preloaderView.showError('no-flash');
 
                 // Hide the error if the audio can be started later on
-                mediator.Subscribe("audio:ready", function () {
+                mediator.subscribe("audio:ready", function () {
                     preloaderView.hideError('no-flash');
 
                     // unsubscribe

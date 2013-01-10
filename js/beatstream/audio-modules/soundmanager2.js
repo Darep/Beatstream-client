@@ -18,16 +18,16 @@ define(
 
 
             // events from other modules
-            mediator.Subscribe("songlist:selectSong", function (song) {
+            mediator.subscribe("songlist:selectSong", function (song) {
                 var url = api.getSongURI(song.path);
                 self.play(url);
             });
 
-            mediator.Subscribe("songlist:listEnd", function () {
+            mediator.subscribe("songlist:listEnd", function () {
                 self.stop();
             });
 
-            mediator.Subscribe("audio:error", function () {
+            mediator.subscribe("audio:error", function () {
                 if (errorCounter > 2) {
                     pause();
                     errorCounter = 0;
@@ -38,15 +38,15 @@ define(
                 }
             });
 
-            mediator.Subscribe("buttons:togglePause", function () {
+            mediator.subscribe("buttons:togglePause", function () {
                 self.togglePause();
             });
 
-            mediator.Subscribe("buttons:seek", function (value) {
+            mediator.subscribe("buttons:seek", function (value) {
                 self.seekTo(value);
             });
 
-            mediator.Subscribe("buttons:setVolume", function (volume) {
+            mediator.subscribe("buttons:setVolume", function (volume) {
                 self.setVolume(volume);
             });
         }
@@ -85,7 +85,7 @@ define(
                 noSWFCache: true,
                 onready: function() {
                     self.isReady = true;
-                    mediator.Publish("audio:ready");
+                    mediator.publish("audio:ready");
                     defer.resolve();
                 },
                 ontimeout: function (status) {
@@ -135,24 +135,24 @@ define(
 
                 // register events
                 onplay: function () {
-                    mediator.Publish("audio:play");
+                    mediator.publish("audio:play");
                 },
                 onresume: function () {
-                    mediator.Publish("audio:play");
+                    mediator.publish("audio:play");
                 },
                 onpause: function () {
-                    mediator.Publish("audio:pause");
+                    mediator.publish("audio:pause");
                 },
                 onfinish: function () {
-                    mediator.Publish("audio:songEnd");
+                    mediator.publish("audio:songEnd");
                 },
                 onload: function (success) {
                     var duration_in_seconds = parseInt(song.duration / 1000, 10);
-                    mediator.Publish("audio:parseDuration", duration_in_seconds);
+                    mediator.publish("audio:parseDuration", duration_in_seconds);
                 },
                 whileplaying: function () {
                     var elapsed_in_seconds = parseInt(song.position / 1000, 10);
-                    mediator.Publish("audio:timeChange", elapsed_in_seconds);
+                    mediator.publish("audio:timeChange", elapsed_in_seconds);
                 }
             });
 

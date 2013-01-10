@@ -26,21 +26,21 @@ define(
 
 
             // Events
-            mediator.Subscribe("songlist:selectSong", function (song) {
+            mediator.subscribe("songlist:selectSong", function (song) {
                 // show the selected song title instantly
                 playerTrack.text(song.nice_title);
             });
 
-            mediator.Subscribe("audio:play", function () {
+            mediator.subscribe("audio:play", function () {
                 // only show "playing" state after the audio module says it's playing
                 playPause.addClass('playing');
             });
 
-            mediator.Subscribe("audio:pause", function () {
+            mediator.subscribe("audio:pause", function () {
                 playPause.removeClass('playing');
             });
 
-            mediator.Subscribe("audio:timeChange", function (elaps) {
+            mediator.subscribe("audio:timeChange", function (elaps) {
                 elapsedTimeChanged(elaps);
 
                 if (!user_is_seeking) {
@@ -48,12 +48,12 @@ define(
                 }
             });
 
-            mediator.Subscribe("audio:parseDuration", function (duration_in_seconds) {
+            mediator.subscribe("audio:parseDuration", function (duration_in_seconds) {
                 durationChanged(duration_in_seconds);
                 seekbar.slider('option', 'disabled', false);
             });
 
-            mediator.Subscribe("songlist:stop", function () {
+            mediator.subscribe("songlist:stop", function () {
                 elapsedTimeChanged(0);
                 durationChanged(0);
                 seekbar.slider('value', 0);
@@ -103,7 +103,7 @@ define(
                     user_is_seeking = true;
                 },
                 stop: function(event, ui) {
-                    mediator.Publish("buttons:seek", ui.value);
+                    mediator.publish("buttons:seek", ui.value);
                     user_is_seeking = false;
                 }
             });
@@ -112,22 +112,22 @@ define(
             // playback buttons
             playPause.click(function (e) {
                 e.preventDefault();
-                mediator.Publish("buttons:togglePause");
+                mediator.publish("buttons:togglePause");
             });
 
             nextButton.click(function (e) {
                 e.preventDefault();
-                mediator.Publish("buttons:nextSong", getShuffle(), getRepeat());
+                mediator.publish("buttons:nextSong", getShuffle(), getRepeat());
             });
 
             prevButton.click(function (e) {
                 e.preventDefault();
-                mediator.Publish("buttons:prevSong");
+                mediator.publish("buttons:prevSong");
             });
 
             playerTrack.dblclick(function (e) {
                 e.preventDefault();
-                mediator.Publish("buttons:showNowPlaying");
+                mediator.publish("buttons:showNowPlaying");
             });
 
 
@@ -197,7 +197,7 @@ define(
             }
 
             function updateVolume(volume) {
-                mediator.Publish("buttons:setVolume", volume);
+                mediator.publish("buttons:setVolume", volume);
                 volumeLabel.attr('title', volume);
             }
 

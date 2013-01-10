@@ -6,23 +6,23 @@ require.config({
         },
         'slickgrid': [
             'jquery',
-            'components/SlickGrid/lib/jquery.event.drag-2.0.min',
-            'components/SlickGrid/slick.core',
-            'components/SlickGrid/slick.dataview',
-            'components/SlickGrid/plugins/slick.rowselectionmodel'
+            'lib/SlickGrid/lib/jquery.event.drag-2.0.min',
+            'lib/SlickGrid/slick.core',
+            'lib/SlickGrid/slick.dataview',
+            'lib/SlickGrid/plugins/slick.rowselectionmodel'
         ],
         'soundmanager2': [],
         'soundmanager2-audiomodule': ['soundmanager2']
     },
 
     paths: {
-        'jquery': 'components/jquery/jquery',
-        'jquery-ui': 'components/jquery-ui/ui/jquery-ui',
-        'mediator': 'components/Mediator.js/mediator',
-        'slickgrid': 'components/SlickGrid/slick.grid',
-        'soundmanager2': 'components/SoundManager2/script/soundmanager2', //-nodebug-jsmin',
-        'store': 'components/store.js/store.min',
-        'pathjs': 'components/pathjs/path.min'
+        'jquery': 'lib/jquery.min',
+        'jquery-ui': 'lib/jquery-ui',
+        'mediator': 'lib/mediator.min',
+        'slickgrid': 'lib/SlickGrid/slick.grid',
+        'soundmanager2': 'lib/SoundManager2/script/soundmanager2', //-nodebug-jsmin',
+        'store': 'lib/store.min',
+        'pathjs': 'lib/path.min'
     },
 
     urlArgs: "timestamp=" + new Date().getTime(),

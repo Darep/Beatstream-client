@@ -18,35 +18,35 @@ define(
             this.events = events;
 
             // events from other modules
-            mediator.Subscribe("playlists:allMusic", function (data) {
+            mediator.subscribe("playlists:allMusic", function (data) {
                 self.loadPlaylist(data);
                 updatePlaylistHeader('All Music', data.length);
             });
 
-            mediator.Subscribe("audio:songEnd", function () {
+            mediator.subscribe("audio:songEnd", function () {
                 self.nextSong(NowPlaying.getShuffle(), NowPlaying.getRepeat());
             });
 
-            mediator.Subscribe("audio:error", function () {
+            mediator.subscribe("audio:error", function () {
                 self.nextSong(getShuffle(), getRepeat());
             });
 
-            mediator.Subscribe("buttons:togglePause", function () {
+            mediator.subscribe("buttons:togglePause", function () {
                 // if not playing anything, start playing the first song on the playlist
                 if (!self.isPlaying()) {
                     self.nextSong(getShuffle(), getRepeat());
                 }
             });
 
-            mediator.Subscribe("buttons:nextSong", function (shuffle, repeat) {
+            mediator.subscribe("buttons:nextSong", function (shuffle, repeat) {
                 self.nextSong(shuffle, repeat, true);
             });
 
-            mediator.Subscribe("buttons:prevSong", function () {
+            mediator.subscribe("buttons:prevSong", function () {
                 self.prevSong();
             });
 
-            mediator.Subscribe("buttons:showNowPlaying", function () {
+            mediator.subscribe("buttons:showNowPlaying", function () {
                 self.scrollNowPlayingIntoView();
             });
 
@@ -213,7 +213,7 @@ define(
                 }
 
                 var song = dataView.getItemById(id);
-                mediator.Publish("songlist:selectSong", song);
+                mediator.publish("songlist:selectSong", song);
 
                 grid.playingSongId = song.id;
 
@@ -286,7 +286,7 @@ define(
             };
 
             grid.stop = function () {
-                mediator.Publish("songlist:listEnd");
+                mediator.publish("songlist:listEnd");
                 // TODO: hide now playing icon from slickgrid
                 self.resetPlaying();
             };

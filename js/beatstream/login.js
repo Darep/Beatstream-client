@@ -3,7 +3,7 @@ define(
     function ($, mediator) {
 
         var Login = function () {
-            mediator.Subscribe('error:noAuth', function () {
+            mediator.subscribe('error:noAuth', function () {
                 // show the login window
                 // TODO: this
             });

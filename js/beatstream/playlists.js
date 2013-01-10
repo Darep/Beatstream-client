@@ -33,7 +33,7 @@ define(
             var req = this.api.getAllMusic();
 
             req.done(function (data) {
-                mediator.Publish('playlists:allMusic', data);
+                mediator.publish('playlists:allMusic', data);
             });
 
             return req;

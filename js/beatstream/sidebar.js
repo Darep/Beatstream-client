@@ -8,7 +8,7 @@ define(
 
             var $sidebar, activePlaylist, playlistList;
 
-            mediator.Subscribe('playlists:allMusic', function (data) {
+            mediator.subscribe('playlists:allMusic', function (data) {
                 // update "All music" song count on sidebar
                 var count = commify( parseInt( data.length, 10 ) );
                 $('.medialibrary.count').text(count);
