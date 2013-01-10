@@ -79,7 +79,8 @@ define(
 
             soundManager.setup({
                 url: '/swf/',
-                useFlashBlock: true, // optionally, enable when you're ready to dive in
+                preferFlash: false,
+                useFlashBlock: true,
                 useHTML5Audio: true,
                 useHighPerformance: true,
                 noSWFCache: true,
