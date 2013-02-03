@@ -151,6 +151,13 @@ a:hover {
 }
 
 /* line 6, ../sass/partials/_common.scss */
+.ir, .dialog .close {
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+/* line 12, ../sass/partials/_common.scss */
 .none {
   color: #666;
   margin: 15px 0;
@@ -304,7 +311,7 @@ a:hover {
 }
 
 /* line 1, ../sass/partials/_buttons.scss */
-.btn, button, [type="submit"] {
+.btn {
   background: #595959;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #707070), color-stop(100%, #424242));
   background: -webkit-linear-gradient(top, #707070, #424242);
@@ -329,7 +336,7 @@ a:hover {
   -webkit-font-smoothing: antialiased;
 }
 /* line 21, ../sass/partials/_buttons.scss */
-.btn:hover, button:hover, [type="submit"]:hover {
+.btn:hover {
   background: #707070;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #424242));
   background: -webkit-linear-gradient(top, #888888, #424242);
@@ -342,9 +349,10 @@ a:hover {
 /* line 1, ../sass/partials/_forms.scss */
 label {
   font-size: 0.875rem;
+  line-height: 1.25;
 }
 
-/* line 5, ../sass/partials/_forms.scss */
+/* line 6, ../sass/partials/_forms.scss */
 [type="text"], [type="password"], [type="search"] {
   border: 1px solid #bbbbbb;
   font: 0.8rem/1.429 "Helvetica Neue", sans-serif;
@@ -428,64 +436,87 @@ label {
 }
 
 /* line 1, ../sass/partials/_dialogs.scss */
-.dialogs, [class|="dialogs"] {
+.dialog-container {
   background: rgba(0, 0, 0, 0.7);
-  position: absolute;
+  display: none;
+  overflow-x: hidden;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100%;
-  width: 100%;
   z-index: 100;
 }
 
-/* line 14, ../sass/partials/_dialogs.scss */
-.dialog, [class|="dialog"] {
+/* line 13, ../sass/partials/_dialogs.scss */
+.dialog {
   background: #fff;
-  border: 1px solid #dddddd;
-  border-radius: 8px;
-  display: none;
-  margin: 10% auto 0;
+  background-clip: padding-box;
+  border: 1px solid #555555;
+  border-radius: 6px;
+  margin: 10% auto 5%;
   overflow: hidden;
   padding: 25px;
+  position: relative;
   width: 320px;
-  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 /* line 25, ../sass/partials/_dialogs.scss */
-.dialog h2, .dialog section, [class|="dialog"] h2, [class|="dialog"] section {
+.dialog .close {
+  background: #ddd;
+  border: 0;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-shadow: none;
+  width: 32px;
+  -webkit-appearance: none;
+}
+/* line 40, ../sass/partials/_dialogs.scss */
+.dialog h2, .dialog section {
   margin: 0 -25px;
 }
-/* line 29, ../sass/partials/_dialogs.scss */
-.dialog h2, [class|="dialog"] h2 {
-  padding: 0 25px;
+/* line 44, ../sass/partials/_dialogs.scss */
+.dialog h2 {
+  padding: 0 25px 20px;
 }
-/* line 33, ../sass/partials/_dialogs.scss */
-.dialog section, [class|="dialog"] section {
+/* line 48, ../sass/partials/_dialogs.scss */
+.dialog section {
   padding: 20px 25px;
 }
-/* line 37, ../sass/partials/_dialogs.scss */
-.dialog section + section, [class|="dialog"] section + section {
+/* line 52, ../sass/partials/_dialogs.scss */
+.dialog section + section {
   border-top: 1px solid #c7c7c7;
 }
-/* line 41, ../sass/partials/_dialogs.scss */
-.dialog .form-field, [class|="dialog"] .form-field {
-  margin: 0 0 10px;
-  padding-left: 120px;
+/* line 56, ../sass/partials/_dialogs.scss */
+.dialog .form-field {
+  margin: 0 0 15px 120px;
   position: relative;
 }
-/* line 47, ../sass/partials/_dialogs.scss */
-.dialog label, [class|="dialog"] label {
-  position: absolute;
-  left: 0;
-  top: 0;
+/* line 61, ../sass/partials/_dialogs.scss */
+.dialog label {
+  clear: both;
+  float: left;
   width: 100px;
 }
-/* line 58, ../sass/partials/_dialogs.scss */
-.dialog a, [class|="dialog"] a {
+/* line 67, ../sass/partials/_dialogs.scss */
+.dialog label, .dialog p {
+  line-height: 1.25;
+  padding-top: .25em;
+}
+/* line 76, ../sass/partials/_dialogs.scss */
+.dialog a {
   text-decoration: none;
+}
+
+/* line 85, ../sass/partials/_dialogs.scss */
+#dialog-settings .loading {
+  display: inline-block;
 }
 
 /*

@@ -1,33 +1,48 @@
-.dialogs, [class|="dialogs"] {
+.dialog-container {
     background: rgba(0,0,0, 0.7);
-    position: absolute;
+    display: none;
+    overflow-x: hidden;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 100%;
-    width: 100%;
     z-index: 100;
 }
 
-
-.dialog, [class|="dialog"] {
+.dialog {
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    display: none;
-    margin: 10% auto 0;
+    background-clip: padding-box;
+    border: 1px solid #555;
+    border-radius: 6px;
+    margin: 10% auto 5%;
     overflow: hidden;
     padding: 25px;
+    position: relative;
     width: 320px;
-    @include box-shadow(0 5px 20px rgba(0, 0, 0, 0.4));
+    @include box-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+
+    .close {
+        background: #ddd;
+        border: 0;
+        height: 32px;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        text-shadow: none;
+        width: 32px;
+        -webkit-appearance: none;
+        @extend .ir;
+    }
 
     h2, section {
         margin: 0 -25px;
     }
 
     h2 {
-        padding: 0 25px;
+        padding: 0 25px 20px;
     }
 
     section {
@@ -39,16 +54,19 @@
     }
 
     .form-field {
-        margin: 0 0 10px;
-        padding-left: 120px;
+        margin: 0 0 15px 120px;
         position: relative;
     }
 
     label {
-        position: absolute;
-        left: 0;
-        top: 0;
+        clear: both;
+        float: left;
         width: 100px;
+    }
+
+    label, p {
+        line-height: 1.25;
+        padding-top: .25em;
     }
 
     input {
@@ -60,5 +78,11 @@
     }
 
     [type="submit"] {
+    }
+}
+
+#dialog-settings {
+    .loading {
+        display: inline-block;
     }
 }

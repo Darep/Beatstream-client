@@ -121,83 +121,85 @@
     </div>
 </div><!-- #app -->
 
-<div class="dialogs" style="display:none;">
-    <div class="dialog-login">
-        <h2>Log in</h2>
-        <form accept-charset="UTF-8" action="/login" method="post">
+<div class="dialogs">
+    <div id="dialog-login" class="dialog-container">
+        <div class="dialog">
+            <button class="close">
+                <i class="icon-close ir">Close</i>
+            </button>
+            <h2>Log in</h2>
+            <label>Username</label>
             <div class="form-field">
-                <label>Username</label>
-                <input id="username" name="username" type="text" />
+                <input id="username" name="username" type="text" tabindex="1" />
             </div>
-            <div class="form-field">
-                <label>Password</label>
-                <input id="password" name="password" type="password" />
-            </div>
-            <div class="form-field">
-                <input class="submit" name="commit" type="submit" value="Log in" />
-            </div>
-        </form>
-    </div>
-    <div class="dialog-settings" id="settings-dialog">
-        <h2>Settings</h2>
-        <section>
-            <div class="form-field">
-                <label>Username</label>
-                <input type="text" id="username" value="" />
-            </div>
-            <div class="form-field">
-                <label>Email</label>
-                <input type="text" id="username" value="" />
-            </div>
-            <div class="form-field">
-                <label>Password</label>
-                <p><a id="change-password-link">Change password...</a></p>
-            </div>
-        </section>
-        <section>
-            <div class="form-field">
-                <label>Last.fm</label>
-                <a class="btn not-ok" id="lastfm-connect">Connect to Last.fm</a>
-                <p class="ok" style="display: none;">
-                    Connected
-                    <a class="btn" id="lastfm-disconnect">Remove connection</a>
-                </p>
-            </div>
-        </section>
-        <div class="form-field">
-            <input type="submit" value="Save">
-        </div>
-    </div>
-    <div class="dialog-change-password" id="change-password-dialog">
-        <h2>Change password</h2>
-        <div class="form-field">
-            <label>Current password</label>
-            <input type="password" id="current-password" />
-        </div>
-        <div class="form-field">
-            <label>New password</label>
-            <input type="password" id="new-password" />
-        </div>
-        <div class="form-field">
-            <label>Confirm new password</label>
-            <input type="password" id="new-password-2" />
-        </div>
-        <div class="form-field">
-            <input type="submit" value="Update Password">
-        </div>
-    </div>
-    <div class="dialog-connect-lastfm" id="change-password-dialog">
-        <h2>Change password</h2>
-        <div class="form-field">
-            <label>Email</label>
-            <input type="text" id="username" value="" />
-        </div>
-        <div class="form-field">
             <label>Password</label>
-            <a id="change-password-link">Change password...</a>
+            <div class="form-field">
+                <input id="password" name="password" type="password" tabindex="2" />
+            </div>
+            <div class="form-field">
+                <input class="btn" name="commit" type="submit" value="Log in" tabindex="3" />
+                <span class="loading ir" style="display: none;">Saving...</span>
+            </div>
         </div>
-        <div class="form-field">
-            <input type="submit" value="Save">
+    </div>
+    <div id="dialog-settings" class="dialog-container">
+        <div class="dialog">
+            <button class="close">
+                <i class="icon-close ir">Close</i>
+            </button>
+            <h2>Settings</h2>
+            <section>
+                <label>Username</label>
+                <div class="form-field">
+                    <input type="text" id="username" value="" tabindex="1" />
+                </div>
+                <label>Email</label>
+                <div class="form-field">
+                    <input type="text" id="username" value="" tabindex="2" />
+                </div>
+                <label>Password</label>
+                <div class="form-field">
+                    <p><a id="change-password-link" tabindex="3">Change password...</a></p>
+                </div>
+            </section>
+            <section>
+                <label>Last.fm</label>
+                <div class="form-field">
+                    <button class="btn btn-lastfm not-ok" id="lastfm-connect" tabindex="4">Connect to Last.fm</button>
+                    <p class="ok" style="display: none;">
+                        Connected
+                        <button class="btn" id="lastfm-disconnect" tabindex="4">Remove connection</button>
+                    </p>
+                </div>
+            </section>
+            <div class="form-field">
+                <input type="submit" class="btn" value="Save" tabindex="5">
+                <span class="loading ir" style="display: none;">Saving...</span>
+            </div>
+        </div>
+    </div>
+    <div id="dialog-change-password" class="dialog-container">
+        <div class="dialog">
+            <button class="close">
+                <i class="icon-close ir">Close</i>
+            </button>
+            <h2>Change password</h2>
+            <label>Current password</label>
+            <div class="form-field">
+                <input type="password" id="current-password" />
+            </div>
+            <label>New password</label>
+            <div class="form-field">
+                <input type="password" id="new-password" />
+            </div>
+            <label>Confirm new password</label>
+            <div class="form-field">
+                <input type="password" id="new-password-2" />
+            </div>
+            <div class="form-field">
+                <input type="submit" class="btn" value="Update Password">
+                <span class="loading ir" style="display: none;">Saving...</span>
+            </div>
         </div>
     </div>
 </div><!-- .dialogs -->

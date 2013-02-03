@@ -139,8 +139,6 @@ define([
             startPreload( audio.start(), playlists.getAllMusic() );
 
 
-            $('.dialogs').show(); $('.dialogs .dialog-settings').show();
-
             // resize the main-area to correct height
             var resizeMain = function () {
                 var h = $(window).height() - $('.app-top').outerHeight(true) - $('.app-now-playing').outerHeight(true);

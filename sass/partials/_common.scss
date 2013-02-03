@@ -3,6 +3,12 @@
     @include box-shadow(0 1px 0 #fff);
 }
 
+.ir {
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+}
+
 .none {
     color:#666;
     margin:15px 0;
