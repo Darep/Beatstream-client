@@ -4,32 +4,12 @@ html,body {
 }
 
 body {
-    color:#333;
-    font-family:sans-serif;
-    margin:0 auto;
-    overflow:hidden;
-
+    color: $color-text;
+    font: 1em/1.5 $font-body;
+    margin: 0 auto;
+    overflow: hidden;
     -webkit-font-smoothing: antialiased;
 
     /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
     -webkit-backface-visibility: hidden;
 }
-
-
-.under-construction {
-    border:2px dashed #bbb;
-    color:#666;
-    margin:15px 0;
-    padding:10px 12px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-}
-
-.none {
-    color:#666;
-    margin:15px 0;
-    padding:10px 12px;
-    text-align:center
-}
-

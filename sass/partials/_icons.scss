@@ -1,4 +1,4 @@
-.icon {
+.icon, [class|="icon"] {
     background: url('/img/icons.png') no-repeat;
 }
 
@@ -6,16 +6,16 @@
     background-position:-117px -192px;
 }
 
-.loading {
-    background:url('/img/preloader.gif') no-repeat;
+.icon-sync {
+    background:url('/img/sync.gif') no-repeat;
+    display:inline-block;
     height:16px;
     width:16px;
     @include image-replacement;
 }
 
-.sync-icon {
-    background:url('/img/sync.gif') no-repeat;
-    display:inline-block;
+.loading {
+    background:url('/img/preloader.gif') no-repeat;
     height:16px;
     width:16px;
     @include image-replacement;

@@ -25,24 +25,6 @@
 </head>
 <body>
 
-<div class="login" style="display:none;">
-    <div class="dialog login-dialog">
-        <form accept-charset="UTF-8" action="/login" method="post">
-            <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
-            <div>
-                <label>Username</label>
-                <input id="username" name="username" type="text" />
-            </div>
-
-            <div>
-                <label>Password</label>
-                <input id="password" name="password" type="password" />
-                <input class="submit" name="commit" type="submit" value="Log in" />
-            </div>
-        </form>
-    </div>
-</div>
-
 <div id="app">
     <header class="app-top">
         <h1 class="logo">
@@ -60,20 +42,38 @@
     </header>
     <div class="wrapper">
         <div class="app-nav">
-            <div class="app-nav-wrap">
-                <ul class="common">
+            <section class="common">
+                <ul>
                     <li class="all-music">
                         <a class="act">
                             <span class="name">All music</span>
-                            <span class="medialibrary count">&ndash;</span>
+                            <span class="count">&ndash;</span>
                         </a>
                     </li>
+                    <!--
+                    <li class="artists">
+                        <a>
+                            <span class="name">Artists</span>
+                        </a>
+                    </li>
+                    <li class="albums">
+                        <a>
+                            <span class="name">Albums</span>
+                        </a>
+                    </li>
+                    -->
                 </ul>
-                <ul class="playlists">
-                    <p class="none">Loading...</p>
-                </ul>
-                <a class="btn btn-new-list">+ New Playlist</a>
-            </div>
+            </section>
+            <section class="playlists">
+                <p class="loading">Loading...</p>
+                <p class="none" style="display:none;">No playlists, yet.</p>
+                <ul></ul>
+                <div class="playlist-input" style="display:none;">
+                    <input type="text" class="new-list" name="list-name" />
+                    <p class="error" style="display:none;">Sorry, that name is no good</p>
+                </div>
+            </section>
+            <a class="btn btn-new-list">+ New Playlist</a>
         </div>
         <div class="app-main">
             <div class="playlist">
@@ -108,7 +108,7 @@
                 <div id="player-volume-slider"></div>
             </div>
             <p id="player-time">
-                <span class="elapsed">00:00</span> / <span class="duration">00:00</span>
+                <span class="elapsed">0:00</span> / <span class="duration">0:00</span>
             </p>
             <div id="player-buttons-2">
                 <button id="repeat" type="button">Repeat <span class="status">Off</span></button>
@@ -121,11 +121,86 @@
     </div>
 </div><!-- #app -->
 
-<div class="dialogs">
-    <div class="dialog settings" id="settings-dialog">
-
+<div class="dialogs" style="display:none;">
+    <div class="dialog-login">
+        <h2>Log in</h2>
+        <form accept-charset="UTF-8" action="/login" method="post">
+            <div class="form-field">
+                <label>Username</label>
+                <input id="username" name="username" type="text" />
+            </div>
+            <div class="form-field">
+                <label>Password</label>
+                <input id="password" name="password" type="password" />
+            </div>
+            <div class="form-field">
+                <input class="submit" name="commit" type="submit" value="Log in" />
+            </div>
+        </form>
     </div>
-</div>
+    <div class="dialog-settings" id="settings-dialog">
+        <h2>Settings</h2>
+        <section>
+            <div class="form-field">
+                <label>Username</label>
+                <input type="text" id="username" value="" />
+            </div>
+            <div class="form-field">
+                <label>Email</label>
+                <input type="text" id="username" value="" />
+            </div>
+            <div class="form-field">
+                <label>Password</label>
+                <p><a id="change-password-link">Change password...</a></p>
+            </div>
+        </section>
+        <section>
+            <div class="form-field">
+                <label>Last.fm</label>
+                <a class="btn not-ok" id="lastfm-connect">Connect to Last.fm</a>
+                <p class="ok" style="display: none;">
+                    Connected
+                    <a class="btn" id="lastfm-disconnect">Remove connection</a>
+                </p>
+            </div>
+        </section>
+        <div class="form-field">
+            <input type="submit" value="Save">
+        </div>
+    </div>
+    <div class="dialog-change-password" id="change-password-dialog">
+        <h2>Change password</h2>
+        <div class="form-field">
+            <label>Current password</label>
+            <input type="password" id="current-password" />
+        </div>
+        <div class="form-field">
+            <label>New password</label>
+            <input type="password" id="new-password" />
+        </div>
+        <div class="form-field">
+            <label>Confirm new password</label>
+            <input type="password" id="new-password-2" />
+        </div>
+        <div class="form-field">
+            <input type="submit" value="Update Password">
+        </div>
+    </div>
+    <div class="dialog-connect-lastfm" id="change-password-dialog">
+        <h2>Change password</h2>
+        <div class="form-field">
+            <label>Email</label>
+            <input type="text" id="username" value="" />
+        </div>
+        <div class="form-field">
+            <label>Password</label>
+            <a id="change-password-link">Change password...</a>
+        </div>
+        <div class="form-field">
+            <input type="submit" value="Save">
+        </div>
+    </div>
+</div><!-- .dialogs -->
 
 <div class="preloader">
     <div class="preloader-wrap">
@@ -149,13 +224,10 @@
 <div id="templates" style="display:none;">
 
     <li class="playlist">
-        <a data-url="" class="name"></a>
-    </li>
-
-    <li class="playlist insync">
         <a data-url="" class="name">
-            <span class="sync-icon">Syncing...</span>
+            Untitled
         </a>
+        <span class="icon-sync">Syncing...</span>
     </li>
 
 </div>

@@ -1,26 +1,48 @@
 define(
-    ['beatstream/mediator', 'helpers/helpers'],
-    function (mediator) {
+    ['beatstream/mediator', 'beatstream/api', 'transparency', 'helpers/helpers'],
+    function (mediator, api, transparency) {
 
         var NEW_PLAYLIST_NAME = 'New playlist';
 
         function Sidebar(selector) {
 
-            var $sidebar, activePlaylist, playlistList;
+            var self = this;
+            var $sidebar, activePlaylist, playlistList, newPlaylistDialog,
+                nameField, nameErrorField, noPlaylistsText, playlistTemplate;
+
+            $sidebar = $(selector);
+            activePlaylist = $sidebar.find('.all-music a');
+            playlistSection = $sidebar.find('.playlists');
+            playlistList = playlistSection.find('ul');
+            noPlaylistsText = playlistSection.find('.none');
+            loading = playlistSection.find('.loading');
+            newPlaylistDialog = playlistSection.find('.playlist-input');
+            nameField = newPlaylistDialog.find('input');
+            nameErrorField = nameField.next('.error');
+            playlistTemplate = template('.playlist');
 
             mediator.subscribe('playlists:allMusic', function (data) {
                 // update "All music" song count on sidebar
                 var count = commify( parseInt( data.length, 10 ) );
-                $('.medialibrary.count').text(count);
+                $sidebar.find('.all-music .count').text(count);
             });
 
-            var self = this;
-            $sidebar = $(selector);
-            activePlaylist = $sidebar.find('.all-music a');
-            playlistList = $sidebar.find('.playlists');
+            // show "All music" on click
+            $sidebar.find('.all-music a').click(function (e) {
+                e.preventDefault();
 
-            // show current playlists on the sidebar
+                var $this = $(this);
+                if ($this.hasClass('act')) {
+                    return;
+                }
 
+                var name = $this.find('.name').text();
+
+                setActivePlaylist($this);
+
+                // TODO: tell modules that all music was selected
+                //events.onOpenAllMusic();
+            });
 
             // show playlist when playlist name is clicked
             playlistList.find('a').live('click', function (e) {
@@ -42,50 +64,29 @@ define(
                 //events.onOpenPlaylist(name);
             });
 
-            // show "All music" on click
-            $sidebar.find('.all-music a').click(function (e) {
-                e.preventDefault();
-
-                var $this = $(this);
-                if ($this.hasClass('act')) {
-                    return;
-                }
-
-                var name = $this.find('.name').text();
-
-                setActivePlaylist($this);
-
-                // TODO: tell modules that all music was selected
-                //events.onOpenAllMusic();
-            });
-
-
             // New playlist
-            var newPlaylistInput = playlistList.find('.playlist-input');
-            var nameField = newPlaylistInput.find('input');
-            var nameErrorField = nameField.next('.error');
-
             nameField.onEnter(function () {
                 var $this = $(this);
                 var value = $this.val() || '';
                 var list_name = $.trim(value);
 
-                // empty list name, abort
+                // empty list name, abort!
                 if (list_name === '') {
-                    list_item.remove();
+                    newPlaylistDialog.hide();
                     return;
                 }
 
                 // TODO: check that there is no list with the same name?
                 //       -- or -- do this server-side?
 
-                var playlistInSync = template('.playlist.insync').render({ name: list_name }).clone();
-                newPlaylistInput.before(playlistInSync);
-                newPlaylistInput.hide();
+                var playlistInSync = playlistTemplate.clone();
+                playlistInSync.render({ name: list_name });
+                playlistInSync.addClass('syncing');
+                newPlaylistDialog.before(playlistInSync);
+                newPlaylistDialog.hide();
 
                 // create the playlist
-                var req = Beatstream.Api.createPlaylist(list_name);
-
+                var req = api.createPlaylist(list_name);
                 req.success(function (data) {
                     console.log(playlistInSync);
                     playlistInSync.removeClass('insync');
@@ -94,9 +95,7 @@ define(
                     // hide error feedback
                     nameField.removeClass('error');
                     nameErrorField.hide();
-                });
-
-                req.error(function () {
+                }).error(function () {
                     playlistInSync.remove();
                     $('#sidebar .btn-new-list').click();
 
@@ -106,17 +105,16 @@ define(
                 });
 
                 //  hide "no playlists" text
-                playlistList.prev('.none').hide();
+                noPlaylistsText.hide();
             });
 
             $sidebar.find('.btn-new-list').click(function (e) {
                 e.preventDefault();
 
                 nameField.val(NEW_PLAYLIST_NAME);
-                newPlaylistInput.show();
+                newPlaylistDialog.show();
                 nameField.focus().select();
             });
-
 
             function setActivePlaylist($this) {
                 if (activePlaylist !== undefined && activePlaylist.length) {

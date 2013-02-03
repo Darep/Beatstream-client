@@ -1,17 +1,22 @@
-.btn {
+.btn, button, [type="submit"] {
     background:#595959;
     @include background(linear-gradient(top, #707070, #424242));
+    border: 0;
     border-radius:3px;
     color:#fff;
     display:inline-block;
+    font-family: $font-body;
     font-size:12px;
     font-weight:700;
     height:28px;
     line-height:28px;
+    margin: 0;
     padding:0 8px;
     text-align:center;
     text-decoration: none;
     text-shadow:0 1px 0 #000;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
 
     &:hover {
         background:#707070;

@@ -1,13 +1,19 @@
 .app-nav {
-    background:#eaeaea;
-    font-size:11px;
+    background: #eaeaea;
+    font-size: 11px;
+    min-width: 100px;
+
+    .loading {
+        margin: 0 auto 0;
+    }
+
+    section {
+        padding: 10px 0;
+        @extend %bordered;
+    }
 
     ul {
-        border-bottom:1px solid #c7c7c7;
         list-style:none;
-        margin:0 -20px 15px;
-        padding:0 0 10px;
-        @include box-shadow(0 1px 0 #fff);
     }
 
     li {
@@ -36,16 +42,16 @@
                 top:0;
                 width:5px;
             }
+
+            &.act {
+                &:after {
+                    background-color:#f18c06;
+                }
+            }
         }
 
         &.hover a {
             color:#222;
-        }
-
-        a.act {
-            &:after {
-                background-color:#f18c06;
-            }
         }
     }
 
@@ -63,55 +69,53 @@
         }
     }
 
-    .none {
-        padding-bottom:0;
+    .icon-sync {
+        display: none;
+        position: absolute;
+        right: 0;
     }
 
-    .insync {
+    .syncing {
         font-style:italic;
 
         a:hover {
             color:#777;
             cursor:default;
         }
-    }
-    .sync-icon {
-        margin-left:5px;
-        position:relative;
-    }
 
-    .playlist-input {
-        margin-top:10px;
-    }
-
-    .btn-new-list {
-        display:block;
-        margin:0 auto;
-        width:82px;
-    }
-
-    .new-list {
-        border:1px solid #bbb;
-        font-size:11px;
-        margin:0 20px;
-        padding:3px 4px;
-
-        &.error {
-            border:1px solid red;
-            @include animation(shake 1s ease);
+        .icon-sync {
+            display: block;
         }
     }
-    p.error {
+
+    .error {
         color:#c22;
         margin:0 20px;
     }
 }
 
-.app-nav-wrap {
-    padding:10px 20px;
-    min-width:100px;
+/* New playist */
+.playlist-input {
+    margin-top: 10px;
 }
 
+.btn-new-list {
+    display: block;
+    margin: 15px auto 0;
+    width: 82px;
+}
+
+.new-list {
+    border:1px solid #bbb;
+    font-size:11px;
+    margin:0 20px;
+    padding:3px 4px;
+
+    &.error {
+        border:1px solid red;
+        @include animation(shake 1s ease);
+    }
+}
 
 /* draginfo */
 #draginfo {

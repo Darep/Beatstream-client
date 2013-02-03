@@ -11,11 +11,7 @@
 }
     .ui-slider-range {
         background:#f6a828;
-        background: -webkit-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
-        background: -moz-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
-        background: -o-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
-        background: -ms-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
-        background:linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
+        @include background(linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311));
         display:block;
         height:8px;
         position: absolute;
@@ -26,11 +22,7 @@
     }
 .ui-slider-handle {
     background:#eee;
-    background: -webkit-linear-gradient(top, #faf9f8, #c3c2c1);
-    background: -moz-linear-gradient(top, #faf9f8, #c3c2c1);
-    background: -o-linear-gradient(top, #faf9f8, #c3c2c1);
-    background: -ms-linear-gradient(top, #faf9f8, #c3c2c1);
-    background:linear-gradient(top, #faf9f8, #c3c2c1);
+    @include background(linear-gradient(top, #faf9f8, #c3c2c1));
     border:1px solid #bbb;
     border-top:1px solid #fafafa;
     display:block;

@@ -1,0 +1,13 @@
+label {
+    font-size: 0.875rem;
+}
+
+[type="text"], [type="password"], [type="search"] {
+    border: 1px solid #bbb;
+    font: 0.8rem/1.429 $font-body;
+    line-height: 1.3em;
+    margin: 0;
+    padding: 0.3em 0.4em;
+    -webkit-appearance: none;
+    @include box-shadow(inset 1px 2px 4px rgba(0,0,0,0.1));
+}

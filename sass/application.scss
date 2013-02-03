@@ -1,6 +1,6 @@
-/**
- * Beatstream CSS
- */
+//
+// Beatstream CSS
+//
 
 @import "compass/css3";
 
@@ -9,20 +9,21 @@
 
 @import "partials/reset";
 
-
 /* Base styles */
 @import "partials/base";
 @import "partials/layout";
 @import "partials/typography";
+
+/* Objects */
+@import "partials/common";
 @import "partials/icons";
 @import "partials/animations";
 @import "partials/buttons";
 @import "partials/forms";
-@import "partials/sliders";
+@import "partials/objects/sliders";
 @import "partials/dialogs";
 
 @import "external/slick.grid";
-
 
 /* Modules */
 @import "partials/header";

@@ -1,47 +1,64 @@
-.dialogs, .login {
-    position:absolute;
-    height:100%;
-    width:100%;
-    z-index:100;
+.dialogs, [class|="dialogs"] {
+    background: rgba(0,0,0, 0.7);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
 }
 
 
-.dialogs {
-    background:rgba(0,0,0, 0.4);
-}
-
-
-.login {
-    background:#f1f1f1;
-}
-
-
-.dialog {
-    margin:10% auto 0;
+.dialog, [class|="dialog"] {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: none;
+    margin: 10% auto 0;
+    overflow: hidden;
+    padding: 25px;
     width: 320px;
-}
+    @include box-shadow(0 5px 20px rgba(0, 0, 0, 0.4));
 
+    h2, section {
+        margin: 0 -25px;
+    }
 
-.login-dialog {
-    text-align:center;
-    width:500px;
+    h2 {
+        padding: 0 25px;
+    }
 
-    div {
-        margin-bottom:5px;
+    section {
+        padding: 20px 25px;
+    }
+
+    section + section {
+        border-top: 1px solid $color-border;
+    }
+
+    .form-field {
+        margin: 0 0 10px;
+        padding-left: 120px;
+        position: relative;
     }
 
     label {
-        display:inline-block;
-        margin-right:10px;
-        text-align:right;
-        text-transform:lowercase;
-        width:120px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100px;
     }
 
-    .submit {
-        background:transparent;
-        border:0;
-        cursor:pointer;
-        position:absolute;
+    input {
+
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    [type="submit"] {
     }
 }

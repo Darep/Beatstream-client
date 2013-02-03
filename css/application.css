@@ -1,6 +1,3 @@
-/**
- * Beatstream CSS
- */
 /* RESET */
 /* line 2, ../sass/partials/_reset.scss */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
@@ -59,32 +56,13 @@ html, body {
 
 /* line 6, ../sass/partials/_base.scss */
 body {
-  color: #333;
-  font-family: sans-serif;
+  color: #333333;
+  font: 1em/1.5 "Helvetica Neue", sans-serif;
   margin: 0 auto;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
   -webkit-backface-visibility: hidden;
-}
-
-/* line 19, ../sass/partials/_base.scss */
-.under-construction {
-  border: 2px dashed #bbb;
-  color: #666;
-  margin: 15px 0;
-  padding: 10px 12px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-}
-
-/* line 29, ../sass/partials/_base.scss */
-.none {
-  color: #666;
-  margin: 15px 0;
-  padding: 10px 12px;
-  text-align: center;
 }
 
 /* line 1, ../sass/partials/_layout.scss */
@@ -123,43 +101,65 @@ body {
 }
 
 /* line 1, ../sass/partials/_typography.scss */
+h2, h3 {
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+/* line 5, ../sass/partials/_typography.scss */
 h2 {
   font-size: 24px;
   font-weight: 700;
   line-height: 21px;
 }
 
-/* line 7, ../sass/partials/_typography.scss */
+/* line 11, ../sass/partials/_typography.scss */
 h3 {
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
 }
 
-/* line 13, ../sass/partials/_typography.scss */
+/* line 17, ../sass/partials/_typography.scss */
 h5 {
   font-weight: 700;
 }
 
-/* line 17, ../sass/partials/_typography.scss */
+/* line 21, ../sass/partials/_typography.scss */
 p {
   font-size: 14px;
   line-height: 21px;
 }
 
-/* line 23, ../sass/partials/_typography.scss */
+/* line 27, ../sass/partials/_typography.scss */
 a {
   color: #49e;
   cursor: pointer;
   text-decoration: underline;
 }
-/* line 28, ../sass/partials/_typography.scss */
+/* line 32, ../sass/partials/_typography.scss */
 a:hover {
   color: #e49;
 }
 
+/* Objects */
+/* line 1, ../sass/partials/_common.scss */
+.app-nav section {
+  border-bottom: 1px solid #c7c7c7;
+  -webkit-box-shadow: 0 1px 0 white;
+  -moz-box-shadow: 0 1px 0 white;
+  box-shadow: 0 1px 0 white;
+}
+
+/* line 6, ../sass/partials/_common.scss */
+.none {
+  color: #666;
+  margin: 15px 0;
+  padding: 10px 12px;
+  text-align: center;
+}
+
 /* line 1, ../sass/partials/_icons.scss */
-.icon {
+.icon, [class|="icon"] {
   background: url("/img/icons.png") no-repeat;
 }
 
@@ -169,8 +169,9 @@ a:hover {
 }
 
 /* line 9, ../sass/partials/_icons.scss */
-.loading {
-  background: url("/img/preloader.gif") no-repeat;
+.icon-sync {
+  background: url("/img/sync.gif") no-repeat;
+  display: inline-block;
   height: 16px;
   width: 16px;
   text-indent: 100%;
@@ -178,10 +179,9 @@ a:hover {
   white-space: nowrap;
 }
 
-/* line 16, ../sass/partials/_icons.scss */
-.sync-icon {
-  background: url("/img/sync.gif") no-repeat;
-  display: inline-block;
+/* line 17, ../sass/partials/_icons.scss */
+.loading {
+  background: url("/img/preloader.gif") no-repeat;
   height: 16px;
   width: 16px;
   text-indent: 100%;
@@ -304,27 +304,32 @@ a:hover {
 }
 
 /* line 1, ../sass/partials/_buttons.scss */
-.btn {
+.btn, button, [type="submit"] {
   background: #595959;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #707070), color-stop(100%, #424242));
   background: -webkit-linear-gradient(top, #707070, #424242);
   background: -moz-linear-gradient(top, #707070, #424242);
   background: -o-linear-gradient(top, #707070, #424242);
   background: linear-gradient(top, #707070, #424242);
+  border: 0;
   border-radius: 3px;
   color: #fff;
   display: inline-block;
+  font-family: "Helvetica Neue", sans-serif;
   font-size: 12px;
   font-weight: 700;
   height: 28px;
   line-height: 28px;
+  margin: 0;
   padding: 0 8px;
   text-align: center;
   text-decoration: none;
-  text-shadow: 0 1px 0 #000;
+  text-shadow: 0 1px 0 black;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
 }
-/* line 16, ../sass/partials/_buttons.scss */
-.btn:hover {
+/* line 21, ../sass/partials/_buttons.scss */
+.btn:hover, button:hover, [type="submit"]:hover {
   background: #707070;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #424242));
   background: -webkit-linear-gradient(top, #888888, #424242);
@@ -334,7 +339,25 @@ a:hover {
   color: #fff;
 }
 
-/* line 1, ../sass/partials/_sliders.scss */
+/* line 1, ../sass/partials/_forms.scss */
+label {
+  font-size: 0.875rem;
+}
+
+/* line 5, ../sass/partials/_forms.scss */
+[type="text"], [type="password"], [type="search"] {
+  border: 1px solid #bbbbbb;
+  font: 0.8rem/1.429 "Helvetica Neue", sans-serif;
+  line-height: 1.3em;
+  margin: 0;
+  padding: 0.3em 0.4em;
+  -webkit-appearance: none;
+  -webkit-box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* line 1, ../sass/partials/objects/_sliders.scss */
 .ui-slider {
   background: #131313;
   border: 1px solid #2e2e2e;
@@ -347,13 +370,13 @@ a:hover {
   border-radius: 10px;
 }
 
-/* line 12, ../sass/partials/_sliders.scss */
+/* line 12, ../sass/partials/objects/_sliders.scss */
 .ui-slider-range {
   background: #f6a828;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f6a828), color-stop(30%, #f6a828), color-stop(85%, #d06010), color-stop(100%, #aa3311));
   background: -webkit-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
   background: -moz-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
   background: -o-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
-  background: -ms-linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
   background: linear-gradient(top, #f6a828, #f6a828 30%, #d06010 85%, #aa3311);
   display: block;
   height: 8px;
@@ -364,15 +387,15 @@ a:hover {
   border-radius: 10px;
 }
 
-/* line 27, ../sass/partials/_sliders.scss */
+/* line 23, ../sass/partials/objects/_sliders.scss */
 .ui-slider-handle {
   background: #eee;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #faf9f8), color-stop(100%, #c3c2c1));
   background: -webkit-linear-gradient(top, #faf9f8, #c3c2c1);
   background: -moz-linear-gradient(top, #faf9f8, #c3c2c1);
   background: -o-linear-gradient(top, #faf9f8, #c3c2c1);
-  background: -ms-linear-gradient(top, #faf9f8, #c3c2c1);
   background: linear-gradient(top, #faf9f8, #c3c2c1);
-  border: 1px solid #bbb;
+  border: 1px solid #bbbbbb;
   border-top: 1px solid #fafafa;
   display: block;
   height: 8px;
@@ -389,68 +412,80 @@ a:hover {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
 }
 
-/* line 50, ../sass/partials/_sliders.scss */
+/* line 42, ../sass/partials/objects/_sliders.scss */
 .ui-slider-handle:focus {
   outline: 0;
 }
 
-/* line 53, ../sass/partials/_sliders.scss */
+/* line 45, ../sass/partials/objects/_sliders.scss */
 .ui-slider-handle.ui-state-hover {
   background: #ccc;
 }
 
-/* line 56, ../sass/partials/_sliders.scss */
+/* line 48, ../sass/partials/objects/_sliders.scss */
 .ui-slider-handle.ui-state-active {
   background: #ddd;
 }
 
 /* line 1, ../sass/partials/_dialogs.scss */
-.dialogs, .login {
+.dialogs, [class|="dialogs"] {
+  background: rgba(0, 0, 0, 0.7);
   position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 100%;
   width: 100%;
   z-index: 100;
 }
 
-/* line 9, ../sass/partials/_dialogs.scss */
-.dialogs {
-  background: rgba(0, 0, 0, 0.4);
-}
-
 /* line 14, ../sass/partials/_dialogs.scss */
-.login {
-  background: #f1f1f1;
-}
-
-/* line 19, ../sass/partials/_dialogs.scss */
-.dialog {
+.dialog, [class|="dialog"] {
+  background: #fff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  display: none;
   margin: 10% auto 0;
+  overflow: hidden;
+  padding: 25px;
   width: 320px;
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
 }
-
 /* line 25, ../sass/partials/_dialogs.scss */
-.login-dialog {
-  text-align: center;
-  width: 500px;
+.dialog h2, .dialog section, [class|="dialog"] h2, [class|="dialog"] section {
+  margin: 0 -25px;
 }
 /* line 29, ../sass/partials/_dialogs.scss */
-.login-dialog div {
-  margin-bottom: 5px;
+.dialog h2, [class|="dialog"] h2 {
+  padding: 0 25px;
 }
 /* line 33, ../sass/partials/_dialogs.scss */
-.login-dialog label {
-  display: inline-block;
-  margin-right: 10px;
-  text-align: right;
-  text-transform: lowercase;
-  width: 120px;
+.dialog section, [class|="dialog"] section {
+  padding: 20px 25px;
+}
+/* line 37, ../sass/partials/_dialogs.scss */
+.dialog section + section, [class|="dialog"] section + section {
+  border-top: 1px solid #c7c7c7;
 }
 /* line 41, ../sass/partials/_dialogs.scss */
-.login-dialog .submit {
-  background: transparent;
-  border: 0;
-  cursor: pointer;
+.dialog .form-field, [class|="dialog"] .form-field {
+  margin: 0 0 10px;
+  padding-left: 120px;
+  position: relative;
+}
+/* line 47, ../sass/partials/_dialogs.scss */
+.dialog label, [class|="dialog"] label {
   position: absolute;
+  left: 0;
+  top: 0;
+  width: 100px;
+}
+/* line 58, ../sass/partials/_dialogs.scss */
+.dialog a, [class|="dialog"] a {
+  text-decoration: none;
 }
 
 /*
@@ -655,7 +690,7 @@ classes should alter those!
   font: 700 30px/55px "PT Sans", sans-serif;
   float: left;
   position: relative;
-  text-shadow: 0 1px 3px #000;
+  text-shadow: 0 1px 3px black;
 }
 /* line 18, ../sass/partials/_header.scss */
 .logo a {
@@ -696,7 +731,7 @@ classes should alter those!
 #user-panel .username:after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 4px solid #bbb;
+  border-top: 4px solid #bbbbbb;
   content: '';
   display: inline-block;
   margin-left: 5px;
@@ -707,10 +742,10 @@ classes should alter those!
 /* line 64, ../sass/partials/_header.scss */
 #user-menu {
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   display: none;
   list-style: none;
-  padding: .4em 0;
+  padding: 0.4em 0;
   position: absolute;
   margin-top: -5px;
   right: 1em;
@@ -737,7 +772,7 @@ classes should alter those!
 #user-menu span {
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid #fff;
+  border-bottom: 8px solid white;
   display: inline-block;
   position: absolute;
   z-index: 2002;
@@ -747,7 +782,7 @@ classes should alter those!
   color: #222;
   display: block;
   font-weight: 400;
-  padding: .4em 2em;
+  padding: 0.4em 2em;
 }
 /* line 106, ../sass/partials/_header.scss */
 #user-menu a:hover {
@@ -779,7 +814,7 @@ classes should alter those!
 
 /* line 21, ../sass/partials/_songlist.scss */
 #search {
-  border: 1px solid #bbb;
+  border: 1px solid #bbbbbb;
   border-radius: 12px;
   height: 16px;
   outline: 0;
@@ -857,7 +892,7 @@ classes should alter those!
   background: -o-linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
   background: linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
   border-top: 1px solid #d1d1d1;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid #bbbbbb;
   font-weight: 700;
   overflow: visible !important;
   -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
@@ -968,36 +1003,39 @@ classes should alter those!
 .app-nav {
   background: #eaeaea;
   font-size: 11px;
+  min-width: 100px;
 }
-/* line 5, ../sass/partials/_sidebar.scss */
+/* line 6, ../sass/partials/_sidebar.scss */
+.app-nav .loading {
+  margin: 0 auto 0;
+}
+/* line 10, ../sass/partials/_sidebar.scss */
+.app-nav section {
+  padding: 10px 0;
+}
+/* line 15, ../sass/partials/_sidebar.scss */
 .app-nav ul {
-  border-bottom: 1px solid #c7c7c7;
   list-style: none;
-  margin: 0 -20px 15px;
-  padding: 0 0 10px;
-  -webkit-box-shadow: 0 1px 0 white;
-  -moz-box-shadow: 0 1px 0 white;
-  box-shadow: 0 1px 0 white;
 }
-/* line 13, ../sass/partials/_sidebar.scss */
+/* line 19, ../sass/partials/_sidebar.scss */
 .app-nav li {
   display: block;
   line-height: 1.4em;
   position: relative;
   z-index: 0;
 }
-/* line 19, ../sass/partials/_sidebar.scss */
+/* line 25, ../sass/partials/_sidebar.scss */
 .app-nav li a {
   color: #777;
   display: block;
   padding: 5px 20px;
   text-decoration: none;
 }
-/* line 25, ../sass/partials/_sidebar.scss */
+/* line 31, ../sass/partials/_sidebar.scss */
 .app-nav li a:hover {
   color: #222;
 }
-/* line 29, ../sass/partials/_sidebar.scss */
+/* line 35, ../sass/partials/_sidebar.scss */
 .app-nav li a:after {
   background: #aaa;
   content: '';
@@ -1008,65 +1046,75 @@ classes should alter those!
   top: 0;
   width: 5px;
 }
-/* line 41, ../sass/partials/_sidebar.scss */
-.app-nav li.hover a {
-  color: #222;
-}
-/* line 46, ../sass/partials/_sidebar.scss */
+/* line 47, ../sass/partials/_sidebar.scss */
 .app-nav li a.act:after {
   background-color: #f18c06;
 }
-/* line 52, ../sass/partials/_sidebar.scss */
+/* line 53, ../sass/partials/_sidebar.scss */
+.app-nav li.hover a {
+  color: #222;
+}
+/* line 58, ../sass/partials/_sidebar.scss */
 .app-nav .count {
   font-weight: 400;
   float: right;
 }
-/* line 57, ../sass/partials/_sidebar.scss */
+/* line 63, ../sass/partials/_sidebar.scss */
 .app-nav .common {
   font-size: 13px;
   font-weight: 700;
 }
-/* line 61, ../sass/partials/_sidebar.scss */
+/* line 67, ../sass/partials/_sidebar.scss */
 .app-nav .common a {
   color: #222;
 }
-/* line 66, ../sass/partials/_sidebar.scss */
-.app-nav .none {
-  padding-bottom: 0;
+/* line 72, ../sass/partials/_sidebar.scss */
+.app-nav .icon-sync {
+  display: none;
+  position: absolute;
+  right: 0;
 }
-/* line 70, ../sass/partials/_sidebar.scss */
-.app-nav .insync {
+/* line 78, ../sass/partials/_sidebar.scss */
+.app-nav .syncing {
   font-style: italic;
 }
-/* line 73, ../sass/partials/_sidebar.scss */
-.app-nav .insync a:hover {
+/* line 81, ../sass/partials/_sidebar.scss */
+.app-nav .syncing a:hover {
   color: #777;
   cursor: default;
 }
-/* line 78, ../sass/partials/_sidebar.scss */
-.app-nav .sync-icon {
-  margin-left: 5px;
-  position: relative;
+/* line 86, ../sass/partials/_sidebar.scss */
+.app-nav .syncing .icon-sync {
+  display: block;
 }
-/* line 83, ../sass/partials/_sidebar.scss */
-.app-nav .playlist-input {
+/* line 91, ../sass/partials/_sidebar.scss */
+.app-nav .error {
+  color: #c22;
+  margin: 0 20px;
+}
+
+/* New playist */
+/* line 98, ../sass/partials/_sidebar.scss */
+.playlist-input {
   margin-top: 10px;
 }
-/* line 87, ../sass/partials/_sidebar.scss */
-.app-nav .btn-new-list {
+
+/* line 102, ../sass/partials/_sidebar.scss */
+.btn-new-list {
   display: block;
-  margin: 0 auto;
+  margin: 15px auto 0;
   width: 82px;
 }
-/* line 93, ../sass/partials/_sidebar.scss */
-.app-nav .new-list {
-  border: 1px solid #bbb;
+
+/* line 108, ../sass/partials/_sidebar.scss */
+.new-list {
+  border: 1px solid #bbbbbb;
   font-size: 11px;
   margin: 0 20px;
   padding: 3px 4px;
 }
-/* line 99, ../sass/partials/_sidebar.scss */
-.app-nav .new-list.error {
+/* line 114, ../sass/partials/_sidebar.scss */
+.new-list.error {
   border: 1px solid red;
   -webkit-animation: shake 1s ease;
   -moz-animation: shake 1s ease;
@@ -1074,27 +1122,16 @@ classes should alter those!
   -o-animation: shake 1s ease;
   animation: shake 1s ease;
 }
-/* line 104, ../sass/partials/_sidebar.scss */
-.app-nav p.error {
-  color: #c22;
-  margin: 0 20px;
-}
-
-/* line 110, ../sass/partials/_sidebar.scss */
-.app-nav-wrap {
-  padding: 10px 20px;
-  min-width: 100px;
-}
 
 /* draginfo */
-/* line 117, ../sass/partials/_sidebar.scss */
+/* line 121, ../sass/partials/_sidebar.scss */
 #draginfo {
   background: #fff;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   font-size: 11px;
-  padding: .5em .8em;
+  padding: 0.5em 0.8em;
 }
 
 /* line 1, ../sass/partials/_player.scss */
@@ -1248,7 +1285,7 @@ classes should alter those!
 
 /* line 114, ../sass/partials/_player.scss */
 #player-song {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid black;
   margin-bottom: 8px;
   padding: 5px 0 5px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
@@ -1279,87 +1316,10 @@ classes should alter those!
 }
 
 /* mixins */
-/* modals */
-/* line 9, ../sass/partials/_other.scss */
-.modal {
-  font-size: 13px;
-  padding: 20px 30px;
-  width: 340px;
-}
-/* line 14, ../sass/partials/_other.scss */
-.modal h2 {
-  margin: 0 0 2px;
-}
-/* line 17, ../sass/partials/_other.scss */
-.modal .subheader {
-  color: #888;
-  font-size: 14px;
-  margin: 0 0 15px;
-}
-/* line 22, ../sass/partials/_other.scss */
-.modal fieldset {
-  border-top: 1px solid #ddd;
-  margin: 0 -30px;
-  padding: 15px 30px;
-}
-/* line 27, ../sass/partials/_other.scss */
-.modal label {
-  clear: both;
-  display: inline-block;
-  float: left;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 34px;
-  width: 100px;
-}
-/* line 36, ../sass/partials/_other.scss */
-.modal .field {
-  display: inline-block;
-  float: left;
-  margin: 0 0 15px;
-}
-/* line 41, ../sass/partials/_other.scss */
-.modal input[type="text"] {
-  border: 1px solid #ccc;
-  font-size: 13px;
-  line-height: 20px;
-  padding: 4px;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-}
-/* line 50, ../sass/partials/_other.scss */
-.modal .actions {
-  margin-left: 100px;
-}
-/* line 53, ../sass/partials/_other.scss */
-.modal .actions a {
-  margin-left: 15px;
-}
-/* line 57, ../sass/partials/_other.scss */
-.modal .button {
-  background: #f5f5f5;
-  border: 1px solid #aaa;
-  color: #000;
-  font-size: 11px;
-  padding: 3px 6px 3px;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-}
-/* line 68, ../sass/partials/_other.scss */
-.modal .button:hover {
-  background: #eee;
-}
-/* line 72, ../sass/partials/_other.scss */
-.modal .button:active {
-  background: #abe;
-}
-
 /* preloader */
-/* line 80, ../sass/partials/_other.scss */
+/* line 10, ../sass/partials/_other.scss */
 .preloader {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.7);
   color: #fff;
   font-size: 14px;
   height: 100%;
@@ -1371,14 +1331,14 @@ classes should alter those!
   width: 100%;
   z-index: 1000;
 }
-/* line 93, ../sass/partials/_other.scss */
+/* line 23, ../sass/partials/_other.scss */
 .preloader.hide {
   top: -100px;
   left: -100px;
   height: 0;
   width: 0;
 }
-/* line 100, ../sass/partials/_other.scss */
+/* line 30, ../sass/partials/_other.scss */
 .preloader .preloader-wrap {
   position: absolute;
   top: 50%;
@@ -1386,31 +1346,31 @@ classes should alter those!
   width: 300px;
   margin: -16px 0 0 -150px;
 }
-/* line 108, ../sass/partials/_other.scss */
+/* line 38, ../sass/partials/_other.scss */
 .preloader .loading {
   margin: 0 auto;
 }
-/* line 112, ../sass/partials/_other.scss */
+/* line 42, ../sass/partials/_other.scss */
 .preloader .notifications {
   margin-top: 21px;
   text-align: left;
 }
-/* line 116, ../sass/partials/_other.scss */
+/* line 46, ../sass/partials/_other.scss */
 .preloader .notifications > div {
-  -webkit-animation: bounceIn .7s;
-  -moz-animation: bounceIn .7s;
-  -o-animation: bounceIn .7s;
-  animation: bounceIn .7s;
+  -webkit-animation: bounceIn 0.7s;
+  -moz-animation: bounceIn 0.7s;
+  -o-animation: bounceIn 0.7s;
+  animation: bounceIn 0.7s;
   -webkit-animation-fill-mode: both;
   -moz-animation-fill-mode: both;
   -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-/* line 127, ../sass/partials/_other.scss */
+/* line 57, ../sass/partials/_other.scss */
 .preloader .notifications > div + div {
   margin-top: 21px;
 }
-/* line 131, ../sass/partials/_other.scss */
+/* line 61, ../sass/partials/_other.scss */
 .preloader .notifications .icon {
   display: inline-block;
   float: left;
@@ -1418,35 +1378,35 @@ classes should alter those!
   margin-right: 5px;
   width: 24px;
 }
-/* line 139, ../sass/partials/_other.scss */
+/* line 69, ../sass/partials/_other.scss */
 .preloader .notifications h3, .preloader .notifications p {
   display: inline-block;
 }
 
 /* SoundManager 2 */
-/* line 147, ../sass/partials/_other.scss */
+/* line 77, ../sass/partials/_other.scss */
 #sm2-container {
   min-height: 1em;
   width: 100%;
   z-index: auto !important;
 }
-/* line 152, ../sass/partials/_other.scss */
+/* line 82, ../sass/partials/_other.scss */
 #sm2-container div {
   min-height: 32px;
   height: 100%;
   position: relative;
 }
-/* line 158, ../sass/partials/_other.scss */
+/* line 88, ../sass/partials/_other.scss */
 #sm2-container.swf_timedout {
   /* Didn't load before time-out, show to user.
   Maybe highlight on-screen, red border, etc..? */
 }
-/* line 163, ../sass/partials/_other.scss */
+/* line 93, ../sass/partials/_other.scss */
 #sm2-container.swf_unblocked {
   /* Applied if movie loads successfully after
   an unblock (flash started, so move off-screen etc.) */
 }
-/* line 168, ../sass/partials/_other.scss */
+/* line 98, ../sass/partials/_other.scss */
 #sm2-container.swf_loaded {
   /* Applied if movie loads, regardless of whether
   it was initially blocked */
@@ -1457,19 +1417,19 @@ classes should alter those!
   visibility: hidden;
   z-index: 0;
 }
-/* line 179, ../sass/partials/_other.scss */
+/* line 109, ../sass/partials/_other.scss */
 #sm2-container.swf_error {
   /* "Fatal" error case: SWF loaded,
   but SM2 was unable to start for some reason.
   (Flash security or other error case.) */
 }
-/* line 185, ../sass/partials/_other.scss */
+/* line 115, ../sass/partials/_other.scss */
 #sm2-container.high_performance {
   /* Additional modifier for "high performance" mode
   should apply position:fixed and left/bottom 0 to stay on-screen
   at all times (better flash performance) */
 }
-/* line 191, ../sass/partials/_other.scss */
+/* line 121, ../sass/partials/_other.scss */
 #sm2-container.flash_debug {
   /* Additional modifier for flash debug output mode
   should use width/height 100% so you can read debug messages */
