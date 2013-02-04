@@ -1,9 +1,5 @@
 require.config({
     shim: {
-        'jquery': {
-            deps: [],
-            exports: 'jQuery'
-        },
         'slickgrid': [
             'jquery',
             'lib/SlickGrid/lib/jquery.event.drag-2.0.min',
@@ -35,12 +31,12 @@ require.config({
 
 
 // Bootstrap
-require(
-    ["config", "beatstream/app", "jquery"],
-    function(config, Beatstream, jQuery) {
-        Beatstream.init(config);
+require(['beatstream/app'],
+function (app) {
 
-        // Expose jQuery to the global object
-        window.jQuery = window.$ = jQuery;
-    }
-);
+    var config = {
+        apiUrl: '/api/v1'
+    };
+
+    app.init(config);
+});

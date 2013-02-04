@@ -18,10 +18,10 @@
     <link rel="icon" href="/icon_32x32.png" sizes="32x32" />
     <link rel="icon" href="/icon_48x48.png" sizes="48x48" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width" />
 
     <link rel="stylesheet" type="text/css" href="css/application.css" />
-    <script data-main="js/main.js" src="js/lib/require.js"></script>
+    <script src="js/lib/require.js" data-main="js/beatstream.js"></script>
 </head>
 <body>
 
@@ -31,16 +31,15 @@
             <a href="/">Beatstream</a>
             <small>alpha</small>
         </h1>
-        <div id="user-panel">
-            <a href="#" id="menu-toggle" class="username"></a>
-            <ul id="user-menu">
-                <li class="head"><span></span></li>
-                <li><a href="#!/settings" class="settings">Settings</a></li>
-                <li><a href="#!/logout" rel="nofollow">Logout</a></li>
+        <div id="user-menu">
+            <a href="#" id="menu-toggle" class="username">You</a>
+            <ul>
+                <li><a id="settings-link">Settings</a></li>
+                <li><a class="logout-link" rel="nofollow">Logout</a></li>
             </ul>
         </div>
     </header>
-    <div class="wrapper">
+    <div class="main-wrap">
         <div class="app-nav">
             <section class="common">
                 <ul>
@@ -65,7 +64,8 @@
                 </ul>
             </section>
             <section class="playlists">
-                <p class="loading">Loading...</p>
+                <p class="none">Playlists have not been implemented, yet.<br/>Stay tuned!</p>
+                <p class="loading" style="display:none;">Loading...</p>
                 <p class="none" style="display:none;">No playlists, yet.</p>
                 <ul></ul>
                 <div class="playlist-input" style="display:none;">
