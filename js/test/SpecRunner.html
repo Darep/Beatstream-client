@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+
+  <!-- Jasmine -->
+  <link rel="stylesheet" type="text/css" href="lib/jasmine/jasmine.css"/>
+  <script type="text/javascript" src="lib/jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="lib/jasmine/jasmine-html.js"></script>
+
+  <!-- Pre-load third party scripts that cannot be async loaded. -->
+  <!-- - none yet. -->
+</head>
+<body>
+<div id="sandbox" style="overflow:hidden; height:1px;"></div>
+
+<!-- All other scripts are loaded through require. -->
+<script src="../lib/require.js" data-main="SpecRunner"></script>
+
+<!-- Use testr for mocking requirejs modules -->
+<script src="lib/testr.js"></script>
+
+<script>
+testr.config({
+    rootUrl: './',
+    baseUrl: './',
+    ignore: ['jquery', 'spec/index', 'beatstream/mediator']
+});
+testr.run('testrRunner', function () {});
+</script>
+
+</body>
+</html>
