@@ -153,7 +153,7 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                 });
             });
 
-            it('should scrobble using the correct data', function () {
+            xit('should scrobble using the correct data', function () {
                 var song = {
                     artist: 'Miami Sound Machine',
                     title: 'Dr. Beat'
@@ -165,20 +165,23 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                 // When
 
                 // Then
+
+
+                throw 'test incomplete';
             });
         });
 
         describe('Now Playing', function () {
-            it('should update now playing using the API', function () {
-
+            xit('should update now playing using the API', function () {
+                throw 'test incomplete';
             });
 
-            it('should retry after failed scrobble', function () {
-
+            xit('should retry after failed scrobble', function () {
+                throw 'test incomplete';
             });
 
-            it('should retry after failed now playing update', function () {
-
+            xit('should retry after failed now playing update', function () {
+                throw 'test incomplete';
             });
         });
     });
