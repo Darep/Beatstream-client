@@ -141,16 +141,18 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
         });
 
         describe('Now Playing', function () {
-            xit('should update now playing using the API', function () {
-                throw 'test incomplete';
-            });
+            it('should update now playing using the API on new song', function () {
+                var song = {
+                    artist: 'Miami Sound Machine',
+                    title: 'Dr. Beat',
+                    length: 180
+                };
 
-            xit('should retry after failed scrobble', function () {
-                throw 'test incomplete';
-            });
+                // When
+                lastfm.newSong(song);
 
-            xit('should retry after failed now playing update', function () {
-                throw 'test incomplete';
+                // Then
+                expect(api.updateNowPlaying).toHaveBeenCalledWith(song.artist, song.title);
             });
         });
 
@@ -160,6 +162,7 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                     length: 40
                 };
 
+                // Setup a very observant API stub/mock
                 var success_spy = jasmine.createSpy().andCallFake(function (callback) {
                     if (error_spy.wasCalled) callback();
                 });
@@ -175,7 +178,7 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
 
                 waitsFor(function () {
                     return success_spy.callCount >= 2;
-                }, "LastFM never called success again", 5000);
+                }, "LastFM never called again. What a bitch", 5000);
 
                 runs(function () {
                     // Then
@@ -184,6 +187,10 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                     expect(success_spy).toHaveBeenCalled();
                     expect(lastfm.song_scrobbled).toBe(true);
                 });
+            });
+
+            xit('should retry after failed now playing update', function () {
+                throw 'test incomplete';
             });
         });
     });

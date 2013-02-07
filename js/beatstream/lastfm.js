@@ -2,6 +2,7 @@ define(['jquery', 'beatstream/mediator'],
 function ($, mediator) {
 
     var DEFAULT_SCROBBLE_TIME = 4*60;  // default 4 min scrobble time
+    var RETRY_TIME = 4000;
 
     var LastFM = function (api) {
         this.api = api;
@@ -56,7 +57,7 @@ function ($, mediator) {
             // failed. spring out a new thread, and re-try
             setTimeout(function () {
                 this.tryScrobble(elaps);
-            }.bind(this), 4000);
+            }.bind(this), RETRY_TIME);
         }.bind(this));
     };
 
