@@ -164,10 +164,14 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
 
                 // Setup a very observant API stub/mock
                 var success_spy = jasmine.createSpy().andCallFake(function (callback) {
-                    if (error_spy.wasCalled) callback();
+                    if (error_spy.wasCalled) {
+                        callback();  // Yay! SUT got an error message, so we can now say "success"
+                    }
                 });
                 var error_spy = jasmine.createSpy().andCallFake(function (callback) {
-                    if (error_spy.callCount < 2) callback();
+                    if (error_spy.callCount < 2) { // only fail once or twice (like, whatever)
+                        callback();
+                    }
                 });
                 var promise = createPromise(success_spy, error_spy);
                 api.scrobble = jasmine.createSpy().andReturn(promise);
