@@ -6,6 +6,12 @@
 }
 
 
+@include keyframes(fadeIn) {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+
 /* from animate.css by Dan Eden (@_dte) */
 @-webkit-keyframes bounceIn {
     0% {

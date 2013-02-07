@@ -126,7 +126,7 @@ define([
 
             // initiate all the modules!
             songlist  = new Songlist('#slickgrid', songlistEvents);
-            usermenu  = new UserMenu('#user-menu');
+            usermenu  = new UserMenu('#user-menu', 'John');
             sidebar   = new Sidebar('.app-nav', sidebarEvents);
             player    = new Player('.app-now-playing');
             api       = new Api(options.apiUrl);
