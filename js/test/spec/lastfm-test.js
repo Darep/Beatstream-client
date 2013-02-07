@@ -165,12 +165,12 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                 // Setup a very observant API stub/mock
                 var success_spy = jasmine.createSpy().andCallFake(function (callback) {
                     if (error_spy.wasCalled) {
-                        callback();  // Yay! SUT got an error message, so we can now say "success"
+                        callback();  // Yay! SUT got an error message, so we can now say you succeed
                     }
                 });
                 var error_spy = jasmine.createSpy().andCallFake(function (callback) {
                     if (error_spy.callCount < 2) { // only fail once or twice (like, whatever)
-                        callback();
+                        callback();  // tell the client we failed
                     }
                 });
                 var promise = createPromise(success_spy, error_spy);
@@ -181,7 +181,8 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                 lastfm.tryScrobble(21);
 
                 waitsFor(function () {
-                    return success_spy.callCount >= 2;
+                    // wait for the SUT to try atleast twice
+                    return api.scrobble.callCount == 2;
                 }, "LastFM never called again. What a bitch", 5000);
 
                 runs(function () {
