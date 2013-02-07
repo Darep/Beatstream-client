@@ -1,17 +1,17 @@
-define(['jquery'],
+define([
+    'jquery'
+],
 function ($) {
-    var TopPanel = function (selector) {
-        var top = $(selector),
-            menu = top.find('#user-menu');
+    var UserMenu = function (selector) {
+        this.menu = document.getElementById(selector),
+        this.menuToggle = document.getElementById('menu-toggle');
 
-        top.find('.username').text('you');
-
-        top.find('#menu-toggle').click(function () {
-            menu.toggle();
-        });
-
-        // TODO: this
+        this.menuToggle.addEventListener('click', this.toggleMenu.bind(this));
     };
 
-    return TopPanel;
+    UserMenu.prototype.toggleMenu = function() {
+        console.log(this);
+    };
+
+    return UserMenu;
 });

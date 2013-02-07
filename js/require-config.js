@@ -1,4 +1,4 @@
-require.config({
+var require = {
     shim: {
         'slickgrid': [
             'jquery',
@@ -19,13 +19,12 @@ require.config({
         'soundmanager2': 'lib/SoundManager2/script/soundmanager2', //-nodebug-jsmin',
         'store': 'lib/store.min',
         'pathjs': 'lib/path.min',
-        'transparency': 'lib/transparency.min',
-        'spec': 'test/spec'
+        'transparency': 'lib/transparency.min'
     },
 
-    urlArgs: "timestamp=" + new Date().getTime(),
+    urlArgs: "ts=" + new Date().getTime(),
 
     // We will bail out instantly if there is error loading any script
     // (default is 7 seconds -> causes you to stare empty console)
     waitSeconds: 1
-});
+};

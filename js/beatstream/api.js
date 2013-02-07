@@ -74,6 +74,30 @@ function ($, mediator) {
     };
 
 
+    Api.prototype.updateNowPlaying = function (artist, title) {
+        var data = 'artist=' + encodeURIComponent(artist) +
+                   '&title=' + encodeURIComponent(title);
+
+        return $.ajax({
+            type: 'PUT',
+            url: baseUrl + '/now-playing',
+            data: data
+        });
+    };
+
+
+    Api.prototype.scrobble = function (artist, title) {
+        var data = 'artist=' + encodeURIComponent(artist) +
+                   '&title=' + encodeURIComponent(title);
+
+        return $.ajax({
+            type: 'POST',
+            url: baseUrl + '/scrobble',
+            data: data
+        });
+    };
+
+
     function errorHandler(req, textStatus, errorThrown) {
         console.log('Api AJAX error:');
         console.log(req);

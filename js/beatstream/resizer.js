@@ -30,6 +30,5 @@ define(['jquery'], function ($) {
         // TODO: what if, instead, we send a message to the bus: "app:resize"
     };
 
-
     return Resizer;
 });

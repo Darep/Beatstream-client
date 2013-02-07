@@ -9,7 +9,6 @@ define(['beatstream/resizer'], function(Resizer) {
         it('resizes the .main-wrapper, so top and bottom are fully shown', function () {
             var resizer = new Resizer();
             resizer.resize();
-            console.log(Resizer);
         });
     });
 });

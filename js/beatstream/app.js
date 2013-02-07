@@ -19,7 +19,7 @@ define([
     'helpers/helpers',
     'pathjs',
     'soundmanager2'
-], function ($, mediator, Resizer, Api, SM2Audio, LastFM, Playlists, TopPanel, Songlist, Sidebar, Player, preloaderView) {
+], function ($, mediator, Resizer, Api, SM2Audio, LastFM, Playlists, UserMenu, Songlist, Sidebar, Player, preloaderView) {
 
     var songlistEvents = {
         onDragStart: function (e, dd) {
@@ -116,7 +116,7 @@ define([
     var App = {
         init: function (options_in) {
 
-            var resizer, api, audio, lastfm, top, songlist, sidebar, player,
+            var resizer, api, audio, lastfm, usermenu, songlist, sidebar, player,
                 login, options;
 
             options = $.extend({
@@ -126,7 +126,7 @@ define([
 
             // initiate all the modules!
             songlist  = new Songlist('#slickgrid', songlistEvents);
-            top       = new TopPanel('.app-top');
+            usermenu  = new UserMenu('#user-menu');
             sidebar   = new Sidebar('.app-nav', sidebarEvents);
             player    = new Player('.app-now-playing');
             api       = new Api(options.apiUrl);

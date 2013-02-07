@@ -1,76 +1,69 @@
 define(['jquery', 'beatstream/mediator'],
 function ($, mediator) {
 
-    var scrobble_time, song_scrobbled, song;
-
-    scrobble_time = 240;
-    song_scrobbled = false;
-    song = null;
-
+    var DEFAULT_SCROBBLE_TIME = 4*60;  // default 4 min scrobble time
 
     var LastFM = function (api) {
-        mediator.subscribe("songlist:selectSong", function (song) {
-            newSong(song);
-        });
+        this.api = api;
+        this.song = null;
+        this.scrobble_time = DEFAULT_SCROBBLE_TIME;
+        this.current_song_scrobbled = false;
 
-        mediator.subscribe("audio:timeChange", function (elaps) {
-            // try to scrobble
-            // won't scrobble if we should not scrobble
-            tryScrobble();
-        });
+        // bus!
+        mediator.subscribe("player:songStarted", this.newSong.bind(this));
+        mediator.subscribe("player:timeChanged", this.tryScrobble.bind(this));
     };
 
 
-    function updateNowPlaying() {
-        var data = 'artist=' + encodeURIComponent(song.artist) +
-                   '&title=' + encodeURIComponent(song.title);
+    LastFM.prototype.updateNowPlaying = function (song) {
+        var req = this.api.updateNowPlaying(song.artist, song.title);
 
-        // TODO: use Beatstream.Api instead
-        $.ajax({
-            type: 'PUT',
-            url: '/api/v1/now-playing',
-            data: data
+        req.error(function () {
+            // TODO: do error recovery
         });
-    }
+    };
 
-    function newSong(song_in) {
-        if (!song_in) return;
+    LastFM.prototype.newSong = function(song) {
+        if (!song) return;
 
-        song = song_in;
-
-        scrobble_time = Math.floor(song.length/2, 10);
-
-        if (scrobble_time > 240) {
-            scrobble_time = 240;
-        }
+        this.song = song;
+        this.scrobble_time = Math.floor(song.length/2, 10);
 
         // don't scrobble songs that are under 30 secs (last.fm rule)
-        if (scrobble_time <= 15) {
-            song_scrobbled = true;
-        }
-        else {
-            song_scrobbled = false;
-            updateNowPlaying();
-        }
-    }
-
-    function tryScrobble(elaps) {
-        if (song_scrobbled === true || elaps < scrobble_time || !song) {
+        if (song.length <= 30) {
+            // never scrobble and bail!
+            this.song_scrobbled = true;
             return;
         }
 
-        var data = 'artist=' + encodeURIComponent(song.artist) +
-                   '&title=' + encodeURIComponent(song.title);
+        // always scrobble at the 4 minute mark
+        if (this.scrobble_time > DEFAULT_SCROBBLE_TIME) {
+            this.scrobble_time = DEFAULT_SCROBBLE_TIME;
+        }
 
-        // TODO: use Beatstream.Api instead
-        $.ajax({
-            type: 'POST',
-            url: '/api/v1/scrobble',
-            data: data
-        });
+        // get ready to scrobble!
+        this.song_scrobbled = false;
+        this.updateNowPlaying(song);
+    };
 
-        song_scrobbled = true;
-    }
+    LastFM.prototype.tryScrobble = function (elaps) {
+        if (this.song_scrobbled === true || elaps < this.scrobble_time || !this.song) {
+            return;
+        }
+
+        var req = this.api.scrobble(this.song.artist, this.song.title);
+
+        req.success(function () {
+            this.song_scrobbled = true;
+        }.bind(this));
+
+        req.error(function () {
+            // failed.
+            setTimeout(function () {
+                this.tryScrobble(elaps);
+            }.bind(this), 4000);
+        }.bind(this));
+    };
 
     return LastFM;
 });
