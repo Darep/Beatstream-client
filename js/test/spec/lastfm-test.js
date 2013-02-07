@@ -2,7 +2,7 @@
  * Test the very simple LastFM API wrapper.
  *
  * The LastFM wrapper talks to the Beatstream backend, which does the actual
- * talking with the LastFM server.
+ * talking with LastFM using the user's authentication information.
  */
 define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) {
     describe('LastFM', function () {
@@ -37,7 +37,7 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                 lastfm.newSong(song);
 
                 // Then
-                expect(lastfm.song_scrobbled).toBe(true);
+                expect(lastfm.dont_scrobble).toBe(true);
                 expect(api.scrobble).not.toHaveBeenCalled();
                 expect(api.updateNowPlaying).not.toHaveBeenCalled();
             });
@@ -122,6 +122,39 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                 expect(api.scrobble).toHaveBeenCalled();
             });
 
+            it('should scrobble using the correct data', function () {
+                var song = {
+                    artist: 'Miami Sound Machine',
+                    title: 'Dr. Beat',
+                    length: 180
+                };
+
+                // Given
+                lastfm.newSong(song);
+
+                // When
+                lastfm.tryScrobble(91);
+
+                // Then
+                expect(api.scrobble).toHaveBeenCalledWith(song.artist, song.title);
+            });
+        });
+
+        describe('Now Playing', function () {
+            xit('should update now playing using the API', function () {
+                throw 'test incomplete';
+            });
+
+            xit('should retry after failed scrobble', function () {
+                throw 'test incomplete';
+            });
+
+            xit('should retry after failed now playing update', function () {
+                throw 'test incomplete';
+            });
+        });
+
+        describe('Slow tests', function () {
             it('should retry in 5 seconds after failure', function () {
                 var song = {
                     length: 40
@@ -151,37 +184,6 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                     expect(success_spy).toHaveBeenCalled();
                     expect(lastfm.song_scrobbled).toBe(true);
                 });
-            });
-
-            xit('should scrobble using the correct data', function () {
-                var song = {
-                    artist: 'Miami Sound Machine',
-                    title: 'Dr. Beat'
-                };
-
-                // Given
-                lastfm.newSong(song);
-
-                // When
-
-                // Then
-
-
-                throw 'test incomplete';
-            });
-        });
-
-        describe('Now Playing', function () {
-            xit('should update now playing using the API', function () {
-                throw 'test incomplete';
-            });
-
-            xit('should retry after failed scrobble', function () {
-                throw 'test incomplete';
-            });
-
-            xit('should retry after failed now playing update', function () {
-                throw 'test incomplete';
             });
         });
     });

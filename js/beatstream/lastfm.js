@@ -7,7 +7,8 @@ function ($, mediator) {
         this.api = api;
         this.song = null;
         this.scrobble_time = DEFAULT_SCROBBLE_TIME;
-        this.current_song_scrobbled = false;
+        this.song_scrobbled = false;
+        this.dont_scrobble = false;
 
         // all aboard the enterprise bus!
         mediator.subscribe("player:songStarted", this.newSong.bind(this));
@@ -23,7 +24,7 @@ function ($, mediator) {
         // don't scrobble songs that are under 30 secs (last.fm rule)
         if (song.length <= 30) {
             // never scrobble and bail!
-            this.song_scrobbled = true;
+            this.dont_scrobble = true;
             return;
         }
 
@@ -34,11 +35,14 @@ function ($, mediator) {
 
         // get ready to scrobble!
         this.song_scrobbled = false;
+        this.dont_scrobble = false;
         this.updateNowPlaying(song);
     };
 
     LastFM.prototype.tryScrobble = function (elaps) {
-        if (this.song_scrobbled === true || elaps < this.scrobble_time || !this.song) {
+        if (this.song_scrobbled || this.dont_scrobble ||
+            elaps < this.scrobble_time || !this.song)
+        {
             return;
         }
 
@@ -49,7 +53,7 @@ function ($, mediator) {
         }.bind(this));
 
         req.error(function () {
-            // failed.
+            // failed. spring out a new thread, and re-try
             setTimeout(function () {
                 this.tryScrobble(elaps);
             }.bind(this), 4000);
