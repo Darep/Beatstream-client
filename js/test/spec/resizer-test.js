@@ -6,9 +6,11 @@ define(['beatstream/resizer'], function(Resizer) {
             fixture = $('<div id="app" style="height:100%;"><div class="app-top" style=""></div></div>');
         });
 
-        it('resizes the .main-wrapper, so top and bottom are fully shown', function () {
+        xit('resizes the .main-wrapper, so top and bottom are fully shown', function () {
             var resizer = new Resizer();
             resizer.resize();
+
+            // TODO: this
         });
     });
 });
