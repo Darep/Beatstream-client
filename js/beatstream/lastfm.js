@@ -9,18 +9,9 @@ function ($, mediator) {
         this.scrobble_time = DEFAULT_SCROBBLE_TIME;
         this.current_song_scrobbled = false;
 
-        // bus!
+        // all aboard the enterprise bus!
         mediator.subscribe("player:songStarted", this.newSong.bind(this));
         mediator.subscribe("player:timeChanged", this.tryScrobble.bind(this));
-    };
-
-
-    LastFM.prototype.updateNowPlaying = function (song) {
-        var req = this.api.updateNowPlaying(song.artist, song.title);
-
-        req.error(function () {
-            // TODO: do error recovery
-        });
     };
 
     LastFM.prototype.newSong = function(song) {
@@ -63,6 +54,14 @@ function ($, mediator) {
                 this.tryScrobble(elaps);
             }.bind(this), 4000);
         }.bind(this));
+    };
+
+    LastFM.prototype.updateNowPlaying = function (song) {
+        var req = this.api.updateNowPlaying(song.artist, song.title);
+
+        req.error(function () {
+            // TODO: do error recovery
+        });
     };
 
     return LastFM;
