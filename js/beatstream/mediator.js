@@ -1,4 +1,32 @@
+/**
+ * Wrapper for mediator.js
+ */
 define(['mediator'], function () {
-    // singleton Mediator. Wrap it.
-    return new Mediator();
+    var mediatorReal = new Mediator();
+
+    var subscribers = [];
+
+    var mediator = {
+        subscribe: function(channel, callback) {
+            subscribers.push({ channel: channel, identifier: callback });
+            return mediatorReal.subscribe(channel, callback);
+        },
+        publish: function (channel, data) {
+            return mediatorReal.publish(channel, data);
+        },
+        remove: function (channel, identifier) {
+            return this.unsubscribe(channel, identifier);
+        },
+        unsubscribe: function (channel, identifier) {
+            return mediatorReal.remove(channel, identifier);
+        },
+        clear: function () {
+            // un-subscribe all
+            for (var i = subscribers.length - 1; i >= 0; i--) {
+                this.unsubscribe(subscribers[i].channel, subscribers[i].identifier);
+            }
+        }
+    };
+
+    return mediator;
 });
