@@ -109,14 +109,14 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
                 expect(api.scrobble.callCount).toBe(1);
             });
 
-            it('should scrobble based on event from the mediator', function () {
+            it('should scrobble based on signals from the mediator', function () {
                 var song = {
                     length: 40
                 };
 
                 // When
-                lastfm.newSong(song);
-                lastfm.tryScrobble(21);
+                mediator.publish("player:songStarted", song);
+                mediator.publish("player:timeChanged", 21);
 
                 // Then
                 expect(api.scrobble).toHaveBeenCalled();

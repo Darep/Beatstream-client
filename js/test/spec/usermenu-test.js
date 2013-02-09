@@ -1,29 +1,16 @@
 define(['beatstream/usermenu'], function(UserMenu) {
     describe('User Menu', function () {
-        var fixture;
+
         var usermenu;
 
         beforeEach(function () {
-            var fixture = $(
-                '<div id="user-menu">' +
-                    '<a href="#" id="menu-toggle" class="toggle username">You</a>' +
-                    '<ul>' +
-                        '<li><a id="settings-link">Settings</a></li>' +
-                        '<li><a class="logout-link" rel="nofollow">Logout</a></li>' +
-                    '</ul>' +
-                '</div>'
-            );
-            $('#sandbox').append(fixture);
+            loadFixtures('usermenu.html');
 
             // SUT
             usermenu = new UserMenu('#user-menu', 'John');
         });
 
-        afterEach(function () {
-            $('#sandbox').empty();
-        });
-
-        it('should find the menu element in DOM', function () {
+        it('should find the assigned element in the DOM', function () {
             expect(usermenu.menu).toBe($('#user-menu'));
         });
 

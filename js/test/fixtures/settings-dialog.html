@@ -1,0 +1,36 @@
+<div id="dialog-settings" class="dialog-container">
+    <div class="dialog">
+        <button class="close">
+            <i class="icon-close ir">Close</i>
+        </button>
+        <h2>Settings</h2>
+        <section>
+            <label>Username</label>
+            <div class="form-field">
+                <input type="text" id="username" value="" tabindex="1" />
+            </div>
+            <label>Email</label>
+            <div class="form-field">
+                <input type="text" id="username" value="" tabindex="2" />
+            </div>
+            <label>Password</label>
+            <div class="form-field">
+                <p><a id="change-password-link" tabindex="3">Change password...</a></p>
+            </div>
+        </section>
+        <section>
+            <label>Last.fm</label>
+            <div class="form-field">
+                <button class="btn btn-lastfm not-ok" id="lastfm-connect" tabindex="4">Connect to Last.fm</button>
+                <p class="ok" style="display: none;">
+                    Connected
+                    <button class="btn" id="lastfm-disconnect" tabindex="4">Remove connection</button>
+                </p>
+            </div>
+        </section>
+        <div class="form-field">
+            <input type="submit" class="btn" value="Save" tabindex="5">
+            <span class="loading ir" style="display: none;">Saving...</span>
+        </div>
+    </div>
+</div>
