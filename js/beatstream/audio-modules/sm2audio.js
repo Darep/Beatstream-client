@@ -17,8 +17,11 @@ function ($, mediator) {
         this.isReady = false;
         this.startDefer = null;
 
-        var self = this;
+        this.events = {
+            onFinish: function () {}
+        };
 
+        var self = this;
 
         // events from other modules
         mediator.subscribe("songlist:selectSong", function (song) {

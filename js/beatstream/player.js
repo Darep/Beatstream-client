@@ -24,10 +24,12 @@ define([
         }
 
         // Get states from store.js
+
         this.shuffle = getFromStore('shuffle');
         this.repeat = getFromStore('repeat');
 
         // Create Playback Controls
+
         this.playButton = this.el.find('#play-pause');
         this.playButton.click(function (e) {
             e.preventDefault();
@@ -67,6 +69,59 @@ define([
             e.preventDefault();
             this.repeat = !this.repeat;
         }.bind(this));
+
+        var isSeeking = false;
+        this.seekbar = this.el.find('#seekbar-slider');
+        this.seekbar.slider({
+            orientation: 'horizontal',
+            disabled: true,
+            value: 0,
+            max: 100,
+            min: 0,
+            range: 'min',
+            start: function(event, ui) {
+                isSeeking = true;
+            },
+            stop: function(event, ui) {
+                this.audio.seekTo(ui.value);
+                isSeeking = false;
+            }.bind(this)
+        });
+
+        this.volumeLabel = this.el.find('#volume-label');
+        this.volumeSlider = this.el.find('#volume-slider');
+        this.volumeSlider.slider({
+            orientation: 'horizontal',
+            max: 100,
+            min: 0,
+            range: 'min',
+            slide: function (event, ui) {
+                this.audio.setVolume(ui.value);
+                this.volumeLabel.attr('title', ui.value);
+            }.bind(this),
+            stop: function (event, ui) {
+                store.set('volume', ui.value);
+            }
+        });
+
+        this.trackInfo = this.el.find('#player-song .track');
+
+        // set initial volume
+        var volume = getFromStore(volume);
+        if (!volume) {
+            volume = DEFAULT_VOLUME;
+        }
+        this.volumeSlider.slider('option', 'value', volume);
+
+        // Audio Events
+
+        this.audio.events.onFinish = function () {
+            if (isLastIndex(this.playlist, this.currentSongId) && !this.repeat) {
+                return;
+            } else {
+                this.playNext();
+            }
+        }.bind(this);
     };
 
     Player.prototype.setPlaylist = function (playlist) {
@@ -91,10 +146,12 @@ define([
         if (this.shuffle) {
             this.playbackHistory.push(song);
         } else {
-            // clear the array, because we don't need playback history when not
-            // shuffling
+            // clear the array, because we don't need playback history when not shuffling
             this.playbackHistory.length = 0;
         }
+
+        // display now playing track info
+        this.trackInfo.text(song.nice_title);
 
         mediator.publish("player:songStarted", song);
     };
@@ -133,7 +190,7 @@ define([
         if (this.shuffle) {
             songId = randomToN(this.playlist.length - 1);
         } else {
-            if (this.currentSongId === undefined || (this.currentSongId + 1) === this.playlist.length) {
+            if (this.currentSongId === undefined || isLastIndex(this.playlist, this.currentSongId)) {
                 // play first song on playlist
                 songId = 0;
             } else {
@@ -160,6 +217,10 @@ define([
         } else {
             return false;
         }
+    }
+
+    function isLastIndex(array, index) {
+        return (index + 1) === array.length;
     }
 
     return Player;
