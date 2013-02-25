@@ -289,7 +289,7 @@ define([
             });
 
             it('should empty playback history when playing a new song and shuffle is off', function () {
-                // Given
+                player.setShuffle(false);
                 player.playbackHistory.length = 4;
                 expect(player.playbackHistory.length).toBe(4);
 
@@ -301,8 +301,8 @@ define([
                 expect(player.playbackHistory.length).toBe(0);
             });
 
-            it('should change state to isPlaying when audio module starts playing', function () {
-
+            xit('should change state to isPlaying when audio module starts playing', function () {
+                throw('not done');
             });
         });
 
@@ -465,133 +465,6 @@ define([
 
                 // Then
                 expect(audio.play).toHaveBeenCalledWith(playlist[1].path);
-            });
-        });
-
-        describe('Shuffle', function () {
-            it('should be off by default', function () {
-                expect(player.getShuffle()).toBe(false);
-            });
-
-            it('should retrieve state from "store"', function () {
-                store.set('shuffle', true);
-                var tmp_player = new Player('.app-now-playing', audio);
-                expect(tmp_player.getShuffle()).toBe(true);
-            });
-
-            it('should set state to "store"', function () {
-                player.setShuffle(true);
-                expect(store.get('shuffle')).toBe(true);
-            });
-
-            it('should change state from false to true on click', function () {
-                player.setShuffle(false);
-
-                // When
-                $('#shuffle').click();
-
-                // Then
-                expect(player.getShuffle()).toBe(true);
-            });
-
-            it('should not have "enabled" class by default', function () {
-                expect($('#shuffle')).not.toHaveClass('enabled');
-            });
-
-            it('should get "enabled" CSS class when shuffle enabled', function () {
-                player.setShuffle(false);
-
-                // When
-                player.setShuffle(true);
-
-                // Then
-                expect($('#shuffle')).toHaveClass('enabled');
-            });
-
-            it('should lose "enabled" CSS class on click', function () {
-                player.setShuffle(true);
-                $('#shuffle').addClass('enabled');
-
-                // When
-                $('#shuffle').click();
-
-                // Then
-                expect($('#shuffle')).not.toHaveClass('enabled');
-            });
-
-            it('should get "enabled" CSS class when shuffle enabled', function () {
-                $('#shuffle').removeClass('enabled');
-
-                // When
-                $('#shuffle').click();
-
-                // Then
-                expect($('#shuffle')).toHaveClass('enabled');
-            });
-        });
-
-        describe('Repeat', function () {
-            it('should be off by default', function () {
-                expect(player.getRepeat()).toBe(false);
-            });
-
-            it('should set state to "store"', function () {
-                player.setRepeat(true);
-                expect(store.get('repeat')).toBe(true);
-            });
-
-            it('should retrieve state from "store"', function () {
-                // When
-                store.set('repeat', true);
-                var tmp_player = new Player('.app-now-playing', audio);
-
-                // Then
-                expect(tmp_player.getRepeat()).toBe(true);
-            });
-
-            it('should change state from false to true on click', function () {
-                player.setRepeat(false);
-
-                // When
-                $('#repeat').click();
-
-                // Then
-                expect(player.getRepeat()).toBe(true);
-            });
-
-            it('should not have "enabled" class by default', function () {
-                expect($('#repeat')).not.toHaveClass('enabled');
-            });
-
-            it('should get "enabled" CSS class when repeat enabled', function () {
-                player.setRepeat(false);
-
-                // When
-                player.setRepeat(true);
-
-                // Then
-                expect($('#repeat')).toHaveClass('enabled');
-            });
-
-            it('should lose "enabled" CSS class on click', function () {
-                player.setRepeat(true);
-                $('#repeat').addClass('enabled');
-
-                // When
-                $('#repeat').click();
-
-                // Then
-                expect($('#repeat')).not.toHaveClass('enabled');
-            });
-
-            it('should get "enabled" CSS class when repeat enabled', function () {
-                $('#repeat').removeClass('enabled');
-
-                // When
-                $('#repeat').click();
-
-                // Then
-                expect($('#repeat')).toHaveClass('enabled');
             });
         });
 

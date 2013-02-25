@@ -3,8 +3,9 @@ define([
     'store',
     'beatstream/mediator',
     'beatstream/audio-modules/sm2audio',
+    'beatstream/controls/togglebutton',
     'jquery-ui'
-], function ($, store, mediator, SM2Audio) {
+], function ($, store, mediator, SM2Audio, ToggleButton) {
 
     var DEFAULT_VOLUME = 20;
 
@@ -14,7 +15,7 @@ define([
         this.playlist = undefined;
         this.currentSongId = undefined;
         this.isPaused = false;
-        this._shuffle = getFromStore('shuffle');
+        this._shuffle = new ToggleButton('#shuffle', 'shuffle');
         this._repeat = getFromStore('repeat');
 
         if (audio) {
@@ -51,12 +52,6 @@ define([
         this.nextButton.click(function (e) {
             e.preventDefault();
             this.playNext();
-        }.bind(this));
-
-        this.shuffleButton = this.el.find('#shuffle');
-        this.shuffleButton.click(function (e) {
-            e.preventDefault();
-            this.setShuffle(!this._shuffle);
         }.bind(this));
 
         this.repeatButton = this.el.find('#repeat');
@@ -194,7 +189,7 @@ define([
         this.currentSongId = this.playlist.indexOf(song);
         this.isPaused = false;
 
-        if (this._shuffle) {
+        if (this.getShuffle()) {
             this.playbackHistory.push(song);
         } else {
             // clear the array, because we don't need playback history when not shuffling
@@ -213,7 +208,7 @@ define([
     Player.prototype.playPrevious = function() {
         var songId;
 
-        if (this._shuffle) {
+        if (this.getShuffle()) {
             if (this.playbackHistory.length > 1) {
                 // play from playback history
 
@@ -241,7 +236,7 @@ define([
     Player.prototype.playNext = function () {
         var songId;
 
-        if (this._shuffle) {
+        if (this.getShuffle()) {
             songId = randomInt(this.playlist.length - 1);
         } else {
             if (!this.isPlaying() || isLastIndex(this.playlist, this.currentSongId)) {
@@ -261,17 +256,11 @@ define([
     };
 
     Player.prototype.getShuffle = function () {
-        return this._shuffle;
+        return this._shuffle.getValue();
     };
 
     Player.prototype.setShuffle = function (state) {
-        this._shuffle = state;
-        if (state) {
-            this.shuffleButton.addClass('enabled');
-        } else {
-            this.shuffleButton.removeClass('enabled');
-        }
-        store.set('shuffle', state);
+        this._shuffle.setValue(state);
     };
 
     Player.prototype.getRepeat = function () {
