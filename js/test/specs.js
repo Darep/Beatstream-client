@@ -7,6 +7,7 @@ define(function() {
         'spec/lastfm-test',
         'spec/usermenu-test',
         'spec/resizer-test',
+        'spec/togglebutton.spec',
         'spec/player.spec',
         'spec/settingsdialog-test'
     ];
