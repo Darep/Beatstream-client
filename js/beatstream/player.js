@@ -34,7 +34,7 @@ define([
         this.playButton.click(function (e) {
             e.preventDefault();
 
-            if (this.currentSongId === undefined) {
+            if (!this.isPlaying()) {
                 // if not yet playing anything, start playing
                 this.playNext();
             } else {
@@ -106,7 +106,7 @@ define([
 
         // Playback info controls
         this.trackInfo = this.el.find('#player-song .track');
-        this.elapsed = this.el.find('#player-time .elapsed');
+        this.elapsedTime = this.el.find('#player-time .elapsed');
         this.duration = this.el.find('#player-time .duration');
 
         // set initial volume
@@ -121,13 +121,13 @@ define([
         this.audio.events.onFinish = function () {
             if (isLastIndex(this.playlist, this.currentSongId) && !this.repeat) {
                 return;
-            } else {
-                this.playNext();
             }
+
+            this.playNext();
         }.bind(this);
 
         this.audio.events.onDurationParsed = function (duration) {
-            if (this.currentSongId === undefined) {
+            if (!this.isPlaying()) {
                 return;
             }
 
@@ -137,7 +137,7 @@ define([
         }.bind(this);
 
         this.audio.events.onTimeChange = function (elapsed) {
-            if (this.currentSongId === undefined) {
+            if (!this.isPlaying()) {
                 return;
             }
 
@@ -145,7 +145,7 @@ define([
                 this.seekbar.slider('option', 'value', elapsed);
             }
 
-            this.elapsed.text(secondsToNiceTime(elapsed));
+            this.elapsedTime.text(secondsToNiceTime(elapsed));
         }.bind(this);
     };
 
@@ -178,7 +178,7 @@ define([
         // set widgets to display song info (title, duration, etc.)
         this.trackInfo.text(song.nice_title);
         this.duration.text(secondsToNiceTime(song.length));
-        this.elapsed.text(secondsToNiceTime(0));
+        this.elapsedTime.text(secondsToNiceTime(0));
         this.seekbar.slider('option', 'max', song.length);
 
         mediator.publish("player:songStarted", song);
@@ -200,7 +200,7 @@ define([
                 songId = randomToN(this.playlist.length - 1);
             }
         } else {
-            if (this.currentSongId === undefined || (this.currentSongId - 1) < 0) {
+            if (!this.isPlaying() || (this.currentSongId - 1) < 0) {
                 // play last song on playlist
                 songId = this.playlist.length - 1;
             } else {
@@ -218,7 +218,7 @@ define([
         if (this.shuffle) {
             songId = randomToN(this.playlist.length - 1);
         } else {
-            if (this.currentSongId === undefined || isLastIndex(this.playlist, this.currentSongId)) {
+            if (!this.isPlaying() || isLastIndex(this.playlist, this.currentSongId)) {
                 // play first song on playlist
                 songId = 0;
             } else {
@@ -228,6 +228,10 @@ define([
         }
 
         this.playSongWithId(songId);
+    };
+
+    Player.prototype.isPlaying = function () {
+        return (this.currentSongId !== undefined);
     };
 
 
