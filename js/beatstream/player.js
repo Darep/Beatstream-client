@@ -29,46 +29,47 @@ define([
         this.repeat = getFromStore('repeat');
 
         // Create Playback Controls
+        var self = this;
 
         this.playButton = this.el.find('#play-pause');
         this.playButton.click(function (e) {
             e.preventDefault();
 
-            if (!this.isPlaying()) {
+            if (!self.isPlaying()) {
                 // if not yet playing anything, start playing
-                this.playNext();
+                self.playNext();
             } else {
-                this.audio.togglePause();
+                self.audio.togglePause();
             }
 
-            this.isPaused = !this.isPaused;
+            self.isPaused = !self.isPaused;
 
-            this.playButton.toggleClass('playing');
-        }.bind(this));
+            self.playButton.toggleClass('playing');
+        });
 
         this.prevButton = this.el.find('#prev');
         this.prevButton.click(function (e) {
             e.preventDefault();
-            this.playPrevious();
-        }.bind(this));
+            self.playPrevious();
+        });
 
         this.nextButton = this.el.find('#next');
         this.nextButton.click(function (e) {
             e.preventDefault();
-            this.playNext();
-        }.bind(this));
+            self.playNext();
+        });
 
         this.shuffleButton = this.el.find('#shuffle');
         this.shuffleButton.click(function (e) {
             e.preventDefault();
-            this.shuffle = !this.shuffle;
-        }.bind(this));
+            self.shuffle = !self.shuffle;
+        });
 
         this.repeatButton = this.el.find('#repeat');
         this.repeatButton.click(function (e) {
             e.preventDefault();
-            this.repeat = !this.repeat;
-        }.bind(this));
+            self.repeat = !self.repeat;
+        });
 
         this.isSeeking = false;
         this.seekbar = this.el.find('#seekbar-slider');
@@ -80,12 +81,12 @@ define([
             min: 0,
             range: 'min',
             start: function(event, ui) {
-                this.isSeeking = true;
-            }.bind(this),
+                self.isSeeking = true;
+            },
             stop: function(event, ui) {
-                this.audio.seekTo(ui.value);
-                this.isSeeking = false;
-            }.bind(this)
+                self.audio.seekTo(ui.value);
+                self.isSeeking = false;
+            }
         });
 
         this.volumeLabel = this.el.find('#volume-label');
@@ -96,9 +97,9 @@ define([
             min: 0,
             range: 'min',
             slide: function (event, ui) {
-                this.audio.setVolume(ui.value);
-                this.volumeLabel.attr('title', ui.value);
-            }.bind(this),
+                self.audio.setVolume(ui.value);
+                self.volumeLabel.attr('title', ui.value);
+            },
             stop: function (event, ui) {
                 store.set('volume', ui.value);
             }
@@ -119,34 +120,34 @@ define([
         // Audio Events
 
         this.audio.events.onFinish = function () {
-            if (isLastIndex(this.playlist, this.currentSongId) && !this.repeat) {
+            if (isLastIndex(self.playlist, self.currentSongId) && !self.repeat) {
                 return;
             }
 
-            this.playNext();
-        }.bind(this);
+            self.playNext();
+        };
 
         this.audio.events.onDurationParsed = function (duration) {
-            if (!this.isPlaying()) {
+            if (!self.isPlaying()) {
                 return;
             }
 
-            this.seekbar.slider('option', 'max', duration);
-            this.seekbar.slider('option', 'disabled', false);
-            this.duration.text(secondsToNiceTime(duration));
-        }.bind(this);
+            self.seekbar.slider('option', 'max', duration);
+            self.seekbar.slider('option', 'disabled', false);
+            self.duration.text(secondsToNiceTime(duration));
+        };
 
         this.audio.events.onTimeChange = function (elapsed) {
-            if (!this.isPlaying()) {
+            if (!self.isPlaying()) {
                 return;
             }
 
-            if (!this.isSeeking) {
-                this.seekbar.slider('option', 'value', elapsed);
+            if (!self.isSeeking) {
+                self.seekbar.slider('option', 'value', elapsed);
             }
 
-            this.elapsedTime.text(secondsToNiceTime(elapsed));
-        }.bind(this);
+            self.elapsedTime.text(secondsToNiceTime(elapsed));
+        };
     };
 
     Player.prototype.setPlaylist = function (playlist) {
