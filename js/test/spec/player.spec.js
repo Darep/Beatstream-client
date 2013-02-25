@@ -41,6 +41,9 @@ define([
         var player;
 
         beforeEach(function () {
+            mediator.clear();
+            store.clear();
+
             loadFixtures('player.html');
 
             audio = {
@@ -59,12 +62,6 @@ define([
             player = new Player('.app-now-playing', audio);
             player.setPlaylist(playlist);
         });
-
-        afterEach(function() {
-            store.clear();
-            mediator.clear();
-        });
-
 
         it('should accept an audio module', function () {
             expect(player.audio).toBe(audio);
@@ -105,7 +102,7 @@ define([
 
             waitsFor(function () {
                 return done;
-            }, "", 1000);
+            }, "Mediator event for song start", 1000);
 
             // Then
             runs(function () {
@@ -176,7 +173,7 @@ define([
                 audio.events.onError();
                 clearTimeout(timer);
                 timer = null;
-            }, 2100);
+            }, 2050);
 
             waitsFor(function () {
                 return timer == null;
@@ -554,6 +551,18 @@ define([
                 expect(audio.play).toHaveBeenCalledWith(playlist[1].path);
             });
 
+            it('should go to first song on playlist after last song when repeat is on', function () {
+                player.repeat = true;
+                player.currentSongId = 2;
+                spyOn(audio.events, 'onFinish').andCallThrough();
+
+                // When
+                audio.events.onFinish();
+
+                // Then
+                expect(audio.play).toHaveBeenCalledWith(playlist[0].path);
+            });
+
             it('should not go to first song on playlist after last song when repeat is off', function () {
                 player.repeat = false;
                 player.currentSongId = 2;
@@ -566,8 +575,8 @@ define([
                 expect(audio.play).not.toHaveBeenCalled();
             });
 
-            it('should go to first song on playlist after last song when repeat is on', function () {
-                player.repeat = true;
+            it('should pause audio after last song when repeat is off', function () {
+                player.repeat = false;
                 player.currentSongId = 2;
                 spyOn(audio.events, 'onFinish').andCallThrough();
 
@@ -575,7 +584,7 @@ define([
                 audio.events.onFinish();
 
                 // Then
-                expect(audio.play).toHaveBeenCalledWith(playlist[0].path);
+                expect(audio.pause).toHaveBeenCalled();
             });
         });
     });

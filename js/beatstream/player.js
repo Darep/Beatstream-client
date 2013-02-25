@@ -120,6 +120,7 @@ define([
 
         this.audio.events.onFinish = function () {
             if (isLastIndex(this.playlist, this.currentSongId) && !this.repeat) {
+                this.audio.pause();
                 return;
             }
 
@@ -219,7 +220,7 @@ define([
                 var song = this.playbackHistory.pop();
                 songId = this.playlist.indexOf(song);
             } else {
-                songId = randomToN(this.playlist.length - 1);
+                songId = randomInt(this.playlist.length - 1);
             }
         } else {
             if (!this.isPlaying() || (this.currentSongId - 1) < 0) {
@@ -238,7 +239,7 @@ define([
         var songId;
 
         if (this.shuffle) {
-            songId = randomToN(this.playlist.length - 1);
+            songId = randomInt(this.playlist.length - 1);
         } else {
             if (!this.isPlaying() || isLastIndex(this.playlist, this.currentSongId)) {
                 // play first song on playlist
@@ -260,7 +261,7 @@ define([
     // Private:
 
     // function to get random number from 1 to n
-    function randomToN(maxVal,floatVal) {
+    function randomInt(maxVal,floatVal) {
        var randVal = Math.random()*maxVal;
        return typeof floatVal=='undefined'?Math.round(randVal):randVal.toFixed(floatVal);
     }
