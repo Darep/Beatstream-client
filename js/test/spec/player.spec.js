@@ -90,7 +90,7 @@ define([
             expect(player.playlist).toBe(playlist);
         });
 
-        xit('should emit a mediator event when starting to play a song', function () {
+        it('should emit a mediator event when starting to play a song', function () {
             var done = false;
             var foo = {
                 mediator_spy: function (song) {
@@ -111,6 +111,32 @@ define([
             runs(function () {
                 expect(foo.mediator_spy).toHaveBeenCalled();
                 expect(foo.mediator_spy.mostRecentCall.args[0]).toBe(song);
+            });
+        });
+
+        it('should emit a mediator event when song\'s time changes', function () {
+            player.playSongWithId(0);
+
+            var done = false;
+            var foo = {
+                mediator_spy: function (elapsed) {
+                    done = true;
+                }
+            };
+            spyOn(foo, 'mediator_spy').andCallThrough();
+            mediator.subscribe("player:timeChanged", foo.mediator_spy);
+
+            // When
+            audio.events.onTimeChange(20);
+
+            waitsFor(function () {
+                return done;
+            }, "Mediator event about song time change", 1000);
+
+            // Then
+            runs(function () {
+                expect(foo.mediator_spy).toHaveBeenCalled();
+                expect(foo.mediator_spy.mostRecentCall.args[0]).toBe(20);
             });
         });
 

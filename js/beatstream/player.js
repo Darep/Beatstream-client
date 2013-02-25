@@ -146,6 +146,8 @@ define([
             }
 
             this.elapsedTime.text(secondsToNiceTime(elapsed));
+
+            mediator.publish("player:timeChanged", elapsed);
         }.bind(this);
 
         var errorResetCountdown = null;
@@ -164,6 +166,9 @@ define([
                 this.playNext();
             }
         }.bind(this);
+
+        // Enterprise Bus events
+        mediator.subscribe("playlist:setPlaylist", this.setPlaylist.bind(this));
     };
 
     Player.prototype.setPlaylist = function (playlist) {
