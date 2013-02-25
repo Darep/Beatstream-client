@@ -163,11 +163,19 @@ define([
             }
         }.bind(this);
 
+        this.audio.events.onReady = function () {
+            mediator.publish('audio:ready');
+        }.bind(this);
+
         // Enterprise Bus events
         mediator.subscribe("playlist:setPlaylist", this.setPlaylist.bind(this));
 
         // Enable controls
         this.el.find('button').removeAttr('disabled');
+    };
+
+    Player.prototype.start = function () {
+        return this.audio.start();
     };
 
     Player.prototype.setPlaylist = function (playlist) {

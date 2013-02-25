@@ -9,52 +9,19 @@ define([
 ],
 function ($, mediator) {
 
-    function AudioModule(api) {
-        var errorCounter = 0;
+    var AUDIO_STARTUP_TIMEOUT = 1500;
 
+    function AudioModule(api) {
         this.song = null;
-        this.volume = 0;
         this.isReady = false;
         this.startDefer = null;
 
         this.events = {
-            onFinish: function () {}
+            onDurationParsed: function (duration) {},
+            onTimeChange: function (elapsed) {},
+            onFinish: function () {},
+            onError: function () {}
         };
-
-        var self = this;
-
-        // events from other modules
-        mediator.subscribe("songlist:selectSong", function (song) {
-            var url = api.getSongURI(song.path);
-            self.play(url);
-        });
-
-        mediator.subscribe("songlist:listEnd", function () {
-            self.stop();
-        });
-
-        mediator.subscribe("audio:error", function () {
-            if (errorCounter > 2) {
-                pause();
-                errorCounter = 0;
-                return;
-            }
-            else {
-                errorCounter = errorCounter + 1;
-            }
-        });
-
-        mediator.subscribe("buttons:togglePause", function () {
-            self.togglePause();
-        });
-
-        mediator.subscribe("buttons:seek", function (value) {
-            self.seekTo(value);
-        });
-
-        mediator.subscribe("buttons:setVolume", function (volume) {
-            self.setVolume(volume);
-        });
     }
 
 
@@ -80,8 +47,10 @@ function ($, mediator) {
 
 
     AudioModule.prototype.start = function() {
-        var defer = $.Deferred();
-        var self = this;
+        var defer = $.Deferred(),
+            self = this;
+
+        this.startDefer = defer;
 
         soundManager.setup({
             url: '/swf/',
@@ -92,7 +61,7 @@ function ($, mediator) {
             noSWFCache: true,
             onready: function() {
                 self.isReady = true;
-                mediator.publish("audio:ready");
+                this.events.onReady();
                 defer.resolve();
             },
             ontimeout: function (status) {
@@ -102,25 +71,19 @@ function ($, mediator) {
             }
         });
 
+        // send start fail signal after timeout, so the error is displayed
         setTimeout(function () {
             defer.reject();
-        }, 1500);
-
-        this.startDefer = defer;
+        }, AUDIO_STARTUP_TIMEOUT);
 
         return defer;
     };
 
 
     AudioModule.prototype.setVolume = function(volume) {
-        this.volume = volume;
+        if (this.song === null) return;
 
-        if (this.song !== null) {
-            this.song.setVolume(volume);
-        }
-        else {
-            // do nothing, no song currently playing
-        }
+        this.song.setVolume(volume);
     };
 
 
@@ -131,39 +94,40 @@ function ($, mediator) {
         }
 
         if (this.song !== null) {
+            // stop playback & loading of previous song
             this.song.destruct();
         }
-        console.log(uri);
-        var song = soundManager.createSound('mySound', uri);
 
-        var self = this;
+        var self = this,
+            song = soundManager.createSound('mySound', uri);
+
+        this.song = song;
+
         soundManager.play('mySound', {
             volume: self.volume,
 
             // register events
             onplay: function () {
-                mediator.publish("audio:play");
+                // TODO: events?
             },
             onresume: function () {
-                mediator.publish("audio:play");
+                // TODO: events?
             },
             onpause: function () {
-                mediator.publish("audio:pause");
+                // TODO: events?
             },
             onfinish: function () {
-                mediator.publish("audio:songEnd");
+                // TODO: events?
             },
             onload: function (success) {
                 var duration_in_seconds = parseInt(song.duration / 1000, 10);
-                mediator.publish("audio:parseDuration", duration_in_seconds);
+                self.events.onDurationParsed(duration_in_seconds);
             },
             whileplaying: function () {
                 var elapsed_in_seconds = parseInt(song.position / 1000, 10);
-                mediator.publish("audio:timeChange", elapsed_in_seconds);
+                self.events.onTimeChange(elapsed_in_seconds);
             }
         });
-
-        this.song = song;
     };
 
 
