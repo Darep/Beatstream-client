@@ -48,7 +48,9 @@ define([
                 togglePause: jasmine.createSpy(),
                 seekTo: jasmine.createSpy(),
                 events: {
-                    onFinish: function () {}
+                    onFinish: function () {},
+                    onDurationParsed: function () {},
+                    onTimeChange: function () {}
                 }
             };
 
@@ -110,15 +112,6 @@ define([
             });
         });
 
-        xit('should seek song on click on seekbar (jquery ui slider)', function () {
-            // When
-            $('#seekbar-slider').trigger('slidestart', [{ value: 25 }]);
-            $('#seekbar-slider').trigger('slidestop', [{ value: 25 }]);
-
-            // Then
-            expect(audio.seekTo).toHaveBeenCalledWith(25);
-        });
-
         describe("Now playing info", function() {
             it('should display track info on playback start', function () {
                 // When
@@ -146,6 +139,54 @@ define([
 
                 // Then
                 expect($('#player-song .track')).toHaveText(song.nice_title);
+            });
+
+            it('should display song duration info when song starts playing', function() {
+                player.playSongWithId(0);
+
+                // Then
+                expect($('#player-time .duration')).toHaveText('04:30');
+            });
+
+            it('should not update song duration info if no song is playing', function () {
+                audio.events.onDurationParsed(4*60+31);
+
+                // Then
+                expect($('#player-time .duration')).toHaveText('00:00');
+            });
+
+            it('should update song duration info when song\'s duration has been parsed', function() {
+                player.playSongWithId(0);
+                audio.events.onDurationParsed(4*60+31);
+
+                // Then
+                expect($('#player-time .duration')).toHaveText('04:31');
+            });
+
+            it('should reset elapsed time when song starts playing', function () {
+                $('#player-time .elapsed').text('00:10');
+
+                // When
+                player.playSongWithId(0);
+
+                // Then
+                expect($('#player-time .elapsed')).toHaveText('00:00');
+            });
+
+            it('should update elapsed time when song\'s time changes', function () {
+                player.playSongWithId(0);
+                audio.events.onTimeChange(10);
+
+                // Then
+                expect($('#player-time .elapsed')).toHaveText('00:10');
+            });
+
+            it('should not update elapsed time when no song is playing', function () {
+                $('#player-time .elapsed').text('00:00');
+                audio.events.onTimeChange(10);
+
+                // Then
+                expect($('#player-time .elapsed')).toHaveText('00:00');
             });
         });
 
@@ -382,6 +423,47 @@ define([
 
                 // Then
                 expect(player.repeat).toBe(true);
+            });
+        });
+
+        describe("Seekbar", function() {
+            xit('should seek song on click on seekbar (jquery ui slider)', function () {
+                // When
+                $('#seekbar-slider').trigger('slidestart', [{ value: 25 }]);
+                $('#seekbar-slider').trigger('slidestop', [{ value: 25 }]);
+
+                // Then
+                expect(audio.seekTo).toHaveBeenCalledWith(25);
+            });
+
+            it('should set max to song\'s length when song starts playing', function () {
+                player.playSongWithId(0);
+
+                // Then
+                expect( $('#seekbar-slider').slider('option', 'max') ).toBe(playlist[0].length);
+            });
+
+            it('should update max when song\'s duration has been parsed', function () {
+                player.playSongWithId(0);
+                spyOn(audio.events, 'onDurationParsed').andCallThrough();
+
+                // When
+                audio.events.onDurationParsed(playlist[0].length + 1);
+
+                // Then
+                expect( $('#seekbar-slider').slider('option', 'max') ).toBe(playlist[0].length + 1);
+            });
+
+            it('should move when playing song time changes', function () {
+                var value = $('#seekbar-slider').slider('value');
+                spyOn(audio.events, 'onTimeChange').andCallThrough();
+                player.playSongWithId(0);
+
+                // When
+                audio.events.onTimeChange(10);
+
+                // Then
+                expect( $('#seekbar-slider').slider('value') ).toBe(10);
             });
         });
 

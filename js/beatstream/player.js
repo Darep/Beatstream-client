@@ -70,7 +70,7 @@ define([
             this.repeat = !this.repeat;
         }.bind(this));
 
-        var isSeeking = false;
+        this.isSeeking = false;
         this.seekbar = this.el.find('#seekbar-slider');
         this.seekbar.slider({
             orientation: 'horizontal',
@@ -80,11 +80,11 @@ define([
             min: 0,
             range: 'min',
             start: function(event, ui) {
-                isSeeking = true;
-            },
+                this.isSeeking = true;
+            }.bind(this),
             stop: function(event, ui) {
                 this.audio.seekTo(ui.value);
-                isSeeking = false;
+                this.isSeeking = false;
             }.bind(this)
         });
 
@@ -104,7 +104,10 @@ define([
             }
         });
 
+        // Playback info controls
         this.trackInfo = this.el.find('#player-song .track');
+        this.elapsed = this.el.find('#player-time .elapsed');
+        this.duration = this.el.find('#player-time .duration');
 
         // set initial volume
         var volume = getFromStore(volume);
@@ -121,6 +124,28 @@ define([
             } else {
                 this.playNext();
             }
+        }.bind(this);
+
+        this.audio.events.onDurationParsed = function (duration) {
+            if (this.currentSongId === undefined) {
+                return;
+            }
+
+            this.seekbar.slider('option', 'max', duration);
+            this.seekbar.slider('option', 'disabled', false);
+            this.duration.text(secondsToNiceTime(duration));
+        }.bind(this);
+
+        this.audio.events.onTimeChange = function (elapsed) {
+            if (this.currentSongId === undefined) {
+                return;
+            }
+
+            if (!this.isSeeking) {
+                this.seekbar.slider('option', 'value', elapsed);
+            }
+
+            this.elapsed.text(secondsToNiceTime(elapsed));
         }.bind(this);
     };
 
@@ -150,8 +175,11 @@ define([
             this.playbackHistory.length = 0;
         }
 
-        // display now playing track info
+        // set widgets to display song info (title, duration, etc.)
         this.trackInfo.text(song.nice_title);
+        this.duration.text(secondsToNiceTime(song.length));
+        this.elapsed.text(secondsToNiceTime(0));
+        this.seekbar.slider('option', 'max', song.length);
 
         mediator.publish("player:songStarted", song);
     };
@@ -221,6 +249,13 @@ define([
 
     function isLastIndex(array, index) {
         return (index + 1) === array.length;
+    }
+
+    function secondsToNiceTime(seconds) {
+        var mins = Math.floor(seconds/60, 10),
+            secs = seconds - mins*60;
+
+        return ((mins > 9 ? mins : '0' + mins) + ':' + (secs > 9 ? secs : '0' + secs));
     }
 
     return Player;
