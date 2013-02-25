@@ -14,19 +14,14 @@ define([
         this.playlist = undefined;
         this.currentSongId = undefined;
         this.isPaused = false;
-        this.shuffle = false;
-        this.repeat = false;
+        this._shuffle = getFromStore('shuffle');
+        this._repeat = getFromStore('repeat');
 
         if (audio) {
             this.audio = audio;
         } else {
             this.audio = new SM2Audio();
         }
-
-        // Get states from store.js
-
-        this.shuffle = getFromStore('shuffle');
-        this.repeat = getFromStore('repeat');
 
         // Create Playback Controls
 
@@ -61,13 +56,13 @@ define([
         this.shuffleButton = this.el.find('#shuffle');
         this.shuffleButton.click(function (e) {
             e.preventDefault();
-            this.shuffle = !this.shuffle;
+            this.setShuffle(!this._shuffle);
         }.bind(this));
 
         this.repeatButton = this.el.find('#repeat');
         this.repeatButton.click(function (e) {
             e.preventDefault();
-            this.repeat = !this.repeat;
+            this.setRepeat(!this._repeat);
         }.bind(this));
 
         this.isSeeking = false;
@@ -124,7 +119,7 @@ define([
         // Audio Events
 
         this.audio.events.onFinish = function () {
-            if (isLastIndex(this.playlist, this.currentSongId) && !this.repeat) {
+            if (isLastIndex(this.playlist, this.currentSongId) && !this._repeat) {
                 this.audio.pause();
                 return;
             }
@@ -175,6 +170,9 @@ define([
 
         // Enterprise Bus events
         mediator.subscribe("playlist:setPlaylist", this.setPlaylist.bind(this));
+
+        // Enable controls
+        this.el.find('button').removeAttr('disabled');
     };
 
     Player.prototype.setPlaylist = function (playlist) {
@@ -196,7 +194,7 @@ define([
         this.currentSongId = this.playlist.indexOf(song);
         this.isPaused = false;
 
-        if (this.shuffle) {
+        if (this._shuffle) {
             this.playbackHistory.push(song);
         } else {
             // clear the array, because we don't need playback history when not shuffling
@@ -215,7 +213,7 @@ define([
     Player.prototype.playPrevious = function() {
         var songId;
 
-        if (this.shuffle) {
+        if (this._shuffle) {
             if (this.playbackHistory.length > 1) {
                 // play from playback history
 
@@ -243,7 +241,7 @@ define([
     Player.prototype.playNext = function () {
         var songId;
 
-        if (this.shuffle) {
+        if (this._shuffle) {
             songId = randomInt(this.playlist.length - 1);
         } else {
             if (!this.isPlaying() || isLastIndex(this.playlist, this.currentSongId)) {
@@ -260,6 +258,34 @@ define([
 
     Player.prototype.isPlaying = function () {
         return (this.currentSongId !== undefined);
+    };
+
+    Player.prototype.getShuffle = function () {
+        return this._shuffle;
+    };
+
+    Player.prototype.setShuffle = function (state) {
+        this._shuffle = state;
+        if (state) {
+            this.shuffleButton.addClass('enabled');
+        } else {
+            this.shuffleButton.removeClass('enabled');
+        }
+        store.set('shuffle', state);
+    };
+
+    Player.prototype.getRepeat = function () {
+        return this._repeat;
+    };
+
+    Player.prototype.setRepeat = function (state) {
+        this._repeat = state;
+        if (state) {
+            this.repeatButton.addClass('enabled');
+        } else {
+            this.repeatButton.removeClass('enabled');
+        }
+        store.set('repeat', state);
     };
 
 

@@ -282,7 +282,7 @@ define([
 
         describe('Playback history', function () {
             it('should add a playing song to playback history when shuffle is on', function () {
-                player.shuffle = true;
+                player.setShuffle(true);
                 player.playSongWithId(0);
 
                 expect(player.playbackHistory.pop()).toBe(song);
@@ -470,30 +470,74 @@ define([
 
         describe('Shuffle', function () {
             it('should be off by default', function () {
-                expect(player.shuffle).toBe(false);
+                expect(player.getShuffle()).toBe(false);
             });
 
             it('should retrieve state from "store"', function () {
-                player.shuffle = false;
                 store.set('shuffle', true);
                 var tmp_player = new Player('.app-now-playing', audio);
-                expect(tmp_player.shuffle).toBe(true);
+                expect(tmp_player.getShuffle()).toBe(true);
             });
 
-            it('should toggle on click', function () {
-                player.shuffle = false;
+            it('should set state to "store"', function () {
+                player.setShuffle(true);
+                expect(store.get('shuffle')).toBe(true);
+            });
+
+            it('should change state from false to true on click', function () {
+                player.setShuffle(false);
 
                 // When
                 $('#shuffle').click();
 
                 // Then
-                expect(player.shuffle).toBe(true);
+                expect(player.getShuffle()).toBe(true);
+            });
+
+            it('should not have "enabled" class by default', function () {
+                expect($('#shuffle')).not.toHaveClass('enabled');
+            });
+
+            it('should get "enabled" CSS class when shuffle enabled', function () {
+                player.setShuffle(false);
+
+                // When
+                player.setShuffle(true);
+
+                // Then
+                expect($('#shuffle')).toHaveClass('enabled');
+            });
+
+            it('should lose "enabled" CSS class on click', function () {
+                player.setShuffle(true);
+                $('#shuffle').addClass('enabled');
+
+                // When
+                $('#shuffle').click();
+
+                // Then
+                expect($('#shuffle')).not.toHaveClass('enabled');
+            });
+
+            it('should get "enabled" CSS class when shuffle enabled', function () {
+                $('#shuffle').removeClass('enabled');
+
+                // When
+                $('#shuffle').click();
+
+                // Then
+                expect($('#shuffle')).toHaveClass('enabled');
             });
         });
 
         describe('Repeat', function () {
             it('should be off by default', function () {
-                expect(player.repeat).toBe(false);
+                expect(player.getRepeat()).toBe(false);
+            });
+
+            it('should set state to "store"', function () {
+                player.setRepeat(true);
+                expect(store.get('repeat')).toBe(true);
             });
 
             it('should retrieve state from "store"', function () {
@@ -502,17 +546,52 @@ define([
                 var tmp_player = new Player('.app-now-playing', audio);
 
                 // Then
-                expect(tmp_player.repeat).toBe(true);
+                expect(tmp_player.getRepeat()).toBe(true);
             });
 
-            it('should toggle on click', function () {
-                player.repeat = false;
+            it('should change state from false to true on click', function () {
+                player.setRepeat(false);
 
                 // When
                 $('#repeat').click();
 
                 // Then
-                expect(player.repeat).toBe(true);
+                expect(player.getRepeat()).toBe(true);
+            });
+
+            it('should not have "enabled" class by default', function () {
+                expect($('#repeat')).not.toHaveClass('enabled');
+            });
+
+            it('should get "enabled" CSS class when repeat enabled', function () {
+                player.setRepeat(false);
+
+                // When
+                player.setRepeat(true);
+
+                // Then
+                expect($('#repeat')).toHaveClass('enabled');
+            });
+
+            it('should lose "enabled" CSS class on click', function () {
+                player.setRepeat(true);
+                $('#repeat').addClass('enabled');
+
+                // When
+                $('#repeat').click();
+
+                // Then
+                expect($('#repeat')).not.toHaveClass('enabled');
+            });
+
+            it('should get "enabled" CSS class when repeat enabled', function () {
+                $('#repeat').removeClass('enabled');
+
+                // When
+                $('#repeat').click();
+
+                // Then
+                expect($('#repeat')).toHaveClass('enabled');
             });
         });
 
@@ -570,7 +649,7 @@ define([
             });
 
             it('should go to first song on playlist after last song when repeat is on', function () {
-                player.repeat = true;
+                player.setRepeat(true);
                 player.currentSongId = 2;
                 spyOn(audio.events, 'onFinish').andCallThrough();
 
@@ -582,7 +661,7 @@ define([
             });
 
             it('should not go to first song on playlist after last song when repeat is off', function () {
-                player.repeat = false;
+                player.setRepeat(false);
                 player.currentSongId = 2;
                 spyOn(audio.events, 'onFinish').andCallThrough();
 
