@@ -96,7 +96,7 @@ define([
 
         // set initial volume
         var volume = getFromStore(volume);
-        if (!volume) {
+        if (!volume || volume <= 0 || volume >= 100) {
             volume = DEFAULT_VOLUME;
         }
         this.volumeSlider.slider('option', 'value', volume);

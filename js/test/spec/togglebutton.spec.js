@@ -44,7 +44,7 @@ define([
             expect($('#shuffle')).not.toHaveClass('enabled');
         });
 
-        it('should get "enabled" CSS class when shuffle enabled', function () {
+        it('should get "enabled" CSS class when enabled', function () {
             shuffle.setValue(false);
 
             // When
@@ -65,7 +65,8 @@ define([
             expect($('#shuffle')).not.toHaveClass('enabled');
         });
 
-        it('should get "enabled" CSS class when shuffle enabled', function () {
+        it('should get "enabled" CSS class when enabled', function () {
+            shuffle.setValue(false);
             $('#shuffle').removeClass('enabled');
 
             // When

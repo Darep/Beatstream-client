@@ -472,10 +472,10 @@ define([
             xit('should seek song on click on seekbar (jquery ui slider)', function () {
                 // When
                 $('#seekbar-slider').trigger('slidestart', [{ value: 25 }]);
-                $('#seekbar-slider').trigger('slidestop', [{ value: 25 }]);
+                $('#seekbar-slider').trigger('slidestop', [{ value: 30 }]);
 
                 // Then
-                expect(audio.seekTo).toHaveBeenCalledWith(25);
+                expect(audio.seekTo).toHaveBeenCalledWith(30);
             });
 
             it('should set max to song\'s length when song starts playing', function () {
