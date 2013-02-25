@@ -147,6 +147,23 @@ define([
 
             this.elapsedTime.text(secondsToNiceTime(elapsed));
         }.bind(this);
+
+        var errorResetCountdown = null;
+        this.audio.events.onError = function (onError) {
+            if (errorResetCountdown !== null) {
+                // timer set and we got another error, time to do something
+                audio.pause();
+                return;
+            } else {
+                // Set a countdown
+                errorResetCountdown = setTimeout(function () {
+                    clearTimeout(errorResetCountdown);
+                    errorResetCountdown = null;
+                }, 2000);
+
+                this.playNext();
+            }
+        }.bind(this);
     };
 
     Player.prototype.setPlaylist = function (playlist) {

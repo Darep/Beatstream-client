@@ -47,10 +47,12 @@ define([
                 play: jasmine.createSpy(),
                 togglePause: jasmine.createSpy(),
                 seekTo: jasmine.createSpy(),
+                pause: jasmine.createSpy(),
                 events: {
                     onFinish: function () {},
-                    onDurationParsed: function () {},
-                    onTimeChange: function () {}
+                    onDurationParsed: function (duration) {},
+                    onTimeChange: function (elapsed) {},
+                    onError: function () {}
                 }
             };
 
@@ -109,6 +111,53 @@ define([
             runs(function () {
                 expect(foo.mediator_spy).toHaveBeenCalled();
                 expect(foo.mediator_spy.mostRecentCall.args[0]).toBe(song);
+            });
+        });
+
+        it('should move to next song on audio playback error', function () {
+            player.playSongWithId(0);
+
+            // When
+            audio.events.onError();
+
+            // Then
+            expect(audio.play).toHaveBeenCalledWith(playlist[1].path);
+        });
+
+        it('should stop audio playback after two errors under 2 secs', function () {
+            audio.events.onError();
+
+            var timer = setTimeout(function () {
+                audio.events.onError();
+                clearTimeout(timer);
+                timer = null;
+            }, 500);
+
+            waitsFor(function () {
+                return timer == null;
+            }, "Second error test callback never fired", 700);
+
+            // Then
+            runs(function () {
+                expect(audio.pause).toHaveBeenCalled();
+            });
+        });
+
+        it('should not stop audio playback if errors are over 2 secs apart', function () {
+            audio.events.onError();
+
+            var timer = setTimeout(function () {
+                audio.events.onError();
+                clearTimeout(timer);
+                timer = null;
+            }, 2100);
+
+            waitsFor(function () {
+                return timer == null;
+            }, "Second error test callback never fired", 2200);
+
+            runs(function () {
+                expect(audio.pause).not.toHaveBeenCalled();
             });
         });
 
