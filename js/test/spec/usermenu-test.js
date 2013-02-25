@@ -54,7 +54,7 @@ define(['beatstream/usermenu'], function(UserMenu) {
         it('should hide the menu when clicked outside', function () {
             $('#user-menu ul').addClass('show');
 
-            $('#sandbox').click();
+            $('body').click();
 
             expect($('#user-menu ul')).not.toHaveClass('show');
         });

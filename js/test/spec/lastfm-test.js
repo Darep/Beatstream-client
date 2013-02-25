@@ -12,11 +12,14 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
         var promise = {};
         var success_spy;
         var error_spy;
-
-        // SUT
-        var lastfm = new LastFM(api);
+        var lastfm;
 
         beforeEach(function () {
+            mediator.clear();
+
+            // SUT
+            lastfm = new LastFM(api);
+
             success_spy = jasmine.createSpy().andCallFake(function (callback) { callback(); });
             error_spy = jasmine.createSpy();
 
