@@ -104,17 +104,22 @@ define([
             }
         });
 
-        // Playback info controls
-        this.trackInfo = this.el.find('#player-song .track');
-        this.elapsedTime = this.el.find('#player-time .elapsed');
-        this.duration = this.el.find('#player-time .duration');
-
         // set initial volume
         var volume = getFromStore(volume);
         if (!volume) {
             volume = DEFAULT_VOLUME;
         }
         this.volumeSlider.slider('option', 'value', volume);
+
+        // Playback info controls
+        this.trackInfo = this.el.find('#player-song .track');
+        this.elapsedTime = this.el.find('#player-time .elapsed');
+        this.duration = this.el.find('#player-time .duration');
+
+        this.el.find('#player-song').dblclick(function (e) {
+            e.preventDefault();
+            mediator.publish('playlist:showPlaylistAndSong', [this.playlist, this.playlist[this.currentSongId]]);
+        }.bind(this));
 
         // Audio Events
 

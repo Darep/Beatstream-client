@@ -89,13 +89,10 @@ define([
 
         it('should emit a mediator event when starting to play a song', function () {
             var done = false;
-            var foo = {
-                mediator_spy: function (song) {
-                    done = true;
-                }
-            };
-            spyOn(foo, 'mediator_spy').andCallThrough();
-            mediator.subscribe("player:songStarted", foo.mediator_spy);
+            var mediator_spy = jasmine.createSpy().andCallFake(function () {
+                done = true;
+            });
+            mediator.subscribe("player:songStarted", mediator_spy);
 
             // When
             player.playSong(song);
@@ -106,8 +103,8 @@ define([
 
             // Then
             runs(function () {
-                expect(foo.mediator_spy).toHaveBeenCalled();
-                expect(foo.mediator_spy.mostRecentCall.args[0]).toBe(song);
+                expect(mediator_spy).toHaveBeenCalled();
+                expect(mediator_spy.mostRecentCall.args[0]).toBe(song);
             });
         });
 
@@ -115,13 +112,10 @@ define([
             player.playSongWithId(0);
 
             var done = false;
-            var foo = {
-                mediator_spy: function (elapsed) {
-                    done = true;
-                }
-            };
-            spyOn(foo, 'mediator_spy').andCallThrough();
-            mediator.subscribe("player:timeChanged", foo.mediator_spy);
+            var mediator_spy = jasmine.createSpy().andCallFake(function () {
+                done = true;
+            });
+            mediator.subscribe("player:timeChanged", mediator_spy);
 
             // When
             audio.events.onTimeChange(20);
@@ -132,8 +126,8 @@ define([
 
             // Then
             runs(function () {
-                expect(foo.mediator_spy).toHaveBeenCalled();
-                expect(foo.mediator_spy.mostRecentCall.args[0]).toBe(20);
+                expect(mediator_spy).toHaveBeenCalled();
+                expect(mediator_spy.mostRecentCall.args[0]).toBe(20);
             });
         });
 
@@ -211,6 +205,30 @@ define([
 
                 // Then
                 expect($('#player-song .track')).toHaveText(song.nice_title);
+            });
+
+            it('should emit mediator event on current song double-click', function () {
+                var done = false;
+                var mediator_spy = jasmine.createSpy().andCallFake(function () {
+                    done = true;
+                });
+
+                mediator.subscribe("playlist:showPlaylistAndSong", mediator_spy);
+                player.playSongWithId(0);
+
+                // When
+                $('#player-song').dblclick();
+
+                waitsFor(function () {
+                    return done;
+                }, "Mediator event to show playlist and song", 1000);
+
+                // Then
+                runs(function () {
+                    expect(mediator_spy).toHaveBeenCalled();
+                    expect(mediator_spy.mostRecentCall.args[0][0]).toBe(playlist);
+                    expect(mediator_spy.mostRecentCall.args[0][1]).toBe(song);
+                });
             });
 
             it('should display song duration info when song starts playing', function() {
