@@ -20,6 +20,7 @@ function ($, mediator) {
             onDurationParsed: function (duration) {},
             onTimeChange: function (elapsed) {},
             onFinish: function () {},
+            onReady: function () {},
             onError: function () {}
         };
     }
@@ -61,7 +62,7 @@ function ($, mediator) {
             noSWFCache: true,
             onready: function() {
                 self.isReady = true;
-                this.events.onReady();
+                self.events.onReady();
                 defer.resolve();
             },
             ontimeout: function (status) {

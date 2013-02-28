@@ -27,7 +27,7 @@ define(['jquery'], function ($) {
             this.songlist.resizeCanvas();
         }
 
-        // TODO: what if, instead, we send a message to the bus: "app:resize"
+        // TODO: what if, instead, we send a message to the bus. "app:resize"
     };
 
     return Resizer;
