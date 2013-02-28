@@ -73,7 +73,7 @@
     }
 }
 
-#player-volume-label {
+#volume-label {
     background:url('/img/icons.png') no-repeat -160px -197px;
     display:inline-block;
     float:left;
@@ -85,7 +85,7 @@
     text-indent:100%;
     white-space: nowrap;
 }
-#player-volume {
+#volume {
     margin:20px 15px 0 5px;
     text-align:center;
     width:100px;
@@ -131,7 +131,7 @@
     height:48px;
     vertical-align: middle;
 }
-    #player-buttons, #player-volume, #player-time {
+    #player-buttons, #volume, #player-time {
         float:left;
     }
 

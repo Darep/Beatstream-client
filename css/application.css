@@ -1317,7 +1317,7 @@ classes should alter those!
 }
 
 /* line 76, ../sass/partials/_player.scss */
-#player-volume-label {
+#volume-label {
   background: url("/img/icons.png") no-repeat -160px -197px;
   display: inline-block;
   float: left;
@@ -1330,7 +1330,7 @@ classes should alter those!
 }
 
 /* line 88, ../sass/partials/_player.scss */
-#player-volume {
+#volume {
   margin: 20px 15px 0 5px;
   text-align: center;
   width: 100px;
@@ -1388,7 +1388,7 @@ classes should alter those!
 }
 
 /* line 134, ../sass/partials/_player.scss */
-#player-buttons, #player-volume, #player-time {
+#player-buttons, #volume, #player-time {
   float: left;
 }
 

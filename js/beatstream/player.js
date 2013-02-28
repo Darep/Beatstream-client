@@ -26,6 +26,9 @@ define([
 
         this.createPlaybackControls();
         this.hookAudioEvents();
+
+        // Enterprise Bus events
+        mediator.subscribe("playlist:setPlaylist", this.setPlaylist.bind(this));
     };
 
     Player.prototype.createPlaybackControls = function() {
@@ -110,6 +113,10 @@ define([
     };
 
     Player.prototype.hookAudioEvents = function() {
+        this.audio.events.onPlay = function () {
+            this.seekbar.slider('option', 'value', 0);
+        }.bind(this);
+
         this.audio.events.onFinish = function () {
             if (isLastIndex(this.playlist, this.currentSongId) && !this.getRepeat()) {
                 this.audio.pause();
@@ -163,9 +170,6 @@ define([
         this.audio.events.onReady = function () {
             mediator.publish('audio:ready');
         }.bind(this);
-
-        // Enterprise Bus events
-        mediator.subscribe("playlist:setPlaylist", this.setPlaylist.bind(this));
 
         // Enable controls
         this.el.find('button').removeAttr('disabled');
@@ -299,9 +303,9 @@ define([
 
     function secondsToNiceTime(seconds) {
         var mins = Math.floor(seconds/60, 10),
-            secs = seconds - mins*60;
+            secs = parseInt(seconds - mins*60, 10);
 
-        return ((mins > 9 ? mins : '0' + mins) + ':' + (secs > 9 ? secs : '0' + secs));
+        return (mins + ':' + (secs > 9 ? secs : '0' + secs));
     }
 
     return Player;

@@ -17,6 +17,7 @@ function ($, mediator) {
         this.startDefer = null;
 
         this.events = {
+            onPlay: function () {},
             onDurationParsed: function (duration) {},
             onTimeChange: function (elapsed) {},
             onFinish: function () {},
@@ -55,7 +56,7 @@ function ($, mediator) {
 
         soundManager.setup({
             url: '/swf/',
-            preferFlash: false,
+            preferFlash: true,
             useFlashBlock: true,
             useHTML5Audio: true,
             useHighPerformance: true,
@@ -109,7 +110,7 @@ function ($, mediator) {
 
             // register events
             onplay: function () {
-                // TODO: events?
+                self.events.onPlay();
             },
             onresume: function () {
                 // TODO: events?
@@ -118,7 +119,7 @@ function ($, mediator) {
                 // TODO: events?
             },
             onfinish: function () {
-                // TODO: events?
+                self.events.onFinish();
             },
             onload: function (success) {
                 var duration_in_seconds = parseInt(song.duration / 1000, 10);

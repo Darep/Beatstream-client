@@ -12,7 +12,7 @@ define([
             id: 0,
             artist: 'Foreigner',
             title: 'Urgent',
-            length: 4*60+30,
+            length: 4*60+30 + 0.225,
             path: '/Foreigner/Foreigner - Urgent.mp3',
             nice_title: 'Foreigner - Urgent'
         };
@@ -235,14 +235,14 @@ define([
                 player.playSongWithId(0);
 
                 // Then
-                expect($('#player-time .duration')).toHaveText('04:30');
+                expect($('#player-time .duration')).toHaveText('4:30');
             });
 
             it('should not update song duration info if no song is playing', function () {
                 audio.events.onDurationParsed(4*60+31);
 
                 // Then
-                expect($('#player-time .duration')).toHaveText('00:00');
+                expect($('#player-time .duration')).toHaveText('0:00');
             });
 
             it('should update song duration info when song\'s duration has been parsed', function() {
@@ -250,17 +250,17 @@ define([
                 audio.events.onDurationParsed(4*60+31);
 
                 // Then
-                expect($('#player-time .duration')).toHaveText('04:31');
+                expect($('#player-time .duration')).toHaveText('4:31');
             });
 
             it('should reset elapsed time when song starts playing', function () {
-                $('#player-time .elapsed').text('00:10');
+                $('#player-time .elapsed').text('0:10');
 
                 // When
                 player.playSongWithId(0);
 
                 // Then
-                expect($('#player-time .elapsed')).toHaveText('00:00');
+                expect($('#player-time .elapsed')).toHaveText('0:00');
             });
 
             it('should update elapsed time when song\'s time changes', function () {
@@ -268,15 +268,15 @@ define([
                 audio.events.onTimeChange(10);
 
                 // Then
-                expect($('#player-time .elapsed')).toHaveText('00:10');
+                expect($('#player-time .elapsed')).toHaveText('0:10');
             });
 
             it('should not update elapsed time when no song is playing', function () {
-                $('#player-time .elapsed').text('00:00');
+                $('#player-time .elapsed').text('0:00');
                 audio.events.onTimeChange(10);
 
                 // Then
-                expect($('#player-time .elapsed')).toHaveText('00:00');
+                expect($('#player-time .elapsed')).toHaveText('0:00');
             });
         });
 
@@ -506,6 +506,14 @@ define([
 
                 // Then
                 expect( $('#seekbar-slider').slider('value') ).toBe(10);
+            });
+
+            it('should reset when song changes', function () {
+                // When
+                audio.events.onPlay();
+
+                // Then
+                expect( $('#seekbar-slider').slider('value') ).toEqual(0);
             });
         });
 
