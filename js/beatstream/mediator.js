@@ -20,6 +20,9 @@ define(['mediator'], function () {
         unsubscribe: function (channel, identifier) {
             return mediatorReal.remove(channel, identifier);
         },
+        once: function (a, b, c, d) {
+            return mediatorReal.once(a, b, c, d);
+        },
         clear: function () {
             // un-subscribe all
             for (var i = subscribers.length - 1; i >= 0; i--) {

@@ -9,6 +9,7 @@ define(function() {
         'spec/resizer-test',
         'spec/togglebutton.spec',
         'spec/player.spec',
+        'spec/playlistmanager.spec',
         'spec/settingsdialog-test'
     ];
 });

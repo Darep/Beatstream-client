@@ -1,11 +1,12 @@
 define(['jquery', 'beatstream/mediator'],
 function ($, mediator) {
-    // static base URL, shared by all the APIs (why?)
-    var baseUrl = '';
 
     var Api = function (apiBaseUrl) {
-        if (apiBaseUrl) {
-            baseUrl = apiBaseUrl;
+        this.baseUrl = apiBaseUrl || "";
+
+        // Remove trailing "/"
+        if (this.baseUrl.charAt(this.baseUrl.length - 1) == "/") {
+            this.baseUrl = this.baseUrl.slice(0, -1);
         }
     };
 
@@ -13,7 +14,7 @@ function ($, mediator) {
     Api.prototype.logIn = function (username, password) {
         return $.ajax({
             type: 'POST',
-            url: baseUrl + '/auth',
+            url: this.baseUrl + '/auth',
             data: { username: username, password: password },
             errorHandler: errorHandler
         });
@@ -22,7 +23,7 @@ function ($, mediator) {
 
     Api.prototype.getAllMusic = function () {
         return $.ajax({
-            url: baseUrl + '/songs',
+            url: this.baseUrl + '/songs',
             dataType: 'json',
             error: errorHandler
         });
@@ -31,7 +32,7 @@ function ($, mediator) {
 
     Api.prototype.getPlaylist = function (name) {
         return $.ajax({
-            url: baseUrl + '/playlists/' + encodeURIComponent(name),
+            url: this.baseUrl + '/playlists/' + encodeURIComponent(name),
             dataType: 'json',
             error: errorHandler
         });
@@ -41,7 +42,7 @@ function ($, mediator) {
     Api.prototype.createPlaylist = function (name) {
         return $.ajax({
             type: 'POST',
-            url: baseUrl + '/playlists',
+            url: this.baseUrl + '/playlists',
             data: { name: name },
             error: errorHandler
         });
@@ -52,7 +53,7 @@ function ($, mediator) {
         // TODO: finish this
         return $.ajax({
             type: 'POST',
-            url: baseUrl + '/playlists/' + encodeURIComponent(playlist),
+            url: this.baseUrl + '/playlists/' + encodeURIComponent(playlist),
             data: songs,
             error: errorHandler
         });
@@ -63,14 +64,19 @@ function ($, mediator) {
         // TODO: finish this
         return $.ajax({
             type: 'PUT',
-            url: baseUrl + '/playlists/' + encodeURIComponent(playlist),
+            url: this.baseUrl + '/playlists/' + encodeURIComponent(playlist),
             error: errorHandler
         });
     };
 
 
     Api.prototype.getSongURI = function (songPath) {
-        return baseUrl + '/songs/play/?file=' + encodeURIComponent(songPath);
+        // Remove leading "/"
+        if (songPath.charAt(0) == "/") {
+            songPath = songPath.substr(1);
+        }
+
+        return this.baseUrl + '/songs/play/?file=' + encodeURIComponent(songPath);
     };
 
 
@@ -80,7 +86,7 @@ function ($, mediator) {
 
         return $.ajax({
             type: 'PUT',
-            url: baseUrl + '/now-playing',
+            url: this.baseUrl + '/now-playing',
             data: data
         });
     };
@@ -92,7 +98,7 @@ function ($, mediator) {
 
         return $.ajax({
             type: 'POST',
-            url: baseUrl + '/scrobble',
+            url: this.baseUrl + '/scrobble',
             data: data
         });
     };

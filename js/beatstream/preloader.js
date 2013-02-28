@@ -5,25 +5,25 @@ function ($, mediator) {
         this.el = $(selector);
         this.errorStack = [];
 
-        $.when(audioStart, playlistLoad).done(function (audioResult, openMusicResult) {
-            console.log('preloader: audio started and playlist loaded!');
-            this.hide();
-        }.bind(this));
+        // Failures:
 
         audioStart.fail(function () {
             this.showError('no-flash');
 
-            // Hide the error if the audio is started later on (e.g. flash block disabled)
-            mediator.subscribe("audio:ready", function () {
+            mediator.once("audio:ready", function () {
+                // Hide the error if the audio is started later on (e.g. flash block got disabled)
                 this.hideError('no-flash');
-
-                // unsubscribe
-                mediator.Remove("audio:ready", this);
             }.bind(this));
         }.bind(this));
 
         playlistLoad.fail(function () {
             this.showError('playlist-error');
+        }.bind(this));
+
+        // Success:
+
+        $.when(audioStart, playlistLoad).done(function (audioResult, openMusicResult) {
+            this.hide();
         }.bind(this));
     };
 
@@ -42,7 +42,6 @@ function ($, mediator) {
     };
 
     Preloader.prototype.showError = function (key) {
-        console.log('gonna display error: ' + key);
         var error = this.el.find('.' + key);
 
         error.css({
