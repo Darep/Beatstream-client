@@ -28,8 +28,10 @@ function ($) {
 
         if (e.target == this.menuToggle[0] || target.parents().index(this.menuToggle) != -1) {
             this.actualMenu.toggleClass('show');
+            return false;
         } else if (this.isMenuItem(target) || this.isOutside(target)) {
             this.actualMenu.removeClass('show');
+            return false;
         }
     };
 

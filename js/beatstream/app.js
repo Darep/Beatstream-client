@@ -21,8 +21,8 @@ define([
     var App = {
         init: function (options_in) {
 
-            var resizer, api, audio, lastfm, usermenu, songlist, sidebar, player,
-                playlists, login, preloader, options;
+            var resizer, api, audio, lastfm, usermenu, songlist, sidebar,
+                player, playlistManager, login, preloader, options;
 
             options = $.extend({
                 apiUrl: '/api/v1/'
