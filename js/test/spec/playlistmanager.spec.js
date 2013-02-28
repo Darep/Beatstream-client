@@ -50,11 +50,7 @@ define([
             };
 
             // SUT
-            playlistManager = new PlaylistManager(api);
-        });
-
-        afterEach(function() {
-            api = undefined;
+            playlistManager = new PlaylistManager('.main-wrap', api);
         });
 
         it('should use API when getting all music', function () {

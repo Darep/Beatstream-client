@@ -32,9 +32,9 @@ define([
             api       = new Api(options.apiUrl);
             usermenu  = new UserMenu('#user-menu', 'John');
             player    = new Player('.app-now-playing');
+            playlistManager = new PlaylistManager('.main-wrap', api);
             resizer   = new Resizer(songlist);
             lastfm    = new LastFM(api);
-            playlistManager = new PlaylistManager(api);
 
             resizer.resize();
 
