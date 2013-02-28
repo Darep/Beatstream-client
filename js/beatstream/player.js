@@ -16,7 +16,7 @@ define([
         this.currentSongId = undefined;
         this.isPaused = false;
         this._shuffle = new ToggleButton('#shuffle', 'shuffle');
-        this._repeat = getFromStore('repeat');
+        this._repeat = new ToggleButton('#repeat', 'repeat');
 
         if (audio) {
             this.audio = audio;
@@ -24,8 +24,11 @@ define([
             this.audio = new SM2Audio();
         }
 
-        // Create Playback Controls
+        this.createPlaybackControls();
+        this.hookAudioEvents();
+    };
 
+    Player.prototype.createPlaybackControls = function() {
         this.playButton = this.el.find('#play-pause');
         this.playButton.click(function (e) {
             e.preventDefault();
@@ -52,12 +55,6 @@ define([
         this.nextButton.click(function (e) {
             e.preventDefault();
             this.playNext();
-        }.bind(this));
-
-        this.repeatButton = this.el.find('#repeat');
-        this.repeatButton.click(function (e) {
-            e.preventDefault();
-            this.setRepeat(!this._repeat);
         }.bind(this));
 
         this.isSeeking = false;
@@ -110,11 +107,11 @@ define([
             e.preventDefault();
             mediator.publish('playlist:showPlaylistAndSong', [this.playlist, this.playlist[this.currentSongId]]);
         }.bind(this));
+    };
 
-        // Audio Events
-
+    Player.prototype.hookAudioEvents = function() {
         this.audio.events.onFinish = function () {
-            if (isLastIndex(this.playlist, this.currentSongId) && !this._repeat) {
+            if (isLastIndex(this.playlist, this.currentSongId) && !this.getRepeat()) {
                 this.audio.pause();
                 return;
             }
@@ -150,7 +147,7 @@ define([
         this.audio.events.onError = function (onError) {
             if (errorResetCountdown !== null) {
                 // timer set and we got another error, time to do something
-                audio.pause();
+                this.audio.pause();
                 return;
             } else {
                 // Set a countdown
@@ -272,17 +269,11 @@ define([
     };
 
     Player.prototype.getRepeat = function () {
-        return this._repeat;
+        return this._repeat.getValue();
     };
 
     Player.prototype.setRepeat = function (state) {
-        this._repeat = state;
-        if (state) {
-            this.repeatButton.addClass('enabled');
-        } else {
-            this.repeatButton.removeClass('enabled');
-        }
-        store.set('repeat', state);
+        this._repeat.setValue(state);
     };
 
 

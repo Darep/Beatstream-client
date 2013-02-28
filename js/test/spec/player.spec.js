@@ -536,7 +536,6 @@ define([
             it('should not go to first song on playlist after last song when repeat is off', function () {
                 player.setRepeat(false);
                 player.currentSongId = 2;
-                spyOn(audio.events, 'onFinish').andCallThrough();
 
                 // When
                 audio.events.onFinish();
@@ -546,9 +545,8 @@ define([
             });
 
             it('should pause audio after last song when repeat is off', function () {
-                player.repeat = false;
+                player.setRepeat(false);
                 player.currentSongId = 2;
-                spyOn(audio.events, 'onFinish').andCallThrough();
 
                 // When
                 audio.events.onFinish();
