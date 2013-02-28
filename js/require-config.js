@@ -1,5 +1,6 @@
 var require = {
     shim: {
+        'helpers/helpers': ['jquery'],
         'slickgrid': [
             'jquery',
             'lib/SlickGrid/lib/jquery.event.drag-2.0.min',
