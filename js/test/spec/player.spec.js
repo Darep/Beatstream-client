@@ -311,8 +311,16 @@ define([
                 expect(player.playbackHistory.length).toBe(0);
             });
 
-            xit('should change state to isPlaying when audio module starts playing', function () {
-                throw('not done');
+            it('should not re-add song to playback history when playing previous song and shuffle is on', function () {
+                player.setShuffle(true);
+                player.playSongWithId(0);
+                player.playSongWithId(1);
+
+                // When
+                player.playPrevious();
+
+                // Then
+                expect(player.playbackHistory.length).toBe(1);
             });
         });
 

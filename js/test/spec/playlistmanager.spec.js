@@ -29,6 +29,8 @@ define([
         ];
 
         beforeEach(function () {
+            loadFixtures('playlistmanager.html');
+
             mediator.clear();
 
             allMusic_alt = jQuery.extend(true, [], allMusic);
