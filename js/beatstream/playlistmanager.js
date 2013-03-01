@@ -1,8 +1,9 @@
 define([
     'beatstream/mediator',
     'beatstream/controls/playlistview',
+    'beatstream/controls/searchfield'
 ],
-function (mediator, PlaylistView) {
+function (mediator, PlaylistView, SearchField) {
 
     function PlaylistManager(selector, api) {
         this.el = $(selector);
@@ -10,6 +11,7 @@ function (mediator, PlaylistView) {
         this.currentPlaylist = [];
 
         this.playlistView = new PlaylistView('#slickgrid');
+        this.searchField = new SearchField(this.el.find('.search'));
 
         // Enterprisey Bussy
         mediator.subscribe('app:resize', this.playlistView.resizeCanvas.bind(this.playlistView));
@@ -21,6 +23,11 @@ function (mediator, PlaylistView) {
             // this.setPlaylist( this.playlistView.getCurrentPlaylist() );
             // mediator.publish('playlist:setPlaylist', this.currentPlaylist);
             mediator.publish('playlist:setSong', song);
+        }.bind(this);
+
+        // Search field events
+        this.searchField.events.onSearch = function (searchString) {
+            this.playlistView.updateFilter(searchString);
         }.bind(this);
     }
 
