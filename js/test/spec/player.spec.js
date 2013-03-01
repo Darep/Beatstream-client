@@ -35,6 +35,15 @@ define([
             nice_title: 'Foreigner - Woman in Black'
         };
 
+        var extra_song = {
+            id: 10,
+            artist: 'Foreigner',
+            title: 'Test track',
+            length: 4*60+2,
+            path: '/Foreigner/Foreigner - Test track.mp3',
+            nice_title: 'Foreigner - Test track'
+        };
+
         var playlist = [song, song2, song3];
 
         // SUT
@@ -321,13 +330,32 @@ define([
                 expect(audio.play).toHaveBeenCalledWith(song.path);
             });
 
+            it('should play a song from the playlist', function () {
+                player.playSongWithId(0);
+
+                expect(audio.play).toHaveBeenCalledWith(song.path);
+            });
+
+            it('should play a song outside the playlist, but not track it', function () {
+                player.playSongWithId(0);
+                player.playSong(extra_song);
+
+                expect(audio.play).toHaveBeenCalledWith(extra_song.path);
+                expect(player.currentSongId).toEqual(0);
+            });
+
+            it('should add class "playing" to play button on play', function () {
+                player.playSongWithId(0);
+
+                expect($('#play-pause')).toHaveClass('playing');
+            });
+
             it('should start playing first song on playlist on click', function () {
                 // When
                 $('#play-pause').click();
 
                 // Then
                 expect(audio.play).toHaveBeenCalledWith(playlist[0].path);
-                expect($('#play-pause')).toHaveClass('playing');
             });
 
             it('should pause song on click when playing song', function () {

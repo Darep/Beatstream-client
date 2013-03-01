@@ -217,6 +217,7 @@ define([
         this.duration.text(secondsToNiceTime(song.length));
         this.elapsedTime.text(secondsToNiceTime(0));
         this.seekbar.slider('option', 'max', song.length);
+        this.playButton.addClass('playing');
 
         mediator.publish('player:songStarted', song);
     };
