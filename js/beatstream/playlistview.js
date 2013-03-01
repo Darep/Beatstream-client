@@ -182,23 +182,35 @@ function () {
 
     PlaylistView.prototype.selectSong = function (id) {
         var song,
-            tmpCellsObject = {},
-            row = dataView.getRowById(id);
+            row = this.dataView.getRowById(id);
 
         if (row === undefined) {
             return; // song is not on the current list
         }
 
-        song = dataView.getItemById(id);
+        song = this.dataView.getItemById(id);
         this.events.onSongSelect(song);
 
-        // Set now playing icon
-        grid.removeCellCssStyles('currentSong_playing');
-        tmpCellsObject[row] = { np: 'playing' };
-        grid.addCellCssStyles('currentSong_playing', tmpCellsObject);
+        this.setNowPlayingByRow(row);
+        this.grid.scrollRowIntoView(row);
+    };
 
-        grid.setSelectedRows([row]);
-        grid.scrollRowIntoView(row);
+    PlaylistView.prototype.setNowPlayingById = function (id) {
+        var row = this.dataView.getRowById(id);
+        this.setNowPlayingByRow(row);
+    };
+
+    PlaylistView.prototype.setNowPlayingByRow = function (row) {
+        var nowplayingCells = {};
+        nowplayingCells[row] = { np: 'playing' };
+
+        this.grid.removeCellCssStyles('currentSong_playing');
+        this.grid.addCellCssStyles('currentSong_playing', nowplayingCells);
+        this.grid.setSelectedRows([row]);
+    };
+
+    PlaylistView.prototype.showRow = function (row) {
+        this.grid.scrollRowIntoView(row);
     };
 
 

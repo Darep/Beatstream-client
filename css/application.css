@@ -870,27 +870,28 @@ classes should alter those!
 
 /* line 1, ../sass/partials/_songlist.scss */
 .page-header {
+  border-bottom: 1px solid #d1d1d1;
   overflow: hidden;
   padding: 21px 20px 14px;
   position: relative;
 }
-/* line 6, ../sass/partials/_songlist.scss */
+/* line 7, ../sass/partials/_songlist.scss */
 .page-header .info {
   float: left;
 }
-/* line 10, ../sass/partials/_songlist.scss */
+/* line 11, ../sass/partials/_songlist.scss */
 .page-header .meta {
   font-size: 13px;
 }
 
-/* line 16, ../sass/partials/_songlist.scss */
+/* line 17, ../sass/partials/_songlist.scss */
 .search {
   float: right;
   margin-top: 5px;
   position: relative;
 }
 
-/* line 21, ../sass/partials/_songlist.scss */
+/* line 22, ../sass/partials/_songlist.scss */
 #search {
   border: 1px solid #bbbbbb;
   border-radius: 12px;
@@ -907,22 +908,22 @@ classes should alter those!
   transition: all 100ms ease-in;
 }
 
-/* line 31, ../sass/partials/_songlist.scss */
+/* line 32, ../sass/partials/_songlist.scss */
 #search::-webkit-input-placeholder {
   font-style: italic;
 }
 
-/* line 34, ../sass/partials/_songlist.scss */
+/* line 35, ../sass/partials/_songlist.scss */
 #search:-moz-input-placeholder {
   font-style: italic;
 }
 
-/* line 37, ../sass/partials/_songlist.scss */
+/* line 38, ../sass/partials/_songlist.scss */
 #search:focus {
   border-color: #999;
 }
 
-/* line 40, ../sass/partials/_songlist.scss */
+/* line 41, ../sass/partials/_songlist.scss */
 .search .clear {
   background: url("/img/close.png") no-repeat 0 -14px;
   display: inline-block;
@@ -934,12 +935,12 @@ classes should alter those!
   width: 14px;
 }
 
-/* line 50, ../sass/partials/_songlist.scss */
+/* line 51, ../sass/partials/_songlist.scss */
 .search .clear:hover {
   background-position: 0 0;
 }
 
-/* line 54, ../sass/partials/_songlist.scss */
+/* line 55, ../sass/partials/_songlist.scss */
 .grid-container {
   background: #f1f1f1;
   position: relative;
@@ -947,7 +948,7 @@ classes should alter those!
 }
 
 /* slickgrid */
-/* line 62, ../sass/partials/_songlist.scss */
+/* line 63, ../sass/partials/_songlist.scss */
 #slickgrid {
   background: #fff;
   color: #222;
@@ -961,7 +962,7 @@ classes should alter those!
   width: 100%;
 }
 
-/* line 74, ../sass/partials/_songlist.scss */
+/* line 75, ../sass/partials/_songlist.scss */
 #slickgrid .slick-header {
   background: #fafafa;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(50%, #ffffff), color-stop(100%, #eeeeee));
@@ -969,7 +970,6 @@ classes should alter those!
   background: -moz-linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
   background: -o-linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
   background: linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
-  border-top: 1px solid #d1d1d1;
   border-bottom: 1px solid #bbbbbb;
   font-weight: 700;
   overflow: visible !important;

@@ -29,6 +29,7 @@ define([
 
         // Enterprise Bus events
         mediator.subscribe("playlist:setPlaylist", this.setPlaylist.bind(this));
+        mediator.subscribe("player:playSong", this.playSong.bind(this));
     };
 
     Player.prototype.createPlaybackControls = function() {
@@ -195,7 +196,13 @@ define([
 
     Player.prototype.playSong = function(song) {
         this.audio.play(song.path);
-        this.currentSongId = this.playlist.indexOf(song);
+
+        var index = this.playlist.indexOf(song);
+        if (index >= 0 && index < this.playlist.length) {
+            // the song has to be on the current playlist
+            this.currentSongId = index;
+        }
+
         this.isPaused = false;
 
         if (this.getShuffle()) {
@@ -211,7 +218,7 @@ define([
         this.elapsedTime.text(secondsToNiceTime(0));
         this.seekbar.slider('option', 'max', song.length);
 
-        mediator.publish("player:songStarted", song);
+        mediator.publish('player:songStarted', song);
     };
 
     Player.prototype.playPrevious = function() {
