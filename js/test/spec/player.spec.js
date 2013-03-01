@@ -60,6 +60,7 @@ define([
                 togglePause: jasmine.createSpy(),
                 seekTo: jasmine.createSpy(),
                 pause: jasmine.createSpy(),
+                setVolume: jasmine.createSpy(),
                 events: {
                     onFinish: function () {},
                     onDurationParsed: function (duration) {},
@@ -542,6 +543,18 @@ define([
 
                 // Then
                 expect( $('#seekbar-slider').slider('value') ).toEqual(0);
+            });
+        });
+
+        describe('Volume', function () {
+            it('should set initial volume for audio', function () {
+                expect(audio.setVolume).toHaveBeenCalledWith(20);
+            });
+
+            it('should retrieve volume value from "store"', function () {
+                store.set('volume', 10);
+                new Player('.app-now-playing', audio);
+                expect(audio.setVolume).toHaveBeenCalledWith(10);
             });
         });
 

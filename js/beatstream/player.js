@@ -87,6 +87,7 @@ define([
             min: 0,
             range: 'min',
             slide: function (event, ui) {
+                this.volume = ui.value;
                 this.audio.setVolume(ui.value);
                 this.volumeLabel.attr('title', ui.value);
             }.bind(this),
@@ -96,11 +97,13 @@ define([
         });
 
         // set initial volume
-        var volume = getFromStore(volume);
+        var volume = getFromStore('volume');
         if (!volume || volume <= 0 || volume >= 100) {
             volume = DEFAULT_VOLUME;
         }
         this.volumeSlider.slider('option', 'value', volume);
+        this.audio.setVolume(volume);
+        this.volume = volume;
 
         // Playback info controls
         this.trackInfo = this.el.find('#player-song .track');
@@ -196,6 +199,7 @@ define([
 
     Player.prototype.playSong = function(song) {
         this.audio.play(song.path);
+        this.audio.setVolume(this.volume);
 
         var index = this.playlist.indexOf(song);
         if (index >= 0 && index < this.playlist.length) {
