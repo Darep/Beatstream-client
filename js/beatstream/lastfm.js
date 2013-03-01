@@ -40,23 +40,26 @@ function ($, mediator) {
         this.updateNowPlaying(song);
     };
 
-    LastFM.prototype.tryScrobble = function (elaps) {
-        if (this.song_scrobbled || this.dont_scrobble ||
+    LastFM.prototype.tryScrobble = function (elaps, force) {
+        if (force && force === true) {
+            // do nothing.
+        } else if (this.song_scrobbled || this.dont_scrobble ||
             elaps < this.scrobble_time || !this.song)
         {
             return;
         }
 
         var req = this.api.scrobble(this.song.artist, this.song.title);
+        this.song_scrobbled = true;
 
-        req.success(function () {
-            this.song_scrobbled = true;
-        }.bind(this));
+        req.done(function () {
+            // do nothing.
+        });
 
-        req.error(function () {
-            // failed. spring out a new thread, and re-try
+        req.fail(function () {
+            // failed. spring out a new thread, and re-try later
             setTimeout(function () {
-                this.tryScrobble(elaps);
+                this.tryScrobble(elaps, true);
             }.bind(this), RETRY_TIME);
         }.bind(this));
     };

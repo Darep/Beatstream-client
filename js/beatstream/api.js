@@ -87,6 +87,7 @@ function ($, mediator) {
         return $.ajax({
             type: 'PUT',
             url: this.baseUrl + '/now-playing',
+            dataType: 'text',
             data: data
         });
     };
@@ -99,6 +100,7 @@ function ($, mediator) {
         return $.ajax({
             type: 'POST',
             url: this.baseUrl + '/scrobble',
+            dataType: 'text',
             data: data
         });
     };
