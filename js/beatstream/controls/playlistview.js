@@ -6,13 +6,13 @@ function () {
     jQuery.event.special.drag.defaults.distance = 7;
 
     var SLICKGRID_COLUMNS = [
+        // there is also a hidden 'id' column, which is used internally by SlickGrid
         { id: 'np', resizable: false, width: 22 },
         { id: 'artist', name: 'Artist', field: 'artist', sortable: true },
         { id: 'tracknum', name: '', field: 'tracknum', sortable: false, resizable: false, cssClass: 'tracknum', width: 30 },
         { id: 'title', name: 'Title', field: 'title', sortable: true },
         { id: 'album', name: 'Album', field: 'album', sortable: true },
-        { id: 'duration', name: 'Duration', field: 'nice_length', sortable: true, cssClass: 'duration', width: 30 },
-        { id: 'path', name: '', field: 'path' }
+        { id: 'duration', name: 'Duration', field: 'nice_length', sortable: true, cssClass: 'duration', width: 30 }
     ];
 
     var SLICKGRID_OPTIONS = {
@@ -25,7 +25,7 @@ function () {
         rowHeight: 22
     };
 
-    function PlaylistView() {
+    function PlaylistView(selector) {
         this.dataView = undefined;
         this.grid = undefined;
         this.searchString = '';
@@ -34,7 +34,7 @@ function () {
             onSongSelect: function () {}
         };
 
-        this.initSlickGrid('#slickgrid');
+        this.initSlickGrid(selector);
     }
 
     PlaylistView.prototype.initSlickGrid = function (selector) {
@@ -42,7 +42,7 @@ function () {
         this.grid = new Slick.Grid(selector, this.dataView, SLICKGRID_COLUMNS, SLICKGRID_OPTIONS);
 
         this.grid.setSelectionModel( new Slick.RowSelectionModel() );
-        this.grid.setColumns( SLICKGRID_COLUMNS.slice(0, -1) );  // slice(), so path column is hidden
+        this.grid.setColumns( SLICKGRID_COLUMNS );
 
         // Hook SlickGrid events
 
@@ -149,14 +149,14 @@ function () {
         this.grid.resizeCanvas();
     };
 
-    PlaylistView.prototype.setPlaylist = function (playlist) {
-        console.log(playlist);
+    PlaylistView.prototype.setItems = function (data) {
+        console.log(data);
         // Remove "now playing"-style row(s) from current grid
         this.grid.removeCellCssStyles('currentSong_playing');
 
         // Update data view model
         this.dataView.beginUpdate();
-        this.dataView.setItems(playlist);
+        this.dataView.setItems(data);
 
         // Filtering
         this.dataView.setFilterArgs({ searchString: this.searchString });
@@ -197,7 +197,9 @@ function () {
 
     PlaylistView.prototype.setNowPlayingById = function (id) {
         var row = this.dataView.getRowById(id);
-        this.setNowPlayingByRow(row);
+        if (row !== undefined) {
+            this.setNowPlayingByRow(row);
+        }
     };
 
     PlaylistView.prototype.setNowPlayingByRow = function (row) {
@@ -209,10 +211,27 @@ function () {
         this.grid.setSelectedRows([row]);
     };
 
+    PlaylistView.prototype.showRowById = function (id) {
+        var row = this.dataView.getRowById(id);
+        if (row !== undefined) {
+            this.grid.scrollRowIntoView(row);
+        }
+    };
+
     PlaylistView.prototype.showRow = function (row) {
         this.grid.scrollRowIntoView(row);
     };
 
+    PlaylistView.prototype.updateFilter = function (searchString) {
+        this.dataView.setFilterArgs({
+            searchString: searchString
+        });
+        this.dataView.refresh();
+    };
+
+    PlaylistView.prototype.getCurrentPlaylist = function () {
+        // TODO: return a playlist of the currently visible items
+    };
 
     // Private
 

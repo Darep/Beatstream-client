@@ -28,8 +28,8 @@ define([
         this.hookAudioEvents();
 
         // Enterprise Bus events
-        mediator.subscribe("playlist:setPlaylist", this.setPlaylist.bind(this));
-        mediator.subscribe("player:playSong", this.playSong.bind(this));
+        mediator.subscribe('playlist:setPlaylist', this.setPlaylist.bind(this));
+        mediator.subscribe('playlist:setSong', this.playSong.bind(this));
     };
 
     Player.prototype.createPlaybackControls = function() {

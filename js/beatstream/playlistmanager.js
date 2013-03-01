@@ -1,6 +1,6 @@
 define([
     'beatstream/mediator',
-    'beatstream/playlistview'
+    'beatstream/controls/playlistview',
 ],
 function (mediator, PlaylistView) {
 
@@ -9,20 +9,18 @@ function (mediator, PlaylistView) {
         this.api = api;
         this.currentPlaylist = [];
 
-        this.playlistView = new PlaylistView();
+        this.playlistView = new PlaylistView('#slickgrid');
 
         // Enterprisey Bussy
+        mediator.subscribe('app:resize', this.playlistView.resizeCanvas.bind(this.playlistView));
         mediator.subscribe('playlist:showPlaylistAndSong', this.showPlaylistAndSong.bind(this));
         mediator.subscribe('player:songStarted', this.setCurrentSong.bind(this));
 
-        mediator.subscribe('app:resize', function () {
-            this.playlistView.resizeCanvas();
-        }.bind(this));
-
-        // Playlist View Events
+        // Playlist View events
         this.playlistView.events.onSongSelect = function (song) {
-            // this.setPlaylist(this.playlistView.getPlaylist());
-            mediator.publish('player:playSong', song);
+            // this.setPlaylist( this.playlistView.getCurrentPlaylist() );
+            // mediator.publish('playlist:setPlaylist', this.currentPlaylist);
+            mediator.publish('playlist:setSong', song);
         }.bind(this);
     }
 
@@ -44,25 +42,27 @@ function (mediator, PlaylistView) {
 
     PlaylistManager.prototype.setPlaylist = function (playlist) {
         this.currentPlaylist = playlist;
-        this.playlistView.setPlaylist(playlist);
+        this.playlistView.setItems(playlist);
         mediator.publish('playlist:setPlaylist', playlist);
     };
 
     PlaylistManager.prototype.showPlaylistAndSong = function (playlist, song) {
-        // TODO: set playlistView's playlist to "playlist",
-        //       update "now playing" to "song",
-        //       move playlistView to show "song"
+        // TODO: set playlistView's items to show current playlist in player,
+        //       update "now playing" on the newly set list to "song",
+        //       move playlistView so "song" is visible
 
-        this.playlistView.searchString = '';
-        this.playlistView.setPlaylist(playlist);
-        //this.playlistView.setNowPlaying(song);
-        this.playlistView.showRow(row);
-
-        // this.playlistView
+        //this.playlistView.searchString = '';
+        //this.playlistView.setItems(playlist);
+        //this.playlistView.setNowPlayingById(song.id);
+        this.playlistView.showRowById(song.id);
     };
 
-    PlaylistManager.prototype.setCurrentSong = function (song) {
-        // TODO: update "now playing" on PlaylistView
+    PlaylistManager.prototype.setCurrentSong = function (song, wasUserAction) {
+        this.playlistView.setNowPlayingById(song.id);
+
+        if (wasUserAction) {
+            this.playlistView.showRowById(song.id);
+        }
     };
 
     return PlaylistManager;
