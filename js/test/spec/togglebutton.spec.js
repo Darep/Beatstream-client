@@ -44,7 +44,15 @@ define([
             expect($('#shuffle')).not.toHaveClass('enabled');
         });
 
-        it('should get "enabled" CSS class when enabled', function () {
+        it('should add "enabled" CSS class if enabled in "store" on init', function () {
+            store.set('shuffle', true);
+            new ToggleButton('#shuffle', 'shuffle');
+
+            // Then
+            expect($('#shuffle')).toHaveClass('enabled');
+        });
+
+        it('should add "enabled" CSS class when state changes to enabled', function () {
             shuffle.setValue(false);
 
             // When

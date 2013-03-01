@@ -27,5 +27,5 @@ var require = {
 
     // We will bail out instantly if there is error loading any script
     // (default is 7 seconds -> causes you to stare empty console)
-    waitSeconds: 1
+    waitSeconds: 3
 };

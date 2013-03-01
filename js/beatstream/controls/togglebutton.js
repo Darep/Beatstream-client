@@ -1,7 +1,4 @@
-define([
-    'jquery',
-    'store'
-], function ($, store) {
+define(['store'], function (store) {
 
     var ToggleButton = function (selector, storeKey) {
         this.button = $(selector);
@@ -12,6 +9,10 @@ define([
             e.preventDefault();
             this.setValue(!this._value);
         }.bind(this));
+
+        if (this._value) {
+            this.button.addClass('enabled');
+        }
     };
 
     ToggleButton.prototype.setValue = function(value) {
