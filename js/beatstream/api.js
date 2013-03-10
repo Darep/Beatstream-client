@@ -72,13 +72,16 @@ function (mediator) {
     };
 
 
-    Api.prototype.getSongURI = function (songPath) {
+    Api.prototype.getSongURI = function (path) {
+        var result;
+
         // Remove leading "/"
-        if (songPath.charAt(0) == "/") {
-            songPath = songPath.substr(1);
+        if (path.charAt(0) == "/") {
+            path = path.substr(1);
         }
 
-        return this.baseUrl + '/songs/play/?file=' + encodeURIComponent(songPath);
+        result = this.baseUrl + '/songs/play/?file=' + encodeURIComponent(path);
+        return result;
     };
 
 
