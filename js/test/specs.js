@@ -9,8 +9,8 @@ define(function() {
         'spec/player.spec',
         'spec/playlistmanager.spec',
 
+        'spec/resizer.spec',
         'spec/preloader-test',
-        'spec/resizer-test',
         'spec/settingsdialog-test'
     ];
 });

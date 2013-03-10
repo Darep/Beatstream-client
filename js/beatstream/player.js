@@ -9,8 +9,10 @@ define([
 
     var DEFAULT_VOLUME = 20;
 
-    var Player = function (selector, audio) {
-        this.el = $(selector);
+    var Player = function (args) {
+        this.el = args.el || undefined;
+        this.audio = undefined;
+
         this.playbackHistory = [];
         this.playlist = undefined;
         this.currentSongId = undefined;
@@ -18,8 +20,8 @@ define([
         this._shuffle = new ToggleButton('#shuffle', 'shuffle');
         this._repeat = new ToggleButton('#repeat', 'repeat');
 
-        if (audio) {
-            this.audio = audio;
+        if (args.audio) {
+            this.audio = args.audio;
         } else {
             this.audio = new SM2Audio();
         }

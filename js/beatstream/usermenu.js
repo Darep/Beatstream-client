@@ -2,18 +2,13 @@ define([
     'jquery'
 ],
 function ($) {
-    var UserMenu = function (selector, username) {
-        // remove # from the start if selector has it
-        if (selector.charAt(0) == '#') {
-            selector = selector.substr(1);
-        }
-
-        this.menu = $(document.getElementById(selector)),
+    var UserMenu = function (args) {
+        this.menu = args.el;
         this.menuToggle = this.menu.find('> .toggle');
         this.actualMenu = this.menu.find('ul');
 
         // show username
-        this.menu.find('.username').text(username);
+        this.menu.find('.username').text(args.name);
 
         // events
         $(document).click(this.handleClicks.bind(this));

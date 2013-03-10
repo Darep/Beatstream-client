@@ -4,8 +4,8 @@ function ($, mediator) {
     var DEFAULT_SCROBBLE_TIME = 4*60;  // default 4 min scrobble time
     var RETRY_TIME = 4000;
 
-    var LastFM = function (api) {
-        this.api = api;
+    var LastFM = function (args) {
+        this.api = args.api;
         this.song = null;
         this.scrobble_time = DEFAULT_SCROBBLE_TIME;
         this.song_scrobbled = false;

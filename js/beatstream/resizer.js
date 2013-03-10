@@ -2,10 +2,7 @@ define([
     'beatstream/mediator'
 ], function (mediator) {
 
-    var Resizer = function (songlist) {
-        this.songlist = songlist;
-
-        // resize components on window resize
+    var Resizer = function () {
         $(window).resize(function () {
             this.resize();
         }.bind(this));

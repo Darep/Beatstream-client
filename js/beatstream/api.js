@@ -1,8 +1,8 @@
 define(['jquery', 'beatstream/mediator'],
 function ($, mediator) {
 
-    var Api = function (apiBaseUrl) {
-        this.baseUrl = apiBaseUrl || "";
+    var Api = function (args) {
+        this.baseUrl = args.url || "";
 
         // Remove trailing "/"
         if (this.baseUrl.charAt(this.baseUrl.length - 1) == "/") {

@@ -29,12 +29,12 @@ define([
             }, options_in);
 
             // initiate all the modules!
-            api       = new Api(options.apiUrl);
-            usermenu  = new UserMenu('#user-menu', 'John');
-            player    = new Player('.app-now-playing');
-            playlistManager = new PlaylistManager('.main-wrap', api);
-            resizer   = new Resizer(songlist);
-            lastfm    = new LastFM(api);
+            api       = new Api({ url: options.apiUrl });
+            usermenu  = new UserMenu({ el: $('#user-menu'), name: 'John' });
+            player    = new Player({ el: $('.app-now-playing') });
+            playlistManager = new PlaylistManager({ el: $('.main-wrap'), api: api });
+            resizer   = new Resizer();
+            lastfm    = new LastFM({ api: api });
 
             resizer.resize();
 

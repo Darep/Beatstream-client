@@ -7,7 +7,7 @@ define(['beatstream/usermenu'], function(UserMenu) {
             loadFixtures('usermenu.html');
 
             // SUT
-            usermenu = new UserMenu('#user-menu', 'John');
+            usermenu = new UserMenu({ el: $('#user-menu'), name: 'John' });
         });
 
         it('should find the assigned element in the DOM', function () {

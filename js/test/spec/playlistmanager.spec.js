@@ -52,7 +52,7 @@ define([
             };
 
             // SUT
-            playlistManager = new PlaylistManager('.main-wrap', api);
+            playlistManager = new PlaylistManager({ el: $('.main-wrap'), api: api });
         });
 
         it('should use API when getting all music', function () {

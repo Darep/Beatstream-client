@@ -18,7 +18,7 @@ define(['beatstream/lastfm', 'beatstream/mediator'], function(LastFM, mediator) 
             mediator.clear();
 
             // SUT
-            lastfm = new LastFM(api);
+            lastfm = new LastFM({ api: api });
 
             success_spy = jasmine.createSpy().andCallFake(function (callback) { callback(); });
             error_spy = jasmine.createSpy();

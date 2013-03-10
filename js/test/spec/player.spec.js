@@ -69,7 +69,7 @@ define([
                 }
             };
 
-            player = new Player('.app-now-playing', audio);
+            player = new Player({ el: $('.app-now-playing'), audio: audio });
             player.setPlaylist(playlist);
         });
 
@@ -78,7 +78,7 @@ define([
         });
 
         it('should initiate an audio module if one is not given', function () {
-            player = new Player('.app-now-playing');
+            player = new Player({ el: $('.app-now-playing') });
 
             // Then
             expect(player.audio).not.toBe(undefined || null);
@@ -561,7 +561,7 @@ define([
 
             it('should retrieve volume value from "store"', function () {
                 store.set('volume', 10);
-                new Player('.app-now-playing', audio);
+                new Player({ el: $('.app-now-playing'), audio: audio });
                 expect(audio.setVolume).toHaveBeenCalledWith(10);
             });
         });

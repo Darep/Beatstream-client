@@ -91,7 +91,7 @@ function ($, mediator) {
 
     AudioModule.prototype.play = function(uri) {
         if (!this.isReady) {
-            alert('SoundManager 2 is not ready to play music yet!');
+            console.log('SoundManager 2 is not ready to play music yet!');
             return;
         }
 
