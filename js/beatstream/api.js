@@ -1,5 +1,7 @@
-define(['jquery', 'beatstream/mediator'],
-function ($, mediator) {
+define([
+    'beatstream/mediator'
+],
+function (mediator) {
 
     var Api = function (args) {
         this.baseUrl = args.url || "";

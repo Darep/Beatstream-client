@@ -1,9 +1,4 @@
-/**
- * Beatstream App, the God particle
- * Wires all the stuff together and does some stuff too
- */
 define([
-    'jquery',
     'beatstream/mediator',
     'beatstream/resizer',
     'beatstream/api',
@@ -16,7 +11,7 @@ define([
     'helpers/helpers',
     'pathjs',
     'soundmanager2'
-], function ($, mediator, Resizer, Api, LastFM, UserMenu, Player, PlaylistManager, Preloader) {
+], function (mediator, Resizer, Api, LastFM, UserMenu, Player, PlaylistManager, Preloader) {
 
     var App = {
         init: function (options_in) {

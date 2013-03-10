@@ -1,5 +1,7 @@
-define(['jquery', 'beatstream/mediator'],
-function ($, mediator) {
+define([
+    'beatstream/mediator'
+],
+function (mediator) {
 
     var DEFAULT_SCROBBLE_TIME = 4*60;  // default 4 min scrobble time
     var RETRY_TIME = 4000;

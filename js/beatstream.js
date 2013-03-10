@@ -1,4 +1,3 @@
-require(['beatstream/app'],
-function (app) {
+require(['beatstream/app'], function (app) {
     app.init();
 });

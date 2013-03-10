@@ -1,11 +1,10 @@
 define([
-    'jquery',
     'store',
     'beatstream/mediator',
     'beatstream/audio-modules/sm2audio',
     'beatstream/controls/togglebutton',
     'jquery-ui'
-], function ($, store, mediator, SM2Audio, ToggleButton) {
+], function (store, mediator, SM2Audio, ToggleButton) {
 
     var DEFAULT_VOLUME = 20;
 
