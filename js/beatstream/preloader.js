@@ -1,11 +1,17 @@
 define(['jquery', 'beatstream/mediator'],
 function ($, mediator) {
 
-    var Preloader = function (selector, audioStart, playlistLoad) {
-        this.el = $(selector);
+    var Preloader = function (args) {
+        var audioStart, playlistLoad;
+
+        this.el = args.el;
         this.errorStack = [];
 
-        // Failures:
+        audioStart = args.audioPromise;
+        playlistLoad = args.medialibraryPromise;
+
+
+        // Failure cases:
 
         audioStart.fail(function () {
             this.showError('no-flash');
@@ -19,6 +25,7 @@ function ($, mediator) {
         playlistLoad.fail(function () {
             this.showError('playlist-error');
         }.bind(this));
+
 
         // Success:
 

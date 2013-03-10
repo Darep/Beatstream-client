@@ -39,7 +39,11 @@ define([
             resizer.resize();
 
             // Start preloading
-            preloader = new Preloader('.preloader', player.start(), playlistManager.getAllMusic());
+            preloader = new Preloader({
+                el: $('.preloader'),
+                audioPromise: player.start(),
+                medialibraryPromise: playlistManager.getAllMusic()
+            });
         }
     };
 
