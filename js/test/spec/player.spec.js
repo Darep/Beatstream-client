@@ -188,7 +188,7 @@ define([
             });
         });
 
-        describe("Now playing info", function() {
+        describe('Now playing info', function() {
             it('should display track info on playback start', function () {
                 // When
                 player.playSongWithId(0);
