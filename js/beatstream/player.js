@@ -219,7 +219,7 @@ define([
         }
 
         // set widgets to display song info (title, duration, etc.)
-        this.trackInfo.text(song.nice_title);
+        this.trackInfo.text(niceTitle(song));
         this.duration.text(secondsToNiceTime(song.length));
         this.elapsedTime.text(secondsToNiceTime(0));
         this.seekbar.slider('option', 'max', song.length);
@@ -296,6 +296,10 @@ define([
 
 
     // Private:
+
+    function niceTitle(song) {
+        return song.nice_title;
+    }
 
     // function to get random number from 1 to n
     function randomInt(maxVal,floatVal) {
