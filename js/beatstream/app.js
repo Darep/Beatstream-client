@@ -9,7 +9,6 @@ define([
     'beatstream/preloader',
 
     'helpers/helpers',
-    'pathjs',
     'soundmanager2'
 ], function (mediator, Resizer, Api, LastFM, UserMenu, Player, PlaylistManager, Preloader) {
 
@@ -23,8 +22,21 @@ define([
                 apiUrl: '/api/v1/'
             }, options_in);
 
-            // initiate all the modules!
             api       = new Api({ url: options.apiUrl });
+
+            // Check if we are authenticated
+            var req = api.getAuth(),
+                isLoggedIn = true;
+            req.fail(function () {
+                // FIXME: show a login dialog and use API to log in
+                window.location = '/login';
+                isLoggedIn = true;
+            });
+
+            if (!isLoggedIn) {
+                return;
+            }
+
             usermenu  = new UserMenu({ el: $('#user-menu'), name: 'John' });
             player    = new Player({ el: $('.app-now-playing') });
             playlistManager = new PlaylistManager({ el: $('.main-wrap'), api: api });

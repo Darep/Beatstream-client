@@ -12,6 +12,15 @@ function (mediator) {
         }
     };
 
+    Api.prototype.getAuth = function () {
+        return $.ajax({
+            type: 'GET',
+            url: this.baseUrl + '/profile',
+            dataType: 'json',
+            errorHandler: errorHandler
+        });
+    };
+
 
     Api.prototype.logIn = function (username, password) {
         return $.ajax({
@@ -85,6 +94,8 @@ function (mediator) {
     };
 
 
+    // LastFM API:
+
     Api.prototype.updateNowPlaying = function (artist, title) {
         var data = 'artist=' + encodeURIComponent(artist) +
                    '&title=' + encodeURIComponent(title);
@@ -110,6 +121,8 @@ function (mediator) {
         });
     };
 
+
+    // Private:
 
     function errorHandler(req, textStatus, errorThrown) {
         console.log('Api AJAX error:');
