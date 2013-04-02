@@ -24,7 +24,7 @@ var require = {
         'mediator': 'lib/mediator.min',
         'pathjs': 'lib/path.min',
         'slickgrid': 'lib/SlickGrid/slick.grid',
-        'soundmanager2': 'lib/SoundManager2/script/soundmanager2', //-nodebug-jsmin',
+        'soundmanager2': 'lib/SoundManager2/script/soundmanager2-nodebug-jsmin',
         'store': 'lib/store.min',
         'transparency': 'lib/transparency.min'
     },
