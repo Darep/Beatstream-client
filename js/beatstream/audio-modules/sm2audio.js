@@ -56,11 +56,8 @@ function ($, mediator) {
 
         soundManager.setup({
             url: '/swf/',
-            preferFlash: true,
+            flashVersion: 9,
             useFlashBlock: true,
-            useHTML5Audio: true,
-            useHighPerformance: true,
-            noSWFCache: true,
             onready: function() {
                 self.isReady = true;
                 self.events.onReady();
