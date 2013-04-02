@@ -150,7 +150,6 @@ function () {
     };
 
     PlaylistView.prototype.setItems = function (data) {
-        console.log(data);
         // Remove "now playing"-style row(s) from current grid
         this.grid.removeCellCssStyles('currentSong_playing');
 
@@ -166,18 +165,6 @@ function () {
 
         this.dataView.syncGridSelection(this.grid, false);
         this.dataView.syncGridCellCssStyles(this.grid, 'currentSong_playing');
-    };
-
-    PlaylistView.prototype.updateHeader = function (name, songCount) {
-        // update playlist header data
-        if (songCount === undefined) {
-            songCount = 0;
-        }
-
-        var prettyCount = commify( parseInt(songCount, 10) );
-        $('.page-header .count').text(prettyCount);
-        $('.page-header.text').html( pluralize(songCount, 'song', 'songs') );
-        $('.page-header .info h2').html(name);
     };
 
     PlaylistView.prototype.selectSong = function (id) {
@@ -232,6 +219,7 @@ function () {
     PlaylistView.prototype.getCurrentPlaylist = function () {
         // TODO: return a playlist of the currently visible items
     };
+
 
     // Private
 
@@ -327,17 +315,6 @@ function () {
       }
       return aa.length - bb.length;
     }
-
-    function pluralize(count, singular_text, plural_text) {
-        if (count === 1) {
-            return singular_text;
-        } else if (!plural_text) {
-            return singular_text + 's';
-        } else {
-            return plural_text;
-        }
-    }
-
 
     return PlaylistView;
 });

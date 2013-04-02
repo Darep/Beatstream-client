@@ -6,27 +6,8 @@ define([
 
         var playlistManager,
             api,
-            allMusic,
+            allMusic = HELPERS_ALL_MUSIC,
             allMusic_alt;
-
-        allMusic = [
-            {
-                id: 0,
-                artist: 'Foreigner',
-                title: 'Urgent',
-                length: 4*60+30 + 0.225,
-                path: 'Foreigner/Foreigner - Urgent.mp3',
-                nice_title: 'Foreigner - Urgent'
-            },
-            {
-                id: 1,
-                artist: 'Foreigner',
-                title: 'I\'m gonna win',
-                length: 4*60+51,
-                path: '/Foreigner/Foreigner - Im gonna win.mp3',
-                nice_title: 'Foreigner - Im gonna win'
-            }
-        ];
 
         beforeEach(function () {
             loadFixtures('playlistmanager.html');
@@ -107,6 +88,32 @@ define([
                 var song = mediator_spy.mostRecentCall.args[0][0];
                 expect(song.path).toEqual(api.getSongURI(allMusic[0].path));
             });
+        });
+
+        it('should update playlist header after getting all music', function () {
+            var mediator_spy = jasmine.createSpy();
+            mediator.subscribe("playlist:setPlaylist", mediator_spy);
+
+            // When
+            playlistManager.getAllMusic();
+
+            waitsFor(function () {
+                return mediator_spy.wasCalled;
+            }, "Mediator event for playlist change", 1000);
+
+            // Then
+            runs(function () {
+                expect( $('.playlist-header .title') ).toHaveText('All music');
+                expect( $('.playlist-header .count') ).toHaveText(allMusic.length);
+                expect( $('.playlist-header .songs-text') ).toHaveText('songs');
+            });
+        });
+
+        it('should singularize songs text when playlist has only one song', function () {
+            playlistManager.setPlaylist([ allMusic[0] ]);
+
+            // Then
+            expect( $('.playlist-header .songs-text') ).toHaveText('song')
         });
     });
 });

@@ -1,7 +1,8 @@
 define([
     'beatstream/mediator',
     'beatstream/controls/playlistview',
-    'beatstream/controls/searchfield'
+    'beatstream/controls/searchfield',
+    'helpers/playlistmanager-helpers'
 ],
 function (mediator, PlaylistView, SearchField) {
 
@@ -48,8 +49,24 @@ function (mediator, PlaylistView, SearchField) {
 
     PlaylistManager.prototype.setPlaylist = function (playlist) {
         this.currentPlaylist = playlist;
+
         this.playlistView.setItems(playlist);
+        this.updateHeader('All music', playlist.length);
+
         mediator.publish('playlist:setPlaylist', playlist);
+    };
+
+    PlaylistManager.prototype.updateHeader = function (name, songCount) {
+        // update playlist header data
+        if (songCount === undefined) {
+            songCount = 0;
+        }
+
+        var prettyCount = commify( parseInt(songCount, 10) );
+        var header = this.el.find('.playlist-header');
+        header.find('.title').html(name);
+        header.find('.count').text(prettyCount);
+        header.find('.songs-text').html( pluralize(songCount, 'song', 'songs') );
     };
 
     PlaylistManager.prototype.showPlaylistAndSong = function (playlist, song) {

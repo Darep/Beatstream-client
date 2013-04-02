@@ -8,32 +8,10 @@ define([
 
         var audio = {};
 
-        var song = {
-            id: 0,
-            artist: 'Foreigner',
-            title: 'Urgent',
-            length: 4*60+30 + 0.225,
-            path: '/Foreigner/Foreigner - Urgent.mp3',
-            nice_title: 'Foreigner - Urgent'
-        };
-
-        var song2 = {
-            id: 1,
-            artist: 'Foreigner',
-            title: 'I\'m gonna win',
-            length: 4*60+51,
-            path: '/Foreigner/Foreigner - Im gonna win.mp3',
-            nice_title: 'Foreigner - Im gonna win'
-        };
-
-        var song3 = {
-            id: 2,
-            artist: 'Foreigner',
-            title: 'Woman in Black',
-            length: 4*60+42,
-            path: '/Foreigner/Foreigner - Woman in Black.mp3',
-            nice_title: 'Foreigner - Woman in Black'
-        };
+        var playlist = HELPERS_ALL_MUSIC;
+        var song = playlist[0];
+        var song2 = playlist[1];
+        var song3 = playlist[2];
 
         var extra_song = {
             id: 10,
@@ -43,8 +21,6 @@ define([
             path: '/Foreigner/Foreigner - Test track.mp3',
             nice_title: 'Foreigner - Test track'
         };
-
-        var playlist = [song, song2, song3];
 
         // SUT
         var player;
