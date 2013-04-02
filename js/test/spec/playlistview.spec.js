@@ -13,5 +13,13 @@ define([
         it('should callback on double-click', function () {
 
         });
+
+        it('should change playlist name when playlist changes', function () {
+
+        });
+
+        it('should update song count when playlist changes', function () {
+
+        });
     });
 });
