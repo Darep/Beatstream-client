@@ -213,98 +213,158 @@ a:hover {
   }
 }
 
+@-webkit-keyframes fadeIn {
+  /* line 10, ../sass/partials/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/partials/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  /* line 10, ../sass/partials/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/partials/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  /* line 10, ../sass/partials/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/partials/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  /* line 10, ../sass/partials/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/partials/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  /* line 10, ../sass/partials/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/partials/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
 /* from animate.css by Dan Eden (@_dte) */
 @-webkit-keyframes bounceIn {
-  /* line 11, ../sass/partials/_animations.scss */
+  /* line 17, ../sass/partials/_animations.scss */
   0% {
     opacity: 0;
     -webkit-transform: scale(0.3);
   }
 
-  /* line 16, ../sass/partials/_animations.scss */
+  /* line 22, ../sass/partials/_animations.scss */
   50% {
     opacity: 1;
     -webkit-transform: scale(1.05);
   }
 
-  /* line 21, ../sass/partials/_animations.scss */
+  /* line 27, ../sass/partials/_animations.scss */
   70% {
     -webkit-transform: scale(0.9);
   }
 
-  /* line 25, ../sass/partials/_animations.scss */
+  /* line 31, ../sass/partials/_animations.scss */
   100% {
     -webkit-transform: scale(1);
   }
 }
 
 @-moz-keyframes bounceIn {
-  /* line 31, ../sass/partials/_animations.scss */
+  /* line 37, ../sass/partials/_animations.scss */
   0% {
     opacity: 0;
     -moz-transform: scale(0.3);
   }
 
-  /* line 36, ../sass/partials/_animations.scss */
+  /* line 42, ../sass/partials/_animations.scss */
   50% {
     opacity: 1;
     -moz-transform: scale(1.05);
   }
 
-  /* line 41, ../sass/partials/_animations.scss */
+  /* line 47, ../sass/partials/_animations.scss */
   70% {
     -moz-transform: scale(0.9);
   }
 
-  /* line 45, ../sass/partials/_animations.scss */
+  /* line 51, ../sass/partials/_animations.scss */
   100% {
     -moz-transform: scale(1);
   }
 }
 
 @-o-keyframes bounceIn {
-  /* line 51, ../sass/partials/_animations.scss */
+  /* line 57, ../sass/partials/_animations.scss */
   0% {
     opacity: 0;
     -o-transform: scale(0.3);
   }
 
-  /* line 56, ../sass/partials/_animations.scss */
+  /* line 62, ../sass/partials/_animations.scss */
   50% {
     opacity: 1;
     -o-transform: scale(1.05);
   }
 
-  /* line 61, ../sass/partials/_animations.scss */
+  /* line 67, ../sass/partials/_animations.scss */
   70% {
     -o-transform: scale(0.9);
   }
 
-  /* line 65, ../sass/partials/_animations.scss */
+  /* line 71, ../sass/partials/_animations.scss */
   100% {
     -o-transform: scale(1);
   }
 }
 
 @keyframes bounceIn {
-  /* line 71, ../sass/partials/_animations.scss */
+  /* line 77, ../sass/partials/_animations.scss */
   0% {
     opacity: 0;
     transform: scale(0.3);
   }
 
-  /* line 76, ../sass/partials/_animations.scss */
+  /* line 82, ../sass/partials/_animations.scss */
   50% {
     opacity: 1;
     transform: scale(1.05);
   }
 
-  /* line 81, ../sass/partials/_animations.scss */
+  /* line 87, ../sass/partials/_animations.scss */
   70% {
     transform: scale(0.9);
   }
 
-  /* line 85, ../sass/partials/_animations.scss */
+  /* line 91, ../sass/partials/_animations.scss */
   100% {
     transform: scale(1);
   }
@@ -737,29 +797,29 @@ classes should alter those!
 }
 
 /* line 31, ../sass/partials/_header.scss */
-#user-panel {
+#user-menu {
   float: right;
   font-size: 12px;
   font-weight: 700;
 }
 /* line 36, ../sass/partials/_header.scss */
-#user-panel a {
+#user-menu a {
   color: #bbb;
   display: block;
   text-decoration: none;
 }
 /* line 42, ../sass/partials/_header.scss */
-#user-panel .username {
+#user-menu .username {
   line-height: 50px;
   /* Dropdown arrow */
 }
 /* line 45, ../sass/partials/_header.scss */
-#user-panel .username:hover, #user-panel .username:hover:after {
+#user-menu .username:hover, #user-menu .username:hover:after {
   border-top-color: #fff;
   color: #fff;
 }
 /* line 51, ../sass/partials/_header.scss */
-#user-panel .username:after {
+#user-menu .username:after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 4px solid #bbbbbb;
@@ -769,11 +829,11 @@ classes should alter those!
   position: relative;
   top: -1px;
 }
-
 /* line 64, ../sass/partials/_header.scss */
-#user-menu {
+#user-menu ul {
   background: #fff;
   border: 1px solid #cccccc;
+  border-radius: 4px;
   display: none;
   list-style: none;
   padding: 0.4em 0;
@@ -782,68 +842,56 @@ classes should alter those!
   right: 1em;
   width: 140px;
   z-index: 2000;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-/* line 82, ../sass/partials/_header.scss */
-#user-menu .head {
-  overflow: hidden;
-  position: absolute;
-  height: 8px;
-  top: -6px;
-  right: 25px;
-  width: 16px;
-  z-index: 2001;
-}
-/* line 91, ../sass/partials/_header.scss */
-#user-menu span {
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid white;
-  display: inline-block;
-  position: absolute;
-  z-index: 2002;
-}
-/* line 100, ../sass/partials/_header.scss */
-#user-menu a {
+/* line 78, ../sass/partials/_header.scss */
+#user-menu ul a {
   color: #222;
   display: block;
   font-weight: 400;
   padding: 0.4em 2em;
 }
-/* line 106, ../sass/partials/_header.scss */
-#user-menu a:hover {
+/* line 84, ../sass/partials/_header.scss */
+#user-menu ul a:hover {
   background: #888;
   color: #fff;
 }
+/* line 91, ../sass/partials/_header.scss */
+#user-menu .show {
+  display: block;
+  -webkit-animation: fadeIn 0.15s;
+  -moz-animation: fadeIn 0.15s;
+  -ms-animation: fadeIn 0.15s;
+  -o-animation: fadeIn 0.15s;
+  animation: fadeIn 0.15s;
+}
 
 /* line 1, ../sass/partials/_songlist.scss */
-.page-header {
+.playlist-header {
+  border-bottom: 1px solid #d1d1d1;
   overflow: hidden;
   padding: 21px 20px 14px;
   position: relative;
 }
-/* line 6, ../sass/partials/_songlist.scss */
-.page-header .info {
+/* line 7, ../sass/partials/_songlist.scss */
+.playlist-header .info {
   float: left;
 }
-/* line 10, ../sass/partials/_songlist.scss */
-.page-header .meta {
+/* line 11, ../sass/partials/_songlist.scss */
+.playlist-header .meta {
   font-size: 13px;
 }
 
-/* line 16, ../sass/partials/_songlist.scss */
+/* line 17, ../sass/partials/_songlist.scss */
 .search {
   float: right;
   margin-top: 5px;
   position: relative;
 }
 
-/* line 21, ../sass/partials/_songlist.scss */
+/* line 22, ../sass/partials/_songlist.scss */
 #search {
   border: 1px solid #bbbbbb;
   border-radius: 12px;
@@ -860,22 +908,22 @@ classes should alter those!
   transition: all 100ms ease-in;
 }
 
-/* line 31, ../sass/partials/_songlist.scss */
+/* line 32, ../sass/partials/_songlist.scss */
 #search::-webkit-input-placeholder {
   font-style: italic;
 }
 
-/* line 34, ../sass/partials/_songlist.scss */
+/* line 35, ../sass/partials/_songlist.scss */
 #search:-moz-input-placeholder {
   font-style: italic;
 }
 
-/* line 37, ../sass/partials/_songlist.scss */
+/* line 38, ../sass/partials/_songlist.scss */
 #search:focus {
   border-color: #999;
 }
 
-/* line 40, ../sass/partials/_songlist.scss */
+/* line 41, ../sass/partials/_songlist.scss */
 .search .clear {
   background: url("/img/close.png") no-repeat 0 -14px;
   display: inline-block;
@@ -887,12 +935,12 @@ classes should alter those!
   width: 14px;
 }
 
-/* line 50, ../sass/partials/_songlist.scss */
+/* line 51, ../sass/partials/_songlist.scss */
 .search .clear:hover {
   background-position: 0 0;
 }
 
-/* line 54, ../sass/partials/_songlist.scss */
+/* line 55, ../sass/partials/_songlist.scss */
 .grid-container {
   background: #f1f1f1;
   position: relative;
@@ -900,7 +948,7 @@ classes should alter those!
 }
 
 /* slickgrid */
-/* line 62, ../sass/partials/_songlist.scss */
+/* line 63, ../sass/partials/_songlist.scss */
 #slickgrid {
   background: #fff;
   color: #222;
@@ -914,7 +962,7 @@ classes should alter those!
   width: 100%;
 }
 
-/* line 74, ../sass/partials/_songlist.scss */
+/* line 75, ../sass/partials/_songlist.scss */
 #slickgrid .slick-header {
   background: #fafafa;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(50%, #ffffff), color-stop(100%, #eeeeee));
@@ -922,7 +970,6 @@ classes should alter those!
   background: -moz-linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
   background: -o-linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
   background: linear-gradient(top, #ffffff, #ffffff 50%, #eeeeee);
-  border-top: 1px solid #d1d1d1;
   border-bottom: 1px solid #bbbbbb;
   font-weight: 700;
   overflow: visible !important;
@@ -1188,60 +1235,61 @@ classes should alter those!
 .app-now-playing button {
   background: transparent url("/img/icons.png") no-repeat;
   border: 0;
+  cursor: default;
   height: 40px;
   width: 40px;
   text-indent: -9999em;
 }
-/* line 20, ../sass/partials/_player.scss */
+/* line 21, ../sass/partials/_player.scss */
 .app-now-playing button[disabled="disabled"] {
   /*opacity:0.2;*/
 }
 
-/* line 25, ../sass/partials/_player.scss */
+/* line 26, ../sass/partials/_player.scss */
 #play-pause {
   background-position: -68px -1px;
   height: 48px;
   width: 48px;
 }
 
-/* line 30, ../sass/partials/_player.scss */
+/* line 31, ../sass/partials/_player.scss */
 #play-pause:active {
   background-position: -68px -88px;
 }
 
-/* line 33, ../sass/partials/_player.scss */
+/* line 34, ../sass/partials/_player.scss */
 #play-pause.playing {
   background-position: -213px -1px;
 }
 
-/* line 36, ../sass/partials/_player.scss */
+/* line 37, ../sass/partials/_player.scss */
 #play-pause.playing:active {
   background-position: -213px -88px;
 }
 
-/* line 39, ../sass/partials/_player.scss */
+/* line 40, ../sass/partials/_player.scss */
 #prev {
   background-position: 0 -5px;
   margin-right: -2px;
 }
 
-/* line 43, ../sass/partials/_player.scss */
+/* line 44, ../sass/partials/_player.scss */
 #prev:active {
   background-position: 0 -92px;
 }
 
-/* line 46, ../sass/partials/_player.scss */
+/* line 47, ../sass/partials/_player.scss */
 #next {
   background-position: -148px -5px;
   margin-left: -2px;
 }
 
-/* line 50, ../sass/partials/_player.scss */
+/* line 51, ../sass/partials/_player.scss */
 #next:active {
   background-position: -148px -92px;
 }
 
-/* line 53, ../sass/partials/_player.scss */
+/* line 54, ../sass/partials/_player.scss */
 #repeat, #shuffle {
   background: transparent url("/img/icons.png") no-repeat;
   display: inline-block;
@@ -1251,26 +1299,26 @@ classes should alter those!
   width: 24px;
 }
 
-/* line 61, ../sass/partials/_player.scss */
+/* line 62, ../sass/partials/_player.scss */
 #repeat {
   background-position: 3px -189px;
 }
-/* line 64, ../sass/partials/_player.scss */
+/* line 65, ../sass/partials/_player.scss */
 #repeat.enabled {
   background-position: 3px -164px;
 }
 
-/* line 68, ../sass/partials/_player.scss */
+/* line 69, ../sass/partials/_player.scss */
 #shuffle {
   background-position: -35px -189px;
 }
-/* line 71, ../sass/partials/_player.scss */
+/* line 72, ../sass/partials/_player.scss */
 #shuffle.enabled {
   background-position: -35px -164px;
 }
 
-/* line 76, ../sass/partials/_player.scss */
-#player-volume-label {
+/* line 77, ../sass/partials/_player.scss */
+#volume-label {
   background: url("/img/icons.png") no-repeat -160px -197px;
   display: inline-block;
   float: left;
@@ -1282,14 +1330,14 @@ classes should alter those!
   white-space: nowrap;
 }
 
-/* line 88, ../sass/partials/_player.scss */
-#player-volume {
+/* line 89, ../sass/partials/_player.scss */
+#volume {
   margin: 20px 15px 0 5px;
   text-align: center;
   width: 100px;
 }
 
-/* line 93, ../sass/partials/_player.scss */
+/* line 94, ../sass/partials/_player.scss */
 #player-time {
   font-size: 11px;
   line-height: 14px;
@@ -1298,7 +1346,7 @@ classes should alter those!
   width: 80px;
 }
 
-/* line 100, ../sass/partials/_player.scss */
+/* line 101, ../sass/partials/_player.scss */
 #seekbar {
   margin: 0 75px 0 365px;
   padding: 0 15px;
@@ -1307,13 +1355,13 @@ classes should alter those!
   top: 19px;
 }
 
-/* line 107, ../sass/partials/_player.scss */
+/* line 108, ../sass/partials/_player.scss */
 #player-buttons-2 {
   float: right;
   margin: 12px 10px 0 0;
 }
 
-/* line 113, ../sass/partials/_player.scss */
+/* line 114, ../sass/partials/_player.scss */
 #player-song {
   border-bottom: 1px solid black;
   margin-bottom: 8px;
@@ -1323,25 +1371,25 @@ classes should alter those!
   -moz-box-shadow: 0 1px 0 #434343;
   box-shadow: 0 1px 0 #434343;
 }
-/* line 122, ../sass/partials/_player.scss */
+/* line 123, ../sass/partials/_player.scss */
 #player-song .label {
   color: #999;
 }
 
-/* line 126, ../sass/partials/_player.scss */
+/* line 127, ../sass/partials/_player.scss */
 #player-song, #player-controls {
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 130, ../sass/partials/_player.scss */
+/* line 131, ../sass/partials/_player.scss */
 #player-controls {
   height: 48px;
   vertical-align: middle;
 }
 
-/* line 134, ../sass/partials/_player.scss */
-#player-buttons, #player-volume, #player-time {
+/* line 135, ../sass/partials/_player.scss */
+#player-buttons, #volume, #player-time {
   float: left;
 }
 

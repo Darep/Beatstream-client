@@ -1,214 +1,329 @@
 define([
-    'jquery',
     'store',
     'beatstream/mediator',
+    'beatstream/audio-modules/sm2audio',
+    'beatstream/controls/togglebutton',
     'jquery-ui'
-],
-function ($, store, mediator) {
+], function (store, mediator, SM2Audio, ToggleButton) {
 
     var DEFAULT_VOLUME = 20;
 
-    var Player = function (selector) {
-        var playerTrack, playPause, prevButton, nextButton, elapsed, duration, volumeLabel, seekbar, repeatButton, shuffleButton, volume;
+    var Player = function (args) {
+        this.el = args.el || undefined;
+        this.audio = undefined;
 
-        playerTrack = $('#player-song .track');
-        playPause = $('#play-pause');
-        prevButton = $('#prev');
-        nextButton = $('#next');
-        elapsed = $('#player-time .elapsed');
-        duration = $('#player-time .duration');
-        volumeLabel = $('#player-volume-label');
-        seekbar = $('#seekbar-slider');
-        repeatButton = $('#repeat');
-        shuffleButton = $('#shuffle');
-        volume = DEFAULT_VOLUME;
+        this.playbackHistory = [];
+        this.playlist = undefined;
+        this.currentSongId = undefined;
+        this.isPaused = false;
+        this._shuffle = new ToggleButton('#shuffle', 'shuffle');
+        this._repeat = new ToggleButton('#repeat', 'repeat');
 
-
-        // Events
-        mediator.subscribe("songlist:selectSong", function (song) {
-            // show the selected song title instantly
-            playerTrack.text(song.nice_title);
-        });
-
-        mediator.subscribe("audio:play", function () {
-            // only show "playing" state after the audio module says it's playing
-            playPause.addClass('playing');
-        });
-
-        mediator.subscribe("audio:pause", function () {
-            playPause.removeClass('playing');
-        });
-
-        mediator.subscribe("audio:timeChange", function (elaps) {
-            elapsedTimeChanged(elaps);
-
-            if (!user_is_seeking) {
-                seekbar.slider('option', 'value', elaps);
-            }
-        });
-
-        mediator.subscribe("audio:parseDuration", function (duration_in_seconds) {
-            durationChanged(duration_in_seconds);
-            seekbar.slider('option', 'disabled', false);
-        });
-
-        mediator.subscribe("songlist:stop", function () {
-            elapsedTimeChanged(0);
-            durationChanged(0);
-            seekbar.slider('value', 0);
-            seekbar.slider('option', 'disabled', true);
-            playerTrack.text('None');
-        });
-
-
-        // volume slider
-        volume = getVolume();
-
-        if (volume <= 0 || volume >= 100) {
-            volume = DEFAULT_VOLUME;
+        if (args.audio) {
+            this.audio = args.audio;
+        } else {
+            this.audio = new SM2Audio();
         }
 
-        // broadcast the current volume level to others
-        var updateVolume = function (volume) {
-            mediator.publish("buttons:setVolume", volume);
-            volumeLabel.attr('title', volume);
-        };
+        this.createPlaybackControls();
+        this.hookAudioEvents();
 
-        updateVolume(volume);
+        // Enterprise Bus events
+        mediator.subscribe('playlist:setPlaylist', this.setPlaylist.bind(this));
+        mediator.subscribe('playlist:setSong', this.playSong.bind(this));
+    };
 
-        $('#player-volume-slider').slider({
-            orientation: 'horizontal',
-            value: volume,
-            max: 100,
-            min: 0,
-            range: 'min',
-            slide: function (event, ui) {
-                updateVolume(ui.value);
-            },
-            stop: function (event, ui) {
-                store.set('volume', ui.value);
+    Player.prototype.createPlaybackControls = function() {
+        this.playButton = this.el.find('#play-pause');
+        this.playButton.click(function (e) {
+            e.preventDefault();
+
+            if (!this.isPlaying()) {
+                // if not yet playing anything, start playing
+                this.playNext();
+            } else {
+                this.audio.togglePause();
             }
-        });
 
+            this.isPaused = !this.isPaused;
 
-        // seekbar
-        var user_is_seeking = false;
-        seekbar.slider({
+            this.playButton.toggleClass('playing');
+        }.bind(this));
+
+        this.prevButton = this.el.find('#prev');
+        this.prevButton.click(function (e) {
+            e.preventDefault();
+            this.playPrevious();
+        }.bind(this));
+
+        this.nextButton = this.el.find('#next');
+        this.nextButton.click(function (e) {
+            e.preventDefault();
+            this.playNext();
+        }.bind(this));
+
+        this.isSeeking = false;
+        this.seekbar = this.el.find('#seekbar-slider');
+        this.seekbar.slider({
             orientation: 'horizontal',
             disabled: true,
             value: 0,
             max: 100,
             min: 0,
             range: 'min',
-            slide: function (event, ui) {
-                // do nothing
-            },
             start: function(event, ui) {
-                user_is_seeking = true;
-            },
+                this.isSeeking = true;
+            }.bind(this),
             stop: function(event, ui) {
-                mediator.publish("buttons:seek", ui.value);
-                user_is_seeking = false;
+                this.audio.seekTo(ui.value);
+                this.isSeeking = false;
+            }.bind(this)
+        });
+
+        this.volumeLabel = this.el.find('#volume-label');
+        this.volumeSlider = this.el.find('#volume-slider');
+        this.volumeSlider.slider({
+            orientation: 'horizontal',
+            max: 100,
+            min: 0,
+            range: 'min',
+            slide: function (event, ui) {
+                this.volume = ui.value;
+                this.audio.setVolume(ui.value);
+                this.volumeLabel.attr('title', ui.value);
+            }.bind(this),
+            stop: function (event, ui) {
+                store.set('volume', ui.value);
             }
         });
 
-
-        // playback buttons
-        playPause.click(function (e) {
-            e.preventDefault();
-            mediator.publish("buttons:togglePause");
-        });
-
-        nextButton.click(function (e) {
-            e.preventDefault();
-            mediator.publish("buttons:nextSong", getShuffle(), getRepeat());
-        });
-
-        prevButton.click(function (e) {
-            e.preventDefault();
-            mediator.publish("buttons:prevSong");
-        });
-
-        playerTrack.dblclick(function (e) {
-            e.preventDefault();
-            mediator.publish("buttons:showNowPlaying");
-        });
-
-
-        // enable buttons
-        $('#player-buttons button').removeAttr('disabled');
-
-        // repeat & shuffle buttons
-
-        var shuffle = false;
-        var repeat = false;
-
-        function newToggleButton(button, key, value) {
-            if (store.get(key)) {
-                value = store.get(key);
-            }
-
-            if (value) {
-                button.addClass('enabled');
-            }
-
-            button.click(function (e) {
-                e.preventDefault();
-
-                value = !value;
-                store.set(key, value);
-
-                $(this).toggleClass('enabled');
-            });
+        // set initial volume
+        var volume = getFromStore('volume');
+        if (!volume || volume <= 0 || volume >= 100) {
+            volume = DEFAULT_VOLUME;
         }
-        newToggleButton(repeatButton, 'repeat', repeat);
-        newToggleButton(shuffleButton, 'shuffle', shuffle);
+        this.volumeSlider.slider('option', 'value', volume);
+        this.audio.setVolume(volume);
+        this.volume = volume;
 
+        // Playback info controls
+        this.trackInfo = this.el.find('#player-song .track');
+        this.elapsedTime = this.el.find('#player-time .elapsed');
+        this.duration = this.el.find('#player-time .duration');
 
-        // HELPERS:
+        this.el.find('#player-song').dblclick(function (e) {
+            e.preventDefault();
+            mediator.publish('playlist:showPlaylistAndSong', [this.playlist, this.playlist[this.currentSongId]]);
+        }.bind(this));
+    };
 
-        function storeGet(key) {
-            if (key && store.get(key)) {
-                return store.get(key);
+    Player.prototype.hookAudioEvents = function() {
+        this.audio.events.onPlay = function () {
+            this.seekbar.slider('option', 'value', 0);
+        }.bind(this);
+
+        this.audio.events.onFinish = function () {
+            if (isLastIndex(this.playlist, this.currentSongId) && !this.getRepeat()) {
+                this.audio.pause();
+                return;
             }
 
+            this.playNext();
+        }.bind(this);
+
+        this.audio.events.onDurationParsed = function (duration) {
+            if (!this.isPlaying()) {
+                return;
+            }
+
+            this.seekbar.slider('option', 'max', duration);
+            this.seekbar.slider('option', 'disabled', false);
+            this.duration.text(secondsToNiceTime(duration));
+        }.bind(this);
+
+        this.audio.events.onTimeChange = function (elapsed) {
+            if (!this.isPlaying()) {
+                return;
+            }
+
+            if (!this.isSeeking) {
+                this.seekbar.slider('option', 'value', elapsed);
+            }
+
+            this.elapsedTime.text(secondsToNiceTime(elapsed));
+
+            mediator.publish("player:timeChanged", elapsed);
+        }.bind(this);
+
+        var errorResetCountdown = null;
+        this.audio.events.onError = function (onError) {
+            if (errorResetCountdown !== null) {
+                // timer set and we got another error, time to do something
+                this.audio.pause();
+                return;
+            } else {
+                // Set a countdown
+                errorResetCountdown = setTimeout(function () {
+                    clearTimeout(errorResetCountdown);
+                    errorResetCountdown = null;
+                }, 2000);
+
+                this.playNext();
+            }
+        }.bind(this);
+
+        this.audio.events.onReady = function () {
+            mediator.publish('audio:ready');
+        }.bind(this);
+
+        // Enable controls
+        this.el.find('button').removeAttr('disabled');
+    };
+
+    Player.prototype.start = function () {
+        return this.audio.start();
+    };
+
+    Player.prototype.setPlaylist = function (playlist) {
+        this.playlist = playlist;
+    };
+
+    Player.prototype.playSongWithId = function(id) {
+        var song = this.playlist[id];
+
+        if (!song) {
+            console.error('Player: no song with id: "' + id + '" found in playlist');
+        }
+
+        this.playSong(song);
+    };
+
+    Player.prototype.playSong = function(song) {
+        this.audio.play(song.path);
+        this.audio.setVolume(this.volume);
+
+        var index = this.playlist.indexOf(song);
+        if (index >= 0 && index < this.playlist.length) {
+            // the song has to be on the current playlist
+            this.currentSongId = index;
+        }
+
+        this.isPaused = false;
+
+        if (this.getShuffle()) {
+            this.playbackHistory.push(song);
+        } else {
+            // clear the array, because we don't need playback history when not shuffling
+            this.playbackHistory.length = 0;
+        }
+
+        // set widgets to display song info (title, duration, etc.)
+        this.trackInfo.text(niceTitle(song));
+        this.duration.text(secondsToNiceTime(song.length));
+        this.elapsedTime.text(secondsToNiceTime(0));
+        this.seekbar.slider('option', 'max', song.length);
+        this.playButton.addClass('playing');
+
+        mediator.publish('player:songStarted', song);
+    };
+
+    Player.prototype.playPrevious = function() {
+        var songId;
+
+        if (this.getShuffle()) {
+            if (this.playbackHistory.length > 1) {
+                // play from playback history
+
+                // remove current song from playback history
+                this.playbackHistory.pop();
+
+                var song = this.playbackHistory.pop();
+                songId = this.playlist.indexOf(song);
+            } else {
+                songId = randomInt(this.playlist.length - 1);
+            }
+        } else {
+            if (!this.isPlaying() || (this.currentSongId - 1) < 0) {
+                // play last song on playlist
+                songId = this.playlist.length - 1;
+            } else {
+                // play previous from playlist
+                songId = this.currentSongId - 1;
+            }
+        }
+
+        this.playSongWithId(songId);
+    };
+
+    Player.prototype.playNext = function () {
+        var songId;
+
+        if (this.getShuffle()) {
+            songId = randomInt(this.playlist.length - 1);
+        } else {
+            if (!this.isPlaying() || isLastIndex(this.playlist, this.currentSongId)) {
+                // play first song on playlist
+                songId = 0;
+            } else {
+                // play next on playlist
+                songId = this.currentSongId + 1;
+            }
+        }
+
+        this.playSongWithId(songId);
+    };
+
+    Player.prototype.isPlaying = function () {
+        return (this.currentSongId !== undefined);
+    };
+
+    Player.prototype.getShuffle = function () {
+        return this._shuffle.getValue();
+    };
+
+    Player.prototype.setShuffle = function (state) {
+        this._shuffle.setValue(state);
+    };
+
+    Player.prototype.getRepeat = function () {
+        return this._repeat.getValue();
+    };
+
+    Player.prototype.setRepeat = function (state) {
+        this._repeat.setValue(state);
+    };
+
+
+    // Private:
+
+    function niceTitle(song) {
+        return song.nice_title;
+    }
+
+    // function to get random number from 1 to n
+    function randomInt(maxVal,floatVal) {
+       var randVal = Math.random()*maxVal;
+       return typeof floatVal=='undefined'?Math.round(randVal):randVal.toFixed(floatVal);
+    }
+
+    function getFromStore(key) {
+        if (key && store.get(key)) {
+            return store.get(key);
+        } else {
             return false;
         }
+    }
 
-        function getShuffle() {
-            return storeGet('shuffle');
-        }
+    function isLastIndex(array, index) {
+        return (index + 1) === array.length;
+    }
 
-        function getRepeat() {
-            return storeGet('repeat');
-        }
+    function secondsToNiceTime(seconds) {
+        var mins = Math.floor(seconds/60, 10),
+            secs = parseInt(seconds - mins*60, 10);
 
-        function getVolume() {
-            return parseFloat(storeGet('volume'));
-        }
-
-        function durationChanged(dur) {
-            var mins = Math.floor(dur/60, 10),
-                secs = dur - mins*60;
-
-            duration.text((mins > 9 ? mins : '0' + mins) + ':' + (secs > 9 ? secs : '0' + secs));
-
-            seekbar.slider('option', 'max', dur);
-        }
-
-        function elapsedTimeChanged(elaps) {
-            var mins = Math.floor(elaps/60, 10),
-                secs = elaps - mins*60;
-
-            elapsed.text((mins > 9 ? mins : '0' + mins) + ':' + (secs > 9 ? secs : '0' + secs));
-        }
-
-        return {
-            getShuffle: getShuffle,
-            getRepeat: getRepeat,
-            getVolume: getVolume
-        };
-    };
+        return (mins + ':' + (secs > 9 ? secs : '0' + secs));
+    }
 
     return Player;
 });

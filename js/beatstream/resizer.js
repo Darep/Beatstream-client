@@ -1,9 +1,8 @@
-define(['jquery'], function ($) {
+define([
+    'beatstream/mediator'
+], function (mediator) {
 
-    var Resizer = function (songlist) {
-        this.songlist = songlist;
-
-        // resize components on window resize
+    var Resizer = function () {
         $(window).resize(function () {
             this.resize();
         }.bind(this));
@@ -22,14 +21,8 @@ define(['jquery'], function ($) {
         height_container = height - $('.page-header').innerHeight();
         $('.grid-container').css('height', height_container);
 
-        // tell songlist to resize canvas
-        if (this.songlist) {
-            this.songlist.resizeCanvas();
-        }
-
-        // TODO: what if, instead, we send a message to the bus: "app:resize"
+        mediator.publish('app:resize');
     };
-
 
     return Resizer;
 });

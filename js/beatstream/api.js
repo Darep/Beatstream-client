@@ -1,19 +1,31 @@
-define(['jquery', 'beatstream/mediator'],
-function ($, mediator) {
-    // static base URL, shared by all the APIs (why?)
-    var baseUrl = '';
+define([
+    'beatstream/mediator'
+],
+function (mediator) {
 
-    var Api = function (apiBaseUrl) {
-        if (apiBaseUrl) {
-            baseUrl = apiBaseUrl;
+    var Api = function (args) {
+        this.baseUrl = args.url || "";
+
+        // Remove trailing "/"
+        if (this.baseUrl.charAt(this.baseUrl.length - 1) == "/") {
+            this.baseUrl = this.baseUrl.slice(0, -1);
         }
+    };
+
+    Api.prototype.getAuth = function () {
+        return $.ajax({
+            type: 'GET',
+            url: this.baseUrl + '/profile',
+            dataType: 'json',
+            errorHandler: errorHandler
+        });
     };
 
 
     Api.prototype.logIn = function (username, password) {
         return $.ajax({
             type: 'POST',
-            url: baseUrl + '/auth',
+            url: this.baseUrl + '/auth',
             data: { username: username, password: password },
             errorHandler: errorHandler
         });
@@ -22,7 +34,7 @@ function ($, mediator) {
 
     Api.prototype.getAllMusic = function () {
         return $.ajax({
-            url: baseUrl + '/songs',
+            url: this.baseUrl + '/songs',
             dataType: 'json',
             error: errorHandler
         });
@@ -31,7 +43,7 @@ function ($, mediator) {
 
     Api.prototype.getPlaylist = function (name) {
         return $.ajax({
-            url: baseUrl + '/playlists/' + encodeURIComponent(name),
+            url: this.baseUrl + '/playlists/' + encodeURIComponent(name),
             dataType: 'json',
             error: errorHandler
         });
@@ -41,7 +53,7 @@ function ($, mediator) {
     Api.prototype.createPlaylist = function (name) {
         return $.ajax({
             type: 'POST',
-            url: baseUrl + '/playlists',
+            url: this.baseUrl + '/playlists',
             data: { name: name },
             error: errorHandler
         });
@@ -52,7 +64,7 @@ function ($, mediator) {
         // TODO: finish this
         return $.ajax({
             type: 'POST',
-            url: baseUrl + '/playlists/' + encodeURIComponent(playlist),
+            url: this.baseUrl + '/playlists/' + encodeURIComponent(playlist),
             data: songs,
             error: errorHandler
         });
@@ -63,16 +75,54 @@ function ($, mediator) {
         // TODO: finish this
         return $.ajax({
             type: 'PUT',
-            url: baseUrl + '/playlists/' + encodeURIComponent(playlist),
+            url: this.baseUrl + '/playlists/' + encodeURIComponent(playlist),
             error: errorHandler
         });
     };
 
 
-    Api.prototype.getSongURI = function (songPath) {
-        return baseUrl + '/songs/play/?file=' + encodeURIComponent(songPath);
+    Api.prototype.getSongURI = function (path) {
+        var result;
+
+        // Remove leading "/"
+        if (path.charAt(0) == "/") {
+            path = path.substr(1);
+        }
+
+        result = this.baseUrl + '/songs/play/?file=' + encodeURIComponent(path);
+        return result;
     };
 
+
+    // LastFM API:
+
+    Api.prototype.updateNowPlaying = function (artist, title) {
+        var data = 'artist=' + encodeURIComponent(artist) +
+                   '&title=' + encodeURIComponent(title);
+
+        return $.ajax({
+            type: 'PUT',
+            url: this.baseUrl + '/now-playing',
+            dataType: 'text',
+            data: data
+        });
+    };
+
+
+    Api.prototype.scrobble = function (artist, title) {
+        var data = 'artist=' + encodeURIComponent(artist) +
+                   '&title=' + encodeURIComponent(title);
+
+        return $.ajax({
+            type: 'POST',
+            url: this.baseUrl + '/scrobble',
+            dataType: 'text',
+            data: data
+        });
+    };
+
+
+    // Private:
 
     function errorHandler(req, textStatus, errorThrown) {
         console.log('Api AJAX error:');
