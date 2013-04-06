@@ -18,7 +18,7 @@ define([
         $('.main-wrap').css('height', height);
 
         // set songlist container height
-        height_container = height - $('.page-header').innerHeight();
+        height_container = height - $('.playlist-header').innerHeight();
         $('.grid-container').css('height', height_container);
 
         mediator.publish('app:resize');

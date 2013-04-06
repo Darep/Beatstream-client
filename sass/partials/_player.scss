@@ -9,6 +9,7 @@
     padding: 0 0 10px;
     position: relative;
     @include box-shadow(0 -1px 0 #000);
+    z-index: 10;
 
     button {
         background:transparent url('/img/icons.png') no-repeat;
