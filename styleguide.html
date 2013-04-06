@@ -1,0 +1,71 @@
+<!doctype html>
+<!--
+
+ _______                __          __
+/______ \___________ __/ /_________/ /__________________ _______ ___
+  / /__)/   _ \  __ `/  __/_  ___/  __/_  ___/  _ \  __ `/_  __ `__ \
+ / /__) ||  __/ /_/ // /_  (__  )/ /_  / /   /  __/ /_/ / / / / / / /
+/______/ \___/\__,_/ \__/ /____/ \__/ /_/    \___/\__,_/ /_/ /_/ /_/
+
+
+-->
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Beatstream Styleguide</title>
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" href="/icon_32x32.png" sizes="32x32" />
+    <link rel="icon" href="/icon_48x48.png" sizes="48x48" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" type="text/css" href="css/application.css" />
+</head>
+<body>
+
+<div id="app">
+    <header class="app-top">
+        <h1 class="logo">
+            <a href="/">Beatstream</a>
+            <small>alpha</small>
+        </h1>
+        <div id="user-menu">
+            <a href="#" id="menu-toggle" class="toggle username">You</a>
+            <ul>
+                <li><a id="settings-link">Settings</a></li>
+                <li><a class="logout-link" rel="nofollow">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="styleguide" style="background: #eee; margin: 30px; padding: 15px;">
+        Oh hello!
+    </div>
+    <div class="app-now-playing">
+        <h5 id="player-song"><span class="label">Current song:</span> <span class="track">None</span></h5>
+        <div id="player-controls">
+            <div id="player-buttons">
+                <button id="prev" type="button" disabled="disabled">Prev</button>
+                <button id="play-pause" type="button" disabled="disabled">Play/pause</button>
+                <button id="next" type="button" disabled="disabled">Next</button>
+            </div>
+            <label id="volume-label">Volume</label>
+            <div id="volume">
+                <div id="volume-slider"></div>
+            </div>
+            <p id="player-time">
+                <span class="elapsed">0:00</span> / <span class="duration">0:00</span>
+            </p>
+            <div id="player-buttons-2">
+                <button id="repeat" type="button">Repeat <span class="status">Off</span></button>
+                <button id="shuffle" type="button">Shuffle <span class="status">Off</span></button>
+            </div>
+            <div id="seekbar">
+                <div id="seekbar-slider"></div>
+            </div>
+        </div>
+    </div>
+</div><!-- #app -->
+
+</body>
+</html>
