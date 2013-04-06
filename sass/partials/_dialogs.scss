@@ -8,6 +8,10 @@
     left: 0;
     right: 0;
     z-index: 100;
+
+    &.show {
+        display: block;
+    }
 }
 
 .dialog {
@@ -20,21 +24,22 @@
     padding: 25px;
     position: relative;
     width: 320px;
-    @include box-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+    @include box-shadow(0 2px 15px rgba(0, 0, 0, 0.5));
 
     .close {
-        background: #ddd;
+        background: transparent;
         border: 0;
-        height: 32px;
+        color: $color-light;
+        cursor: pointer;
+        font-size: 21px;
+        font-weight: 100;
         margin: 0;
         padding: 0;
         position: absolute;
-        right: 0;
-        top: 0;
+        right: 15px;
+        top: 10px;
         text-shadow: none;
-        width: 32px;
         -webkit-appearance: none;
-        @extend .ir;
     }
 
     h2, section {

@@ -125,9 +125,7 @@
 <div class="dialogs">
     <div id="dialog-login" class="dialog-container">
         <div class="dialog">
-            <button class="close">
-                <i class="icon-close ir">Close</i>
-            </button>
+            <button class="close">&times;</button>
             <h2>Log in</h2>
             <label>Username</label>
             <div class="form-field">
@@ -143,11 +141,9 @@
             </div>
         </div>
     </div>
-    <div id="dialog-settings" class="dialog-container">
+    <div id="dialog-settings" class="dialog-container show">
         <div class="dialog">
-            <button class="close">
-                <i class="icon-close ir">Close</i>
-            </button>
+            <button class="close">&times;</button>
             <h2>Settings</h2>
             <section>
                 <label>Username</label>
@@ -173,8 +169,8 @@
                     </p>
                 </div>
             </section>
-            <div class="form-field">
-                <input type="submit" class="btn" value="Save" tabindex="5">
+            <div class="right">
+                <input type="submit" class="btn-orange" value="Save" tabindex="5">
                 <span class="loading ir" style="display: none;">Saving...</span>
             </div>
         </div>

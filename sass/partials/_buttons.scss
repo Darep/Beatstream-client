@@ -1,4 +1,4 @@
-.btn {
+.btn, [class|="btn"] {
     background:#595959;
     @include background(linear-gradient(top, #707070, #424242));
     border: 0;
@@ -11,7 +11,7 @@
     height:28px;
     line-height:28px;
     margin: 0;
-    padding:0 8px;
+    padding: 0 10px;
     text-align:center;
     text-decoration: none;
     text-shadow:0 1px 0 #000;
@@ -22,5 +22,13 @@
         background:#707070;
         @include background(linear-gradient(top, #888, #424242));
         color:#fff;
+    }
+}
+
+.btn-orange {
+    @include background(linear-gradient(top, #d79424, #e19a26 30%, #bb560f 85%, #992d10));
+
+    &:hover {
+        @include background(linear-gradient(top, #c58722, #c28520 30%, #a2490d 85%, #7e250d));
     }
 }
