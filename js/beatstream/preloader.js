@@ -37,7 +37,7 @@ function ($, mediator) {
     Preloader.prototype.hide = function () {
         this.el.fadeOut('slow', function () {
             // Element needs to be displayed or flash playback won't work
-            // Why? SoundManager2's #sm2-container is inside preloader's DOM
+            // Why? SoundManager2's #sm2-container is inside preloader's DOM.
             this.el.css({
                 display: 'block',
                 top: '-100px',

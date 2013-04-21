@@ -22,11 +22,12 @@ define([
                 apiUrl: '/api/v1/'
             }, options_in);
 
-            api       = new Api({ url: options.apiUrl });
+            api = new Api({ url: options.apiUrl });
 
             // Check if we are authenticated
             var req = api.getAuth(),
                 isLoggedIn = true;
+
             req.fail(function () {
                 // FIXME: show a login dialog and use API to log in
                 window.location = '/login';

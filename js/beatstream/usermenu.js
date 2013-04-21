@@ -22,9 +22,11 @@ function ($) {
         var target = $(e.target);
 
         if (e.target == this.menuToggle[0] || target.parents().index(this.menuToggle) != -1) {
+            // Show/hide menu on press of the toggle
             this.actualMenu.toggleClass('show');
             return false;
         } else if (this.isMenuItem(target) || this.isOutside(target)) {
+            // Close menu if clicked on a menu item or outside menu
             this.actualMenu.removeClass('show');
             return false;
         }
