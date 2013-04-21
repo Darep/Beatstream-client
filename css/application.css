@@ -109,14 +109,14 @@ h2, h3 {
 h2 {
   font-size: 24px;
   font-weight: 700;
-  line-height: 21px;
+  line-height: 20px;
 }
 
 /* line 11, ../sass/partials/_typography.scss */
 h3 {
   font-size: 14px;
   font-weight: 700;
-  line-height: 21px;
+  line-height: 20px;
 }
 
 /* line 17, ../sass/partials/_typography.scss */
@@ -127,7 +127,7 @@ h5 {
 /* line 21, ../sass/partials/_typography.scss */
 p {
   font-size: 14px;
-  line-height: 21px;
+  line-height: 20px;
 }
 
 /* line 27, ../sass/partials/_typography.scss */
@@ -900,7 +900,7 @@ classes should alter those!
 .playlist-header {
   border-bottom: 1px solid #d1d1d1;
   overflow: hidden;
-  padding: 21px 20px 14px;
+  padding: 20px 20px 13.33333px;
   position: relative;
 }
 /* line 7, ../sass/partials/_songlist.scss */
@@ -1469,7 +1469,7 @@ classes should alter those!
 }
 /* line 42, ../sass/partials/_other.scss */
 .preloader .notifications {
-  margin-top: 21px;
+  margin-top: 20px;
   text-align: left;
 }
 /* line 46, ../sass/partials/_other.scss */
@@ -1485,7 +1485,7 @@ classes should alter those!
 }
 /* line 57, ../sass/partials/_other.scss */
 .preloader .notifications > div + div {
-  margin-top: 21px;
+  margin-top: 20px;
 }
 /* line 61, ../sass/partials/_other.scss */
 .preloader .notifications .icon {
