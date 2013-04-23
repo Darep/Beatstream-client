@@ -15,7 +15,13 @@ var require = {
         'soundmanager2': {},
         'soundmanager2-audiomodule': {
             deps: 'soundmanager2'
+        },
+        'jquery-ui': {
+            deps: [
+                'jquery'
+            ]
         }
+
     },
 
     paths: {
