@@ -6,10 +6,10 @@ var require = {
         'slickgrid': {
             deps: [
                 'jquery',
-                'lib/SlickGrid/lib/jquery.event.drag-2.0.min',
-                'lib/SlickGrid/slick.core',
-                'lib/SlickGrid/slick.dataview',
-                'lib/SlickGrid/plugins/slick.rowselectionmodel'
+                'vendor/SlickGrid/lib/jquery.event.drag-2.0.min',
+                'vendor/SlickGrid/slick.core',
+                'vendor/SlickGrid/slick.dataview',
+                'vendor/SlickGrid/plugins/slick.rowselectionmodel'
             ]
         },
         'soundmanager2': {},
@@ -19,15 +19,15 @@ var require = {
     },
 
     paths: {
-        'jquery': 'lib/jquery.min',
-        'jquery-ui': 'lib/jquery-ui',
-        'mediator': 'lib/mediator.min',
-        'pathjs': 'lib/path.min',
-        'slickgrid': 'lib/SlickGrid/slick.grid',
-        'soundmanager2': 'lib/SoundManager2/script/soundmanager2-nodebug-jsmin',
-        'store': 'lib/store.min',
-        'transparency': 'lib/transparency.min',
-        'underscore': 'lib/underscore-min'
+        'jquery': 'vendor/jquery.min',
+        'jquery-ui': 'vendor/jquery-ui',
+        'mediator': 'vendor/mediator.min',
+        'pathjs': 'vendor/path.min',
+        'slickgrid': 'vendor/SlickGrid/slick.grid',
+        'soundmanager2': 'vendor/SoundManager2/script/soundmanager2-nodebug-jsmin',
+        'store': 'vendor/store.min',
+        'transparency': 'vendor/transparency.min',
+        'underscore': 'vendor/underscore-min'
     },
 
     urlArgs: "ts=" + new Date().getTime(),
