@@ -19,16 +19,21 @@ function ($) {
             return true;
         }
 
+        e.preventDefault();
+
         var target = $(e.target);
 
-        if (e.target == this.menuToggle[0] || target.parents().index(this.menuToggle) != -1) {
+         if (this.isMenuItem(target)) {
+            // Menu item clicked, do nothing, because the menu items hook & trigger themselves
+
+            // Close menu
+            this.actualMenu.removeClass('show');
+        } else if (e.target == this.menuToggle[0] || target.parents().index(this.menuToggle) != -1) {
             // Show/hide menu on press of the toggle
             this.actualMenu.toggleClass('show');
-            return false;
-        } else if (this.isMenuItem(target) || this.isOutside(target)) {
-            // Close menu if clicked on a menu item or outside menu
+        } else if(this.isOutside(target)) {
+            // Close menu if click outside menu
             this.actualMenu.removeClass('show');
-            return false;
         }
     };
 

@@ -34,9 +34,11 @@ define([
 
             req.success(function (profile) {
                 console.log(profile);
+
                 usermenu  = new UserMenu({ el: $('#user-menu'), name: profile.username });
                 player    = new Player({ el: $('.app-now-playing') });
                 playlistManager = new PlaylistManager({ el: $('.main-wrap'), api: api });
+
                 resizer   = new Resizer();
                 lastfm    = new LastFM({ api: api });
 
