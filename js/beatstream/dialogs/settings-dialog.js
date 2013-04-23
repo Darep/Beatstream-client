@@ -1,15 +1,14 @@
-define([
-    'beatstream/mediator'
-],
-function (mediator) {
+define([],
+function () {
+    var SettingsDialog = (function () {
+        this.el = $('#dialog-settings');
 
-    var SettingsDialog = function (selector) {
+        return {
+            show: function () {
 
-    };
-
-    SettingsDialog.prototype.showOn = function (eventType, elem) {
-
-    };
+            }
+        };
+    }());
 
     return SettingsDialog;
 });

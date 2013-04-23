@@ -24,7 +24,7 @@ function ($) {
         var target = $(e.target);
 
          if (this.isMenuItem(target)) {
-            // Menu item clicked, do nothing, because the menu items hook & trigger themselves
+            // Menu item clicked,
 
             // Close menu
             this.actualMenu.removeClass('show');
