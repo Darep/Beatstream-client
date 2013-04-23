@@ -26,7 +26,8 @@ var require = {
         'slickgrid': 'lib/SlickGrid/slick.grid',
         'soundmanager2': 'lib/SoundManager2/script/soundmanager2-nodebug-jsmin',
         'store': 'lib/store.min',
-        'transparency': 'lib/transparency.min'
+        'transparency': 'lib/transparency.min',
+        'underscore': 'lib/underscore-min'
     },
 
     urlArgs: "ts=" + new Date().getTime(),
