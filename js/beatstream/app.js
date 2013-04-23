@@ -1,5 +1,4 @@
 define([
-    'beatstream/mediator',
     'beatstream/resizer',
     'beatstream/api',
     'beatstream/lastfm',
@@ -8,10 +7,11 @@ define([
     'beatstream/playlistmanager',
     'beatstream/preloader',
     'beatstream/sidebar',
+    'beatstream/usermenu_listener',
 
     'helpers/helpers',
     'soundmanager2'
-], function (mediator, Resizer, Api, LastFM, UserMenu, Player, PlaylistManager, Preloader, Sidebar) {
+], function (Resizer, Api, LastFM, UserMenu, Player, PlaylistManager, Preloader, Sidebar, UserMenuListener) {
 
     var App = {
         init: function (options_in) {
@@ -34,9 +34,8 @@ define([
             });
 
             req.success(function (profile) {
-                console.log(profile);
-
                 usermenu  = new UserMenu({ el: $('#user-menu'), name: profile.username });
+                usermenu_listener = new UserMenuListener();
                 player    = new Player({ el: $('.app-now-playing') });
                 playlistManager = new PlaylistManager({ el: $('.main-wrap'), api: api });
                 sidebar = new Sidebar({ el: $('.app-nav') });

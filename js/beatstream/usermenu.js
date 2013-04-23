@@ -1,7 +1,8 @@
 define([
-    'jquery'
+    'jquery',
+    'beatstream/mediator'
 ],
-function ($) {
+function ($, mediator) {
     var UserMenu = function (args) {
         this.menu = args.el;
         this.menuToggle = this.menu.find('> .toggle');
@@ -25,6 +26,7 @@ function ($) {
 
          if (this.isMenuItem(target)) {
             // Menu item clicked,
+            mediator.publish('usermenu:click', e.target.id);
 
             // Close menu
             this.actualMenu.removeClass('show');

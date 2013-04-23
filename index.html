@@ -151,11 +151,11 @@
             <section>
                 <label>Username</label>
                 <div class="form-field">
-                    <input type="text" id="username" value="" tabindex="1" />
+                    <input class="settings-username" type="text" disabled="disabled" id="username" value="" tabindex="1" />
                 </div>
                 <label>Email</label>
                 <div class="form-field">
-                    <input type="text" id="username" value="" tabindex="2" />
+                    <input class="settings-email" type="text" disabled="disabled" id="email" value="" tabindex="2" />
                 </div>
                 <label>Password</label>
                 <div class="form-field">
@@ -166,6 +166,10 @@
                 <label>Last.fm</label>
                 <div class="form-field">
                     <button class="btn btn-lastfm not-ok" id="lastfm-connect" tabindex="4">Connect to Last.fm</button>
+                    <p class="connecting" style="display: none;">
+                        <i class="icon-loading"></i>
+                        Connecting&hellip;
+                    </p>
                     <p class="ok" style="display: none;">
                         Connected
                         <button class="btn" id="lastfm-disconnect" tabindex="4">Remove connection</button>
