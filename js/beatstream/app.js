@@ -25,32 +25,29 @@ define([
             api = new Api({ url: options.apiUrl });
 
             // Check if we are authenticated
-            var req = api.getAuth(),
-                isLoggedIn = true;
+            var req = api.getProfile({ cache: true });
 
             req.fail(function () {
                 // FIXME: show a login dialog and use API to log in
                 window.location = '/login';
-                isLoggedIn = true;
             });
 
-            if (!isLoggedIn) {
-                return;
-            }
+            req.success(function (profile) {
+                console.log(profile);
+                usermenu  = new UserMenu({ el: $('#user-menu'), name: profile.username });
+                player    = new Player({ el: $('.app-now-playing') });
+                playlistManager = new PlaylistManager({ el: $('.main-wrap'), api: api });
+                resizer   = new Resizer();
+                lastfm    = new LastFM({ api: api });
 
-            usermenu  = new UserMenu({ el: $('#user-menu'), name: 'John' });
-            player    = new Player({ el: $('.app-now-playing') });
-            playlistManager = new PlaylistManager({ el: $('.main-wrap'), api: api });
-            resizer   = new Resizer();
-            lastfm    = new LastFM({ api: api });
+                resizer.resize();
 
-            resizer.resize();
-
-            // Start preloading
-            preloader = new Preloader({
-                el: $('.preloader'),
-                audioPromise: player.start(),
-                medialibraryPromise: playlistManager.getAllMusic()
+                // Start preloading
+                preloader = new Preloader({
+                    el: $('.preloader'),
+                    audioPromise: player.start(),
+                    medialibraryPromise: playlistManager.getAllMusic()
+                });
             });
         }
     };

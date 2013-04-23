@@ -5,6 +5,7 @@ function (mediator) {
 
     var Api = function (args) {
         this.baseUrl = args.url || "";
+        this.cache = {};
 
         // Remove trailing "/"
         if (this.baseUrl.charAt(this.baseUrl.length - 1) == "/") {
@@ -12,13 +13,27 @@ function (mediator) {
         }
     };
 
-    Api.prototype.getAuth = function () {
-        return $.ajax({
-            type: 'GET',
-            url: this.baseUrl + '/profile',
-            dataType: 'json',
-            errorHandler: errorHandler
-        });
+    Api.prototype.getProfile = function (opts) {
+        var self = this;
+
+        if (self.cache.hasOwnProperty('getProfile')) {
+            return self.cache['getProfile'];
+        } else {
+            var req = $.ajax({
+                type: 'GET',
+                url: this.baseUrl + '/profile',
+                dataType: 'json',
+                errorHandler: errorHandler
+            });
+
+            req.success(function (data) {
+                if (opts.cache) {
+                    self.cache['getProfile'] = data;
+                }
+            });
+
+            return req;
+        }
     };
 
 
