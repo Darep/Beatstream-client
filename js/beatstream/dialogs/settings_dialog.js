@@ -10,6 +10,9 @@ function () {
         this.el.addClass('show');
 
         // TODO: fill dialog form with profile data
+
+        this.el.find('.settings-username').val('Dummy username');
+        this.el.find('.settings-email').val('user@dummy.com');
     };
 
     SettingsDialog.prototype.hide = function () {
