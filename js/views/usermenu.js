@@ -5,7 +5,7 @@ define([
 function ($, mediator) {
     var UserMenu = function (args) {
         this.menu = args.el;
-        this.menuToggle = this.menu.find('> .toggle');
+        this.menuToggle = this.menu.find('> .dropdown-toggle');
         this.actualMenu = this.menu.find('ul');
 
         // show username

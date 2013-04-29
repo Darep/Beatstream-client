@@ -1,60 +1,59 @@
 /* RESET */
-/* line 2, ../sass/partials/_reset.scss */
+/* line 2, ../sass/base/_reset.scss */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
 }
 
-/* line 3, ../sass/partials/_reset.scss */
+/* line 3, ../sass/base/_reset.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
-/* line 4, ../sass/partials/_reset.scss */
+/* line 4, ../sass/base/_reset.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 5, ../sass/partials/_reset.scss */
+/* line 5, ../sass/base/_reset.scss */
 fieldset, img {
   border: 0;
 }
 
-/* line 6, ../sass/partials/_reset.scss */
+/* line 6, ../sass/base/_reset.scss */
 address, caption, cite, dfn, th, var {
   font-style: normal;
   font-weight: normal;
 }
 
-/* line 7, ../sass/partials/_reset.scss */
+/* line 7, ../sass/base/_reset.scss */
 caption, th {
   text-align: left;
 }
 
-/* line 8, ../sass/partials/_reset.scss */
+/* line 8, ../sass/base/_reset.scss */
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
   font-weight: normal;
 }
 
-/* line 9, ../sass/partials/_reset.scss */
+/* line 9, ../sass/base/_reset.scss */
 abbr, acronym {
   border: 0;
 }
 
-/* line 10, ../sass/partials/_reset.scss */
+/* line 10, ../sass/base/_reset.scss */
 [type="button"], [type="submit"] {
   cursor: pointer;
 }
 
-/* Base styles */
-/* line 2, ../sass/partials/_base.scss */
+/* line 2, ../sass/base/_base.scss */
 html, body {
   height: 100%;
 }
 
-/* line 6, ../sass/partials/_base.scss */
+/* line 6, ../sass/base/_base.scss */
 body {
   color: #333333;
   font: 1em/1.5 "Helvetica Neue", sans-serif;
@@ -65,7 +64,7 @@ body {
   -webkit-backface-visibility: hidden;
 }
 
-/* line 17, ../sass/partials/_base.scss */
+/* line 17, ../sass/base/_base.scss */
 #app, .main-wrap {
   height: 100%;
   overflow: hidden;
@@ -73,7 +72,7 @@ body {
   width: 100%;
 }
 
-/* line 24, ../sass/partials/_base.scss */
+/* line 24, ../sass/base/_base.scss */
 .app-nav {
   border-right: 1px solid #d4d4d4;
   display: none;
@@ -83,66 +82,417 @@ body {
   width: 189px;
 }
 @media (min-width: 780px) {
-  /* line 24, ../sass/partials/_base.scss */
+  /* line 24, ../sass/base/_base.scss */
   .app-nav {
     display: inline-block;
   }
 }
 
-/* line 37, ../sass/partials/_base.scss */
+/* line 37, ../sass/base/_base.scss */
 .app-main {
   height: 100%;
   overflow: hidden;
 }
-/* line 41, ../sass/partials/_base.scss */
+/* line 41, ../sass/base/_base.scss */
 .app-main .playlist {
   height: 100%;
   overflow-y: hidden;
 }
 
-/* line 1, ../sass/partials/_typography.scss */
+/* line 1, ../sass/base/_typography.scss */
 h2, h3 {
   font-family: "Helvetica Neue", sans-serif;
 }
 
-/* line 5, ../sass/partials/_typography.scss */
+/* line 5, ../sass/base/_typography.scss */
 h2 {
   font-size: 24px;
   font-weight: 700;
   line-height: 20px;
 }
 
-/* line 11, ../sass/partials/_typography.scss */
+/* line 11, ../sass/base/_typography.scss */
 h3 {
   font-size: 14px;
   font-weight: 700;
   line-height: 20px;
 }
 
-/* line 17, ../sass/partials/_typography.scss */
+/* line 17, ../sass/base/_typography.scss */
 h5 {
   font-weight: 700;
 }
 
-/* line 21, ../sass/partials/_typography.scss */
+/* line 21, ../sass/base/_typography.scss */
 p {
   font-size: 14px;
   line-height: 20px;
 }
 
-/* line 27, ../sass/partials/_typography.scss */
+/* line 27, ../sass/base/_typography.scss */
 a {
   color: #49e;
   cursor: pointer;
   text-decoration: underline;
 }
-/* line 32, ../sass/partials/_typography.scss */
+/* line 32, ../sass/base/_typography.scss */
 a:hover {
   color: #e49;
 }
 
-/* Objects */
-/* line 1, ../sass/partials/_common.scss */
+@-webkit-keyframes shake {
+  /* line 3, ../sass/base/_animations.scss */
+  0%, 100% {
+    -webkit-transform: translateX(0);
+  }
+
+  /* line 4, ../sass/base/_animations.scss */
+  10%, 30%, 50%, 70% {
+    -webkit-transform: translateX(-5px);
+  }
+
+  /* line 5, ../sass/base/_animations.scss */
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translateX(5px);
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  /* line 10, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/base/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  /* line 10, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/base/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  /* line 10, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/base/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  /* line 10, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/base/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  /* line 10, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 11, ../sass/base/_animations.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+/* from animate.css by Dan Eden (@_dte) */
+@-webkit-keyframes bounceIn {
+  /* line 17, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.3);
+  }
+
+  /* line 22, ../sass/base/_animations.scss */
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+  }
+
+  /* line 27, ../sass/base/_animations.scss */
+  70% {
+    -webkit-transform: scale(0.9);
+  }
+
+  /* line 31, ../sass/base/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+  }
+}
+
+@-moz-keyframes bounceIn {
+  /* line 37, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+    -moz-transform: scale(0.3);
+  }
+
+  /* line 42, ../sass/base/_animations.scss */
+  50% {
+    opacity: 1;
+    -moz-transform: scale(1.05);
+  }
+
+  /* line 47, ../sass/base/_animations.scss */
+  70% {
+    -moz-transform: scale(0.9);
+  }
+
+  /* line 51, ../sass/base/_animations.scss */
+  100% {
+    -moz-transform: scale(1);
+  }
+}
+
+@-o-keyframes bounceIn {
+  /* line 57, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+    -o-transform: scale(0.3);
+  }
+
+  /* line 62, ../sass/base/_animations.scss */
+  50% {
+    opacity: 1;
+    -o-transform: scale(1.05);
+  }
+
+  /* line 67, ../sass/base/_animations.scss */
+  70% {
+    -o-transform: scale(0.9);
+  }
+
+  /* line 71, ../sass/base/_animations.scss */
+  100% {
+    -o-transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  /* line 77, ../sass/base/_animations.scss */
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  /* line 82, ../sass/base/_animations.scss */
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  /* line 87, ../sass/base/_animations.scss */
+  70% {
+    transform: scale(0.9);
+  }
+
+  /* line 91, ../sass/base/_animations.scss */
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*
+IMPORTANT:
+In order to preserve the uniform grid appearance, all cell styles need to have padding, margin and border sizes.
+No built-in (selected, editable, highlight, flashing, invalid, loading, :focus) or user-specified CSS
+classes should alter those!
+*/
+/* line 8, ../sass/vendor/_slick.grid.scss */
+.slick-header.ui-state-default, .slick-headerrow.ui-state-default {
+  width: 100%;
+  overflow: hidden;
+  border-left: 0px;
+}
+
+/* line 14, ../sass/vendor/_slick.grid.scss */
+.slick-header-columns, .slick-headerrow-columns {
+  width: 999999px;
+  position: relative;
+  white-space: nowrap;
+  cursor: default;
+  overflow: hidden;
+}
+
+/* line 22, ../sass/vendor/_slick.grid.scss */
+.slick-header-column.ui-state-default {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 16px;
+  line-height: 16px;
+  margin: 0;
+  padding: 4px;
+  border-right: 1px solid silver;
+  border-left: 0px;
+  border-top: 0px;
+  border-bottom: 0px;
+  float: left;
+}
+
+/* line 38, ../sass/vendor/_slick.grid.scss */
+.slick-headerrow-column.ui-state-default {
+  padding: 4px;
+}
+
+/* line 42, ../sass/vendor/_slick.grid.scss */
+.slick-header-column-sorted {
+  font-style: italic;
+}
+
+/* line 46, ../sass/vendor/_slick.grid.scss */
+.slick-sort-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 5px;
+  margin-left: 4px;
+}
+
+/* line 53, ../sass/vendor/_slick.grid.scss */
+.slick-sort-indicator-desc {
+  background: url(images/sort-desc.gif);
+}
+
+/* line 57, ../sass/vendor/_slick.grid.scss */
+.slick-sort-indicator-asc {
+  background: url(images/sort-asc.gif);
+}
+
+/* line 61, ../sass/vendor/_slick.grid.scss */
+.slick-resizable-handle {
+  position: absolute;
+  font-size: 0.1px;
+  display: block;
+  cursor: col-resize;
+  width: 4px;
+  right: 0px;
+  top: 0;
+  height: 100%;
+}
+
+/* line 72, ../sass/vendor/_slick.grid.scss */
+.slick-sortable-placeholder {
+  background: silver;
+}
+
+/* line 76, ../sass/vendor/_slick.grid.scss */
+.slick-viewport {
+  display: block;
+  z-index: 1;
+}
+
+/* line 81, ../sass/vendor/_slick.grid.scss */
+.grid-canvas {
+  position: relative;
+  outline: 0;
+}
+
+/* line 86, ../sass/vendor/_slick.grid.scss */
+.slick-row.ui-widget-content, .slick-row.ui-state-active {
+  position: absolute;
+  border: 0px;
+  width: 100%;
+}
+
+/* line 92, ../sass/vendor/_slick.grid.scss */
+.slick-cell, .slick-headerrow-column {
+  position: absolute;
+  border: 1px solid transparent;
+  border-right: 1px dotted silver;
+  border-bottom-color: silver;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  z-index: 1;
+  padding: 1px 2px 2px 1px;
+  margin: 0;
+  white-space: nowrap;
+  cursor: default;
+}
+
+/* line 115, ../sass/vendor/_slick.grid.scss */
+.slick-group-toggle {
+  display: inline-block;
+}
+
+/* line 119, ../sass/vendor/_slick.grid.scss */
+.slick-cell.highlighted {
+  background: lightskyblue;
+  background: rgba(0, 0, 255, 0.2);
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/* line 127, ../sass/vendor/_slick.grid.scss */
+.slick-cell.flashing {
+  border: 1px solid red !important;
+}
+
+/* line 131, ../sass/vendor/_slick.grid.scss */
+.slick-cell.editable {
+  z-index: 11;
+  overflow: visible;
+  background: white;
+  border-color: black;
+  border-style: solid;
+}
+
+/* line 139, ../sass/vendor/_slick.grid.scss */
+.slick-cell:focus {
+  outline: none;
+}
+
+/* line 143, ../sass/vendor/_slick.grid.scss */
+.slick-reorder-proxy {
+  display: inline-block;
+  background: blue;
+  opacity: 0.15;
+  filter: alpha(opacity=15);
+  cursor: move;
+}
+
+/* line 151, ../sass/vendor/_slick.grid.scss */
+.slick-reorder-guide {
+  display: inline-block;
+  height: 2px;
+  background: blue;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+/* line 159, ../sass/vendor/_slick.grid.scss */
+.slick-selection {
+  z-index: 10;
+  position: absolute;
+  border: 2px dashed black;
+}
+
+/* line 1, ../sass/components/_common.scss */
 .app-nav section {
   border-bottom: 1px solid #c7c7c7;
   -webkit-box-shadow: 0 1px 0 white;
@@ -150,14 +500,14 @@ a:hover {
   box-shadow: 0 1px 0 white;
 }
 
-/* line 6, ../sass/partials/_common.scss */
+/* line 6, ../sass/components/_common.scss */
 .ir {
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
 }
 
-/* line 12, ../sass/partials/_common.scss */
+/* line 12, ../sass/components/_common.scss */
 .none {
   color: #666;
   margin: 15px 0;
@@ -165,22 +515,22 @@ a:hover {
   text-align: center;
 }
 
-/* line 19, ../sass/partials/_common.scss */
+/* line 19, ../sass/components/_common.scss */
 .right {
   float: right;
 }
 
-/* line 1, ../sass/partials/_icons.scss */
+/* line 1, ../sass/components/_icons.scss */
 .icon, [class|="icon"] {
   background: url("/img/icons.png") no-repeat;
 }
 
-/* line 5, ../sass/partials/_icons.scss */
+/* line 5, ../sass/components/_icons.scss */
 .icon-notify {
   background-position: -117px -192px;
 }
 
-/* line 9, ../sass/partials/_icons.scss */
+/* line 9, ../sass/components/_icons.scss */
 .icon-sync {
   background: url("/img/sync.gif") no-repeat;
   display: inline-block;
@@ -191,7 +541,7 @@ a:hover {
   white-space: nowrap;
 }
 
-/* line 17, ../sass/partials/_icons.scss */
+/* line 17, ../sass/components/_icons.scss */
 .loading {
   background: url("/img/preloader.gif") no-repeat;
   height: 16px;
@@ -201,181 +551,7 @@ a:hover {
   white-space: nowrap;
 }
 
-@-webkit-keyframes shake {
-  /* line 3, ../sass/partials/_animations.scss */
-  0%, 100% {
-    -webkit-transform: translateX(0);
-  }
-
-  /* line 4, ../sass/partials/_animations.scss */
-  10%, 30%, 50%, 70% {
-    -webkit-transform: translateX(-5px);
-  }
-
-  /* line 5, ../sass/partials/_animations.scss */
-  20%, 40%, 60%, 80% {
-    -webkit-transform: translateX(5px);
-  }
-}
-
-@-webkit-keyframes fadeIn {
-  /* line 10, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-  }
-
-  /* line 11, ../sass/partials/_animations.scss */
-  100% {
-    opacity: 1;
-  }
-}
-
-@-moz-keyframes fadeIn {
-  /* line 10, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-  }
-
-  /* line 11, ../sass/partials/_animations.scss */
-  100% {
-    opacity: 1;
-  }
-}
-
-@-ms-keyframes fadeIn {
-  /* line 10, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-  }
-
-  /* line 11, ../sass/partials/_animations.scss */
-  100% {
-    opacity: 1;
-  }
-}
-
-@-o-keyframes fadeIn {
-  /* line 10, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-  }
-
-  /* line 11, ../sass/partials/_animations.scss */
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  /* line 10, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-  }
-
-  /* line 11, ../sass/partials/_animations.scss */
-  100% {
-    opacity: 1;
-  }
-}
-
-/* from animate.css by Dan Eden (@_dte) */
-@-webkit-keyframes bounceIn {
-  /* line 17, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.3);
-  }
-
-  /* line 22, ../sass/partials/_animations.scss */
-  50% {
-    opacity: 1;
-    -webkit-transform: scale(1.05);
-  }
-
-  /* line 27, ../sass/partials/_animations.scss */
-  70% {
-    -webkit-transform: scale(0.9);
-  }
-
-  /* line 31, ../sass/partials/_animations.scss */
-  100% {
-    -webkit-transform: scale(1);
-  }
-}
-
-@-moz-keyframes bounceIn {
-  /* line 37, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-    -moz-transform: scale(0.3);
-  }
-
-  /* line 42, ../sass/partials/_animations.scss */
-  50% {
-    opacity: 1;
-    -moz-transform: scale(1.05);
-  }
-
-  /* line 47, ../sass/partials/_animations.scss */
-  70% {
-    -moz-transform: scale(0.9);
-  }
-
-  /* line 51, ../sass/partials/_animations.scss */
-  100% {
-    -moz-transform: scale(1);
-  }
-}
-
-@-o-keyframes bounceIn {
-  /* line 57, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-    -o-transform: scale(0.3);
-  }
-
-  /* line 62, ../sass/partials/_animations.scss */
-  50% {
-    opacity: 1;
-    -o-transform: scale(1.05);
-  }
-
-  /* line 67, ../sass/partials/_animations.scss */
-  70% {
-    -o-transform: scale(0.9);
-  }
-
-  /* line 71, ../sass/partials/_animations.scss */
-  100% {
-    -o-transform: scale(1);
-  }
-}
-
-@keyframes bounceIn {
-  /* line 77, ../sass/partials/_animations.scss */
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-
-  /* line 82, ../sass/partials/_animations.scss */
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-
-  /* line 87, ../sass/partials/_animations.scss */
-  70% {
-    transform: scale(0.9);
-  }
-
-  /* line 91, ../sass/partials/_animations.scss */
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* line 1, ../sass/partials/_buttons.scss */
+/* line 1, ../sass/components/_buttons.scss */
 .btn, [class|="btn"] {
   background: #595959;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #707070), color-stop(100%, #424242));
@@ -400,7 +576,7 @@ a:hover {
   -webkit-appearance: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 21, ../sass/partials/_buttons.scss */
+/* line 21, ../sass/components/_buttons.scss */
 .btn:hover, [class|="btn"]:hover {
   background: #707070;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #424242));
@@ -411,7 +587,7 @@ a:hover {
   color: #fff;
 }
 
-/* line 28, ../sass/partials/_buttons.scss */
+/* line 28, ../sass/components/_buttons.scss */
 .btn-orange {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d79424), color-stop(30%, #e19a26), color-stop(85%, #bb560f), color-stop(100%, #992d10));
   background: -webkit-linear-gradient(top, #d79424, #e19a26 30%, #bb560f 85%, #992d10);
@@ -419,7 +595,7 @@ a:hover {
   background: -o-linear-gradient(top, #d79424, #e19a26 30%, #bb560f 85%, #992d10);
   background: linear-gradient(top, #d79424, #e19a26 30%, #bb560f 85%, #992d10);
 }
-/* line 31, ../sass/partials/_buttons.scss */
+/* line 31, ../sass/components/_buttons.scss */
 .btn-orange:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c58722), color-stop(30%, #c28520), color-stop(85%, #a2490d), color-stop(100%, #7e250d));
   background: -webkit-linear-gradient(top, #c58722, #c28520 30%, #a2490d 85%, #7e250d);
@@ -428,13 +604,13 @@ a:hover {
   background: linear-gradient(top, #c58722, #c28520 30%, #a2490d 85%, #7e250d);
 }
 
-/* line 1, ../sass/partials/_forms.scss */
+/* line 1, ../sass/components/_forms.scss */
 label {
   font-size: 0.875rem;
   line-height: 1.25;
 }
 
-/* line 6, ../sass/partials/_forms.scss */
+/* line 6, ../sass/components/_forms.scss */
 [type="text"], [type="password"], [type="search"] {
   border: 1px solid #bbbbbb;
   border-radius: 2px;
@@ -447,7 +623,7 @@ label {
   box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* line 1, ../sass/partials/objects/_sliders.scss */
+/* line 1, ../sass/components/_sliders.scss */
 .ui-slider {
   background: #131313;
   border: 1px solid #2e2e2e;
@@ -460,7 +636,7 @@ label {
   border-radius: 10px;
 }
 
-/* line 12, ../sass/partials/objects/_sliders.scss */
+/* line 12, ../sass/components/_sliders.scss */
 .ui-slider-range {
   background: #f6a828;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f6a828), color-stop(30%, #f6a828), color-stop(85%, #d06010), color-stop(100%, #aa3311));
@@ -477,7 +653,7 @@ label {
   border-radius: 10px;
 }
 
-/* line 23, ../sass/partials/objects/_sliders.scss */
+/* line 23, ../sass/components/_sliders.scss */
 .ui-slider-handle {
   background: #eee;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #faf9f8), color-stop(100%, #c3c2c1));
@@ -502,22 +678,22 @@ label {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
 }
 
-/* line 42, ../sass/partials/objects/_sliders.scss */
+/* line 42, ../sass/components/_sliders.scss */
 .ui-slider-handle:focus {
   outline: 0;
 }
 
-/* line 45, ../sass/partials/objects/_sliders.scss */
+/* line 45, ../sass/components/_sliders.scss */
 .ui-slider-handle.ui-state-hover {
   background: #ccc;
 }
 
-/* line 48, ../sass/partials/objects/_sliders.scss */
+/* line 48, ../sass/components/_sliders.scss */
 .ui-slider-handle.ui-state-active {
   background: #ddd;
 }
 
-/* line 1, ../sass/partials/_dialogs.scss */
+/* line 1, ../sass/components/_dialogs.scss */
 .dialog-container {
   background: rgba(0, 0, 0, 0.7);
   display: none;
@@ -529,12 +705,12 @@ label {
   right: 0;
   z-index: 100;
 }
-/* line 12, ../sass/partials/_dialogs.scss */
+/* line 12, ../sass/components/_dialogs.scss */
 .dialog-container.show {
   display: block;
 }
 
-/* line 17, ../sass/partials/_dialogs.scss */
+/* line 17, ../sass/components/_dialogs.scss */
 .dialog {
   background: #fff;
   background-clip: padding-box;
@@ -549,7 +725,7 @@ label {
   -moz-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
 }
-/* line 29, ../sass/partials/_dialogs.scss */
+/* line 29, ../sass/components/_dialogs.scss */
 .dialog .close {
   background: transparent;
   border: 0;
@@ -565,228 +741,119 @@ label {
   text-shadow: none;
   -webkit-appearance: none;
 }
-/* line 45, ../sass/partials/_dialogs.scss */
+/* line 45, ../sass/components/_dialogs.scss */
 .dialog h2, .dialog section {
   margin: 0 -25px;
 }
-/* line 49, ../sass/partials/_dialogs.scss */
+/* line 49, ../sass/components/_dialogs.scss */
 .dialog h2 {
   padding: 0 25px 20px;
 }
-/* line 53, ../sass/partials/_dialogs.scss */
+/* line 53, ../sass/components/_dialogs.scss */
 .dialog section {
   padding: 20px 25px;
 }
-/* line 57, ../sass/partials/_dialogs.scss */
+/* line 57, ../sass/components/_dialogs.scss */
 .dialog section + section {
   border-top: 1px solid #c7c7c7;
 }
-/* line 61, ../sass/partials/_dialogs.scss */
+/* line 61, ../sass/components/_dialogs.scss */
 .dialog .form-field {
   margin: 0 0 15px 120px;
   position: relative;
 }
-/* line 66, ../sass/partials/_dialogs.scss */
+/* line 66, ../sass/components/_dialogs.scss */
 .dialog label {
   clear: both;
   float: left;
   width: 100px;
 }
-/* line 72, ../sass/partials/_dialogs.scss */
+/* line 72, ../sass/components/_dialogs.scss */
 .dialog label, .dialog p {
   line-height: 1.25;
   padding-top: .25em;
 }
-/* line 81, ../sass/partials/_dialogs.scss */
+/* line 81, ../sass/components/_dialogs.scss */
 .dialog a {
   text-decoration: none;
 }
 
-/* line 90, ../sass/partials/_dialogs.scss */
+/* line 90, ../sass/components/_dialogs.scss */
 #dialog-settings .loading {
   display: inline-block;
 }
 
-/*
-IMPORTANT:
-In order to preserve the uniform grid appearance, all cell styles need to have padding, margin and border sizes.
-No built-in (selected, editable, highlight, flashing, invalid, loading, :focus) or user-specified CSS
-classes should alter those!
-*/
-/* line 8, ../sass/external/_slick.grid.scss */
-.slick-header.ui-state-default, .slick-headerrow.ui-state-default {
-  width: 100%;
-  overflow: hidden;
-  border-left: 0px;
+/* line 1, ../sass/components/_dropdowns.scss */
+.dropdown {
+  font-size: 12px;
+  font-weight: 700;
 }
-
-/* line 14, ../sass/external/_slick.grid.scss */
-.slick-header-columns, .slick-headerrow-columns {
-  width: 999999px;
-  position: relative;
-  white-space: nowrap;
-  cursor: default;
-  overflow: hidden;
-}
-
-/* line 22, ../sass/external/_slick.grid.scss */
-.slick-header-column.ui-state-default {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 16px;
-  line-height: 16px;
-  margin: 0;
-  padding: 4px;
-  border-right: 1px solid silver;
-  border-left: 0px;
-  border-top: 0px;
-  border-bottom: 0px;
-  float: left;
-}
-
-/* line 38, ../sass/external/_slick.grid.scss */
-.slick-headerrow-column.ui-state-default {
-  padding: 4px;
-}
-
-/* line 42, ../sass/external/_slick.grid.scss */
-.slick-header-column-sorted {
-  font-style: italic;
-}
-
-/* line 46, ../sass/external/_slick.grid.scss */
-.slick-sort-indicator {
-  display: inline-block;
-  width: 8px;
-  height: 5px;
-  margin-left: 4px;
-}
-
-/* line 53, ../sass/external/_slick.grid.scss */
-.slick-sort-indicator-desc {
-  background: url(images/sort-desc.gif);
-}
-
-/* line 57, ../sass/external/_slick.grid.scss */
-.slick-sort-indicator-asc {
-  background: url(images/sort-asc.gif);
-}
-
-/* line 61, ../sass/external/_slick.grid.scss */
-.slick-resizable-handle {
-  position: absolute;
-  font-size: 0.1px;
+/* line 5, ../sass/components/_dropdowns.scss */
+.dropdown a {
   display: block;
-  cursor: col-resize;
-  width: 4px;
-  right: 0px;
-  top: 0;
-  height: 100%;
+  text-decoration: none;
 }
-
-/* line 72, ../sass/external/_slick.grid.scss */
-.slick-sortable-placeholder {
-  background: silver;
-}
-
-/* line 76, ../sass/external/_slick.grid.scss */
-.slick-viewport {
+/* line 10, ../sass/components/_dropdowns.scss */
+.dropdown .show {
   display: block;
-  z-index: 1;
+  -webkit-animation: fadeIn 0.15s;
+  -moz-animation: fadeIn 0.15s;
+  -ms-animation: fadeIn 0.15s;
+  -o-animation: fadeIn 0.15s;
+  animation: fadeIn 0.15s;
 }
 
-/* line 81, ../sass/external/_slick.grid.scss */
-.grid-canvas {
+/* line 16, ../sass/components/_dropdowns.scss */
+.dropdown-toggle {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 50px;
+  /* Dropdown arrow */
+}
+/* line 20, ../sass/components/_dropdowns.scss */
+.dropdown-toggle:hover, .dropdown-toggle:hover:after {
+  border-top-color: #fff;
+  color: #fff;
+}
+/* line 26, ../sass/components/_dropdowns.scss */
+.dropdown-toggle:after {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #bbbbbb;
+  content: '';
+  display: inline-block;
+  margin-left: 5px;
   position: relative;
-  outline: 0;
+  top: -1px;
 }
 
-/* line 86, ../sass/external/_slick.grid.scss */
-.slick-row.ui-widget-content, .slick-row.ui-state-active {
+/* line 38, ../sass/components/_dropdowns.scss */
+.dropdown-menu {
+  background: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  display: none;
+  list-style: none;
+  padding: 0.4em 0;
   position: absolute;
-  border: 0px;
-  width: 100%;
+  margin-top: -5px;
+  right: 1em;
+  width: 140px;
+  z-index: 2000;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+/* line 52, ../sass/components/_dropdowns.scss */
+.dropdown-menu a {
+  padding: 0.4em 2em;
 }
 
-/* line 92, ../sass/external/_slick.grid.scss */
-.slick-cell, .slick-headerrow-column {
-  position: absolute;
-  border: 1px solid transparent;
-  border-right: 1px dotted silver;
-  border-bottom-color: silver;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  vertical-align: middle;
-  z-index: 1;
-  padding: 1px 2px 2px 1px;
-  margin: 0;
-  white-space: nowrap;
-  cursor: default;
-}
-
-/* line 115, ../sass/external/_slick.grid.scss */
-.slick-group-toggle {
-  display: inline-block;
-}
-
-/* line 119, ../sass/external/_slick.grid.scss */
-.slick-cell.highlighted {
-  background: lightskyblue;
-  background: rgba(0, 0, 255, 0.2);
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  transition: all 0.5s;
-}
-
-/* line 127, ../sass/external/_slick.grid.scss */
-.slick-cell.flashing {
-  border: 1px solid red !important;
-}
-
-/* line 131, ../sass/external/_slick.grid.scss */
-.slick-cell.editable {
-  z-index: 11;
-  overflow: visible;
-  background: white;
-  border-color: black;
-  border-style: solid;
-}
-
-/* line 139, ../sass/external/_slick.grid.scss */
-.slick-cell:focus {
-  outline: none;
-}
-
-/* line 143, ../sass/external/_slick.grid.scss */
-.slick-reorder-proxy {
-  display: inline-block;
-  background: blue;
-  opacity: 0.15;
-  filter: alpha(opacity=15);
-  cursor: move;
-}
-
-/* line 151, ../sass/external/_slick.grid.scss */
-.slick-reorder-guide {
-  display: inline-block;
-  height: 2px;
-  background: blue;
-  opacity: 0.7;
-  filter: alpha(opacity=70);
-}
-
-/* line 159, ../sass/external/_slick.grid.scss */
-.slick-selection {
-  z-index: 10;
-  position: absolute;
-  border: 2px dashed black;
-}
-
-/* Modules */
-/* line 1, ../sass/partials/_header.scss */
+/* line 1, ../sass/components/_header.scss */
 .app-top {
   background: #333;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #424242), color-stop(100%, #242424));
@@ -803,7 +870,7 @@ classes should alter those!
   box-shadow: inset 0 1px 0 black, inset 0 2px 0 #505050;
 }
 
-/* line 11, ../sass/partials/_header.scss */
+/* line 11, ../sass/components/_header.scss */
 .logo {
   color: #f1f1f1;
   font: 700 30px/55px "PT Sans", sans-serif;
@@ -811,12 +878,12 @@ classes should alter those!
   position: relative;
   text-shadow: 0 1px 3px black;
 }
-/* line 18, ../sass/partials/_header.scss */
+/* line 18, ../sass/components/_header.scss */
 .logo a {
   color: inherit;
   text-decoration: none;
 }
-/* line 23, ../sass/partials/_header.scss */
+/* line 23, ../sass/components/_header.scss */
 .logo small {
   font-size: 0.5em;
   position: absolute;
@@ -824,102 +891,54 @@ classes should alter those!
   right: -40px;
 }
 
-/* line 31, ../sass/partials/_header.scss */
+/* line 31, ../sass/components/_header.scss */
 #user-menu {
   float: right;
-  font-size: 12px;
-  font-weight: 700;
 }
-/* line 36, ../sass/partials/_header.scss */
-#user-menu a {
-  color: #bbb;
-  display: block;
-  text-decoration: none;
-}
-/* line 42, ../sass/partials/_header.scss */
-#user-menu .username {
-  line-height: 50px;
-  /* Dropdown arrow */
-}
-/* line 45, ../sass/partials/_header.scss */
-#user-menu .username:hover, #user-menu .username:hover:after {
-  border-top-color: #fff;
-  color: #fff;
-}
-/* line 51, ../sass/partials/_header.scss */
-#user-menu .username:after {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #bbbbbb;
-  content: '';
-  display: inline-block;
-  margin-left: 5px;
-  position: relative;
-  top: -1px;
-}
-/* line 64, ../sass/partials/_header.scss */
-#user-menu ul {
-  background: #fff;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  display: none;
-  list-style: none;
-  padding: 0.4em 0;
-  position: absolute;
-  margin-top: -5px;
-  right: 1em;
-  width: 140px;
-  z-index: 2000;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-/* line 78, ../sass/partials/_header.scss */
+/* line 34, ../sass/components/_header.scss */
 #user-menu ul a {
   color: #222;
-  display: block;
   font-weight: 400;
-  padding: 0.4em 2em;
 }
-/* line 84, ../sass/partials/_header.scss */
+/* line 38, ../sass/components/_header.scss */
 #user-menu ul a:hover {
   background: #888;
   color: #fff;
 }
-/* line 91, ../sass/partials/_header.scss */
-#user-menu .show {
-  display: block;
-  -webkit-animation: fadeIn 0.15s;
-  -moz-animation: fadeIn 0.15s;
-  -ms-animation: fadeIn 0.15s;
-  -o-animation: fadeIn 0.15s;
-  animation: fadeIn 0.15s;
+
+/* line 45, ../sass/components/_header.scss */
+a#menu-toggle {
+  color: #bbb;
+}
+/* line 48, ../sass/components/_header.scss */
+a#menu-toggle:hover {
+  color: #fff;
 }
 
-/* line 1, ../sass/partials/_songlist.scss */
+/* line 1, ../sass/components/_songlist.scss */
 .playlist-header {
   border-bottom: 1px solid #d1d1d1;
   overflow: hidden;
   padding: 20px 20px 13.33333px;
   position: relative;
 }
-/* line 7, ../sass/partials/_songlist.scss */
+/* line 7, ../sass/components/_songlist.scss */
 .playlist-header .info {
   float: left;
 }
-/* line 11, ../sass/partials/_songlist.scss */
+/* line 11, ../sass/components/_songlist.scss */
 .playlist-header .meta {
   font-size: 13px;
 }
 
-/* line 17, ../sass/partials/_songlist.scss */
+/* line 17, ../sass/components/_songlist.scss */
 .search {
   float: right;
   margin-top: 5px;
   position: relative;
 }
 
-/* line 22, ../sass/partials/_songlist.scss */
+/* line 22, ../sass/components/_songlist.scss */
 #search {
   border: 1px solid #bbbbbb;
   border-radius: 12px;
@@ -936,22 +955,22 @@ classes should alter those!
   transition: all 100ms ease-in;
 }
 
-/* line 32, ../sass/partials/_songlist.scss */
+/* line 32, ../sass/components/_songlist.scss */
 #search::-webkit-input-placeholder {
   font-style: italic;
 }
 
-/* line 35, ../sass/partials/_songlist.scss */
+/* line 35, ../sass/components/_songlist.scss */
 #search:-moz-input-placeholder {
   font-style: italic;
 }
 
-/* line 38, ../sass/partials/_songlist.scss */
+/* line 38, ../sass/components/_songlist.scss */
 #search:focus {
   border-color: #999;
 }
 
-/* line 41, ../sass/partials/_songlist.scss */
+/* line 41, ../sass/components/_songlist.scss */
 .search .clear {
   background: url("/img/close.png") no-repeat 0 -14px;
   display: inline-block;
@@ -963,12 +982,12 @@ classes should alter those!
   width: 14px;
 }
 
-/* line 51, ../sass/partials/_songlist.scss */
+/* line 51, ../sass/components/_songlist.scss */
 .search .clear:hover {
   background-position: 0 0;
 }
 
-/* line 55, ../sass/partials/_songlist.scss */
+/* line 55, ../sass/components/_songlist.scss */
 .grid-container {
   background: #f1f1f1;
   position: relative;
@@ -976,7 +995,7 @@ classes should alter those!
 }
 
 /* slickgrid */
-/* line 63, ../sass/partials/_songlist.scss */
+/* line 63, ../sass/components/_songlist.scss */
 #slickgrid {
   background: #fff;
   color: #222;
@@ -990,7 +1009,7 @@ classes should alter those!
   width: 100%;
 }
 
-/* line 75, ../sass/partials/_songlist.scss */
+/* line 75, ../sass/components/_songlist.scss */
 #slickgrid .slick-header {
   background: #fafafa;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(50%, #ffffff), color-stop(100%, #eeeeee));
@@ -1007,69 +1026,69 @@ classes should alter those!
   z-index: 2;
 }
 
-/* line 84, ../sass/partials/_songlist.scss */
+/* line 84, ../sass/components/_songlist.scss */
 #slickgrid .slick-header-column {
   padding-left: 10px;
 }
 
-/* line 87, ../sass/partials/_songlist.scss */
+/* line 87, ../sass/components/_songlist.scss */
 .slick-header:before, .slick-header:after {
   content: '';
   display: table;
 }
 
-/* line 91, ../sass/partials/_songlist.scss */
+/* line 91, ../sass/components/_songlist.scss */
 .slick-header:after {
   clear: both;
 }
 
-/* line 94, ../sass/partials/_songlist.scss */
+/* line 94, ../sass/components/_songlist.scss */
 #slickgrid .slick-row {
   line-height: 22px;
 }
 
-/* line 97, ../sass/partials/_songlist.scss */
+/* line 97, ../sass/components/_songlist.scss */
 #slickgrid .slick-cell {
   border: 0;
   padding-left: 10px;
 }
 
-/* line 101, ../sass/partials/_songlist.scss */
+/* line 101, ../sass/components/_songlist.scss */
 #slickgrid .slick-cell.l0 {
   padding-left: 5px;
 }
 
-/* line 104, ../sass/partials/_songlist.scss */
+/* line 104, ../sass/components/_songlist.scss */
 #slickgrid .selected {
   background: #4c96e5;
   color: #fff;
 }
 
-/* line 108, ../sass/partials/_songlist.scss */
+/* line 108, ../sass/components/_songlist.scss */
 #slickgrid .playing {
   background-image: url("/img/icons.png");
   background-repeat: no-repeat;
   background-position: -232px -194px;
 }
 
-/* line 113, ../sass/partials/_songlist.scss */
+/* line 113, ../sass/components/_songlist.scss */
 #slickgrid .playing.selected {
   background-position: -232px -151px;
 }
 
-/* line 116, ../sass/partials/_songlist.scss */
+/* line 116, ../sass/components/_songlist.scss */
 .slick-cell.tracknum {
   text-align: right;
   padding-right: 10px;
 }
 
-/* line 122, ../sass/partials/_songlist.scss */
+/* line 122, ../sass/components/_songlist.scss */
 #slickgrid .even {
   background: #f7f7f7;
 }
 
 /* overlay */
-/* line 128, ../sass/partials/_songlist.scss */
+/* line 128, ../sass/components/_songlist.scss */
 .overlay {
   background: rgba(0, 0, 0, 0.5);
   height: 100%;
@@ -1081,7 +1100,7 @@ classes should alter those!
   z-index: 9000;
 }
 
-/* line 138, ../sass/partials/_songlist.scss */
+/* line 138, ../sass/components/_songlist.scss */
 .overlay .content {
   background: #fff;
   border-radius: 4px;
@@ -1099,49 +1118,49 @@ classes should alter those!
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* line 152, ../sass/partials/_songlist.scss */
+/* line 152, ../sass/components/_songlist.scss */
 .overlay h3 {
   font-size: 24px;
   font-weight: 700;
 }
 
-/* line 1, ../sass/partials/_sidebar.scss */
+/* line 1, ../sass/components/_sidebar.scss */
 .app-nav {
   background: #eaeaea;
   font-size: 11px;
   min-width: 100px;
 }
-/* line 6, ../sass/partials/_sidebar.scss */
+/* line 6, ../sass/components/_sidebar.scss */
 .app-nav .loading {
   margin: 0 auto 0;
 }
-/* line 10, ../sass/partials/_sidebar.scss */
+/* line 10, ../sass/components/_sidebar.scss */
 .app-nav section {
   padding: 10px 0;
 }
-/* line 15, ../sass/partials/_sidebar.scss */
+/* line 15, ../sass/components/_sidebar.scss */
 .app-nav ul {
   list-style: none;
 }
-/* line 19, ../sass/partials/_sidebar.scss */
+/* line 19, ../sass/components/_sidebar.scss */
 .app-nav li {
   display: block;
   line-height: 1.4em;
   position: relative;
   z-index: 0;
 }
-/* line 25, ../sass/partials/_sidebar.scss */
+/* line 25, ../sass/components/_sidebar.scss */
 .app-nav li a {
   color: #777;
   display: block;
   padding: 5px 20px;
   text-decoration: none;
 }
-/* line 31, ../sass/partials/_sidebar.scss */
+/* line 31, ../sass/components/_sidebar.scss */
 .app-nav li a:hover {
   color: #222;
 }
-/* line 35, ../sass/partials/_sidebar.scss */
+/* line 35, ../sass/components/_sidebar.scss */
 .app-nav li a:after {
   background: #aaa;
   content: '';
@@ -1152,53 +1171,53 @@ classes should alter those!
   top: 0;
   width: 5px;
 }
-/* line 47, ../sass/partials/_sidebar.scss */
+/* line 47, ../sass/components/_sidebar.scss */
 .app-nav li a.act:after {
   background-color: #f18c06;
 }
-/* line 53, ../sass/partials/_sidebar.scss */
+/* line 53, ../sass/components/_sidebar.scss */
 .app-nav li.hover a {
   color: #222;
 }
-/* line 58, ../sass/partials/_sidebar.scss */
+/* line 58, ../sass/components/_sidebar.scss */
 .app-nav .count {
   font-weight: 400;
   float: right;
 }
-/* line 63, ../sass/partials/_sidebar.scss */
+/* line 63, ../sass/components/_sidebar.scss */
 .app-nav .common {
   font-size: 13px;
   font-weight: 700;
 }
-/* line 67, ../sass/partials/_sidebar.scss */
+/* line 67, ../sass/components/_sidebar.scss */
 .app-nav .common a {
   color: #222;
 }
-/* line 72, ../sass/partials/_sidebar.scss */
+/* line 72, ../sass/components/_sidebar.scss */
 .app-nav .icon-sync {
   display: none;
   position: absolute;
   right: 0;
 }
-/* line 78, ../sass/partials/_sidebar.scss */
+/* line 78, ../sass/components/_sidebar.scss */
 .app-nav .syncing {
   font-style: italic;
 }
-/* line 81, ../sass/partials/_sidebar.scss */
+/* line 81, ../sass/components/_sidebar.scss */
 .app-nav .syncing a:hover {
   color: #777;
   cursor: default;
 }
-/* line 86, ../sass/partials/_sidebar.scss */
+/* line 86, ../sass/components/_sidebar.scss */
 .app-nav .syncing .icon-sync {
   display: block;
 }
-/* line 91, ../sass/partials/_sidebar.scss */
+/* line 91, ../sass/components/_sidebar.scss */
 .app-nav .error {
   color: #c22;
   margin: 0 20px;
 }
-/* line 96, ../sass/partials/_sidebar.scss */
+/* line 96, ../sass/components/_sidebar.scss */
 .app-nav .none {
   border: 2px dashed #999999;
   border-radius: 6px;
@@ -1210,26 +1229,26 @@ classes should alter those!
 }
 
 /* New playist */
-/* line 108, ../sass/partials/_sidebar.scss */
+/* line 108, ../sass/components/_sidebar.scss */
 .playlist-input {
   margin-top: 10px;
 }
 
-/* line 112, ../sass/partials/_sidebar.scss */
+/* line 112, ../sass/components/_sidebar.scss */
 .btn-new-list {
   display: block;
   margin: 15px auto 0;
   width: 82px;
 }
 
-/* line 118, ../sass/partials/_sidebar.scss */
+/* line 118, ../sass/components/_sidebar.scss */
 .new-list {
   border: 1px solid #bbbbbb;
   font-size: 11px;
   margin: 0 20px;
   padding: 3px 4px;
 }
-/* line 124, ../sass/partials/_sidebar.scss */
+/* line 124, ../sass/components/_sidebar.scss */
 .new-list.error {
   border: 1px solid red;
   -webkit-animation: shake 1s ease;
@@ -1240,7 +1259,7 @@ classes should alter those!
 }
 
 /* draginfo */
-/* line 131, ../sass/partials/_sidebar.scss */
+/* line 131, ../sass/components/_sidebar.scss */
 #draginfo {
   background: #fff;
   background: rgba(255, 255, 255, 0.8);
@@ -1250,7 +1269,7 @@ classes should alter those!
   padding: 0.5em 0.8em;
 }
 
-/* line 1, ../sass/partials/_player.scss */
+/* line 1, ../sass/components/_player.scss */
 .app-now-playing {
   background: #222;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #383838), color-stop(15%, #383838), color-stop(90%, #1f1f1f), color-stop(100%, #1f1f1f));
@@ -1270,7 +1289,7 @@ classes should alter those!
   box-shadow: 0 -1px 0 black;
   z-index: 10;
 }
-/* line 14, ../sass/partials/_player.scss */
+/* line 14, ../sass/components/_player.scss */
 .app-now-playing button {
   background: transparent url("/img/icons.png") no-repeat;
   border: 0;
@@ -1279,56 +1298,56 @@ classes should alter those!
   width: 40px;
   text-indent: -9999em;
 }
-/* line 22, ../sass/partials/_player.scss */
+/* line 22, ../sass/components/_player.scss */
 .app-now-playing button[disabled="disabled"] {
   /*opacity:0.2;*/
 }
 
-/* line 27, ../sass/partials/_player.scss */
+/* line 27, ../sass/components/_player.scss */
 #play-pause {
   background-position: -68px -1px;
   height: 48px;
   width: 48px;
 }
 
-/* line 32, ../sass/partials/_player.scss */
+/* line 32, ../sass/components/_player.scss */
 #play-pause:active {
   background-position: -68px -88px;
 }
 
-/* line 35, ../sass/partials/_player.scss */
+/* line 35, ../sass/components/_player.scss */
 #play-pause.playing {
   background-position: -213px -1px;
 }
 
-/* line 38, ../sass/partials/_player.scss */
+/* line 38, ../sass/components/_player.scss */
 #play-pause.playing:active {
   background-position: -213px -88px;
 }
 
-/* line 41, ../sass/partials/_player.scss */
+/* line 41, ../sass/components/_player.scss */
 #prev {
   background-position: 0 -5px;
   margin-right: -2px;
 }
 
-/* line 45, ../sass/partials/_player.scss */
+/* line 45, ../sass/components/_player.scss */
 #prev:active {
   background-position: 0 -92px;
 }
 
-/* line 48, ../sass/partials/_player.scss */
+/* line 48, ../sass/components/_player.scss */
 #next {
   background-position: -148px -5px;
   margin-left: -2px;
 }
 
-/* line 52, ../sass/partials/_player.scss */
+/* line 52, ../sass/components/_player.scss */
 #next:active {
   background-position: -148px -92px;
 }
 
-/* line 55, ../sass/partials/_player.scss */
+/* line 55, ../sass/components/_player.scss */
 #repeat, #shuffle {
   background: transparent url("/img/icons.png") no-repeat;
   display: inline-block;
@@ -1338,25 +1357,25 @@ classes should alter those!
   width: 24px;
 }
 
-/* line 63, ../sass/partials/_player.scss */
+/* line 63, ../sass/components/_player.scss */
 #repeat {
   background-position: 3px -189px;
 }
-/* line 66, ../sass/partials/_player.scss */
+/* line 66, ../sass/components/_player.scss */
 #repeat.enabled {
   background-position: 3px -164px;
 }
 
-/* line 70, ../sass/partials/_player.scss */
+/* line 70, ../sass/components/_player.scss */
 #shuffle {
   background-position: -35px -189px;
 }
-/* line 73, ../sass/partials/_player.scss */
+/* line 73, ../sass/components/_player.scss */
 #shuffle.enabled {
   background-position: -35px -164px;
 }
 
-/* line 78, ../sass/partials/_player.scss */
+/* line 78, ../sass/components/_player.scss */
 #volume-label {
   background: url("/img/icons.png") no-repeat -160px -197px;
   display: inline-block;
@@ -1369,14 +1388,14 @@ classes should alter those!
   white-space: nowrap;
 }
 
-/* line 90, ../sass/partials/_player.scss */
+/* line 90, ../sass/components/_player.scss */
 #volume {
   margin: 20px 15px 0 5px;
   text-align: center;
   width: 100px;
 }
 
-/* line 95, ../sass/partials/_player.scss */
+/* line 95, ../sass/components/_player.scss */
 #player-time {
   font-size: 11px;
   line-height: 14px;
@@ -1385,7 +1404,7 @@ classes should alter those!
   width: 80px;
 }
 
-/* line 102, ../sass/partials/_player.scss */
+/* line 102, ../sass/components/_player.scss */
 #seekbar {
   margin: 0 75px 0 365px;
   padding: 0 15px;
@@ -1394,13 +1413,13 @@ classes should alter those!
   top: 19px;
 }
 
-/* line 109, ../sass/partials/_player.scss */
+/* line 109, ../sass/components/_player.scss */
 #player-buttons-2 {
   float: right;
   margin: 12px 10px 0 0;
 }
 
-/* line 115, ../sass/partials/_player.scss */
+/* line 115, ../sass/components/_player.scss */
 #player-song {
   border-bottom: 1px solid black;
   margin-bottom: 8px;
@@ -1410,31 +1429,31 @@ classes should alter those!
   -moz-box-shadow: 0 1px 0 #434343;
   box-shadow: 0 1px 0 #434343;
 }
-/* line 124, ../sass/partials/_player.scss */
+/* line 124, ../sass/components/_player.scss */
 #player-song .label {
   color: #999;
 }
 
-/* line 128, ../sass/partials/_player.scss */
+/* line 128, ../sass/components/_player.scss */
 #player-song, #player-controls {
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 132, ../sass/partials/_player.scss */
+/* line 132, ../sass/components/_player.scss */
 #player-controls {
   height: 48px;
   vertical-align: middle;
 }
 
-/* line 136, ../sass/partials/_player.scss */
+/* line 136, ../sass/components/_player.scss */
 #player-buttons, #volume, #player-time {
   float: left;
 }
 
 /* mixins */
 /* preloader */
-/* line 10, ../sass/partials/_other.scss */
+/* line 10, ../sass/components/_other.scss */
 .preloader {
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
@@ -1448,14 +1467,14 @@ classes should alter those!
   width: 100%;
   z-index: 1000;
 }
-/* line 23, ../sass/partials/_other.scss */
+/* line 23, ../sass/components/_other.scss */
 .preloader.hide {
   top: -100px;
   left: -100px;
   height: 0;
   width: 0;
 }
-/* line 30, ../sass/partials/_other.scss */
+/* line 30, ../sass/components/_other.scss */
 .preloader .preloader-wrap {
   position: absolute;
   top: 50%;
@@ -1463,16 +1482,16 @@ classes should alter those!
   width: 300px;
   margin: -16px 0 0 -150px;
 }
-/* line 38, ../sass/partials/_other.scss */
+/* line 38, ../sass/components/_other.scss */
 .preloader .loading {
   margin: 0 auto;
 }
-/* line 42, ../sass/partials/_other.scss */
+/* line 42, ../sass/components/_other.scss */
 .preloader .notifications {
   margin-top: 20px;
   text-align: left;
 }
-/* line 46, ../sass/partials/_other.scss */
+/* line 46, ../sass/components/_other.scss */
 .preloader .notifications > div {
   -webkit-animation: bounceIn 0.7s;
   -moz-animation: bounceIn 0.7s;
@@ -1483,11 +1502,11 @@ classes should alter those!
   -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-/* line 57, ../sass/partials/_other.scss */
+/* line 57, ../sass/components/_other.scss */
 .preloader .notifications > div + div {
   margin-top: 20px;
 }
-/* line 61, ../sass/partials/_other.scss */
+/* line 61, ../sass/components/_other.scss */
 .preloader .notifications .icon {
   display: inline-block;
   float: left;
@@ -1495,35 +1514,35 @@ classes should alter those!
   margin-right: 5px;
   width: 24px;
 }
-/* line 69, ../sass/partials/_other.scss */
+/* line 69, ../sass/components/_other.scss */
 .preloader .notifications h3, .preloader .notifications p {
   display: inline-block;
 }
 
 /* SoundManager 2 */
-/* line 77, ../sass/partials/_other.scss */
+/* line 77, ../sass/components/_other.scss */
 #sm2-container {
   min-height: 1em;
   width: 100%;
   z-index: auto !important;
 }
-/* line 82, ../sass/partials/_other.scss */
+/* line 82, ../sass/components/_other.scss */
 #sm2-container div {
   min-height: 32px;
   height: 100%;
   position: relative;
 }
-/* line 88, ../sass/partials/_other.scss */
+/* line 88, ../sass/components/_other.scss */
 #sm2-container.swf_timedout {
   /* Didn't load before time-out, show to user.
   Maybe highlight on-screen, red border, etc..? */
 }
-/* line 93, ../sass/partials/_other.scss */
+/* line 93, ../sass/components/_other.scss */
 #sm2-container.swf_unblocked {
   /* Applied if movie loads successfully after
   an unblock (flash started, so move off-screen etc.) */
 }
-/* line 98, ../sass/partials/_other.scss */
+/* line 98, ../sass/components/_other.scss */
 #sm2-container.swf_loaded {
   /* Applied if movie loads, regardless of whether
   it was initially blocked */
@@ -1534,19 +1553,19 @@ classes should alter those!
   visibility: hidden;
   z-index: 0;
 }
-/* line 109, ../sass/partials/_other.scss */
+/* line 109, ../sass/components/_other.scss */
 #sm2-container.swf_error {
   /* "Fatal" error case: SWF loaded,
   but SM2 was unable to start for some reason.
   (Flash security or other error case.) */
 }
-/* line 115, ../sass/partials/_other.scss */
+/* line 115, ../sass/components/_other.scss */
 #sm2-container.high_performance {
   /* Additional modifier for "high performance" mode
   should apply position:fixed and left/bottom 0 to stay on-screen
   at all times (better flash performance) */
 }
-/* line 121, ../sass/partials/_other.scss */
+/* line 121, ../sass/components/_other.scss */
 #sm2-container.flash_debug {
   /* Additional modifier for flash debug output mode
   should use width/height 100% so you can read debug messages */

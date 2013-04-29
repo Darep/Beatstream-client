@@ -1,32 +1,36 @@
+@charset "UTF-8";
+
 //
 // Beatstream CSS
 //
-
 @import "compass/css3";
 
-@import "vars";
-@import "mixins";
+// Globals
+@import "globals/vars";
+@import "globals/mixins";
 
-@import "partials/reset";
 
-/* Base styles */
-@import "partials/base";
-@import "partials/typography";
+// Base
+@import "base/reset";
+@import "base/base";
+@import "base/typography";
+@import "base/animations";
 
-/* Objects */
-@import "partials/common";
-@import "partials/icons";
-@import "partials/animations";
-@import "partials/buttons";
-@import "partials/forms";
-@import "partials/objects/sliders";
-@import "partials/dialogs";
+// Vendor (external stylesheets)
+@import "vendor/slick.grid";
 
-@import "external/slick.grid";
+// Components
+@import "components/common";
+@import "components/icons";
+@import "components/buttons";
+@import "components/forms";
+@import "components/sliders";
+@import "components/dialogs";
+@import "components/dropdowns";
 
-/* Modules */
-@import "partials/header";
-@import "partials/songlist";
-@import "partials/sidebar";
-@import "partials/player";
-@import "partials/other";
+@import "components/header";
+@import "components/songlist";
+@import "components/sidebar";
+@import "components/player";
+
+@import "components/other";
