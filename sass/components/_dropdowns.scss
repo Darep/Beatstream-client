@@ -1,8 +1,5 @@
-.dropdown-menu {
-    a {
-        display: block;
-        text-decoration: none;
-    }
+.dropdown {
+    position: relative;
 }
 
 .dropdown-toggle {
@@ -39,12 +36,13 @@
     list-style: none;
     padding: em(5, 12) 0;
     position: absolute;
-    margin-top: -5px;
-    right: em(9, 12);
+    top: 100%;
+    right: 0;
     min-width: 140px;
     z-index: 1000;
     @include box-shadow(0 5px 10px rgba(0,0,0, 0.2));
     @include background-clip(padding-box);
+    @include box-sizing(border-box);
 
     .open & {
         display: block;
@@ -53,7 +51,9 @@
 
     a {
         color: $color-text;
+        display: block;
         padding: em(5, 12) 2em;
+        text-decoration: none;
 
         &:hover {
             background: $color-orange;
@@ -61,7 +61,7 @@
     }
 
     hr {
-        background: $color-light;
+        background: $color-light2;
         border: 0;
         height: 1px;
     }
