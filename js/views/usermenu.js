@@ -3,6 +3,8 @@ define([
     'lib/mediator'
 ],
 function ($, mediator) {
+    var CLASS_OPEN = 'open';
+
     var UserMenu = function (args) {
         this.menu = args.el;
         this.menuToggle = this.menu.find('> .dropdown-toggle');
@@ -29,13 +31,13 @@ function ($, mediator) {
             mediator.publish('usermenu:click', e.target.id);
 
             // Close menu
-            this.actualMenu.removeClass('show');
+            this.menu.removeClass(CLASS_OPEN);
         } else if (e.target == this.menuToggle[0] || target.parents().index(this.menuToggle) != -1) {
             // Show/hide menu on press of the toggle
-            this.actualMenu.toggleClass('show');
+            this.menu.toggleClass(CLASS_OPEN);
         } else if(this.isOutside(target)) {
             // Close menu if click outside menu
-            this.actualMenu.removeClass('show');
+            this.menu.removeClass(CLASS_OPEN);
         }
     };
 

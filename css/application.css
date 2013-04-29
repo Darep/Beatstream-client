@@ -788,17 +788,8 @@ label {
   display: block;
   text-decoration: none;
 }
-/* line 7, ../sass/components/_dropdowns.scss */
-.dropdown-menu.show {
-  display: block;
-  -webkit-animation: fadeIn 0.15s;
-  -moz-animation: fadeIn 0.15s;
-  -ms-animation: fadeIn 0.15s;
-  -o-animation: fadeIn 0.15s;
-  animation: fadeIn 0.15s;
-}
 
-/* line 13, ../sass/components/_dropdowns.scss */
+/* line 8, ../sass/components/_dropdowns.scss */
 .dropdown-toggle {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -810,7 +801,7 @@ label {
   font-weight: 700;
   text-decoration: none;
 }
-/* line 20, ../sass/components/_dropdowns.scss */
+/* line 15, ../sass/components/_dropdowns.scss */
 .dropdown-toggle:after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -821,13 +812,13 @@ label {
   position: relative;
   top: -1px;
 }
-/* line 31, ../sass/components/_dropdowns.scss */
+/* line 26, ../sass/components/_dropdowns.scss */
 .dropdown-toggle:hover:after {
   border-top-color: #fff;
   color: #fff;
 }
 
-/* line 37, ../sass/components/_dropdowns.scss */
+/* line 32, ../sass/components/_dropdowns.scss */
 .dropdown-menu {
   background: #fff;
   border: 1px solid #cccccc;
@@ -848,6 +839,15 @@ label {
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
+}
+/* line 49, ../sass/components/_dropdowns.scss */
+.open .dropdown-menu {
+  display: block;
+  -webkit-animation: fadeIn 0.15s;
+  -moz-animation: fadeIn 0.15s;
+  -ms-animation: fadeIn 0.15s;
+  -o-animation: fadeIn 0.15s;
+  animation: fadeIn 0.15s;
 }
 /* line 54, ../sass/components/_dropdowns.scss */
 .dropdown-menu a {
