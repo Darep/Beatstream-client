@@ -51,3 +51,9 @@
   -o-animation: $value;
   animation: $value;
 }
+
+
+// Converts pixels to EMs
+@function em($pixels, $context: 16) {
+    @return ($pixels/$context)+0em;
+}

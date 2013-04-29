@@ -783,18 +783,13 @@ label {
   display: inline-block;
 }
 
-/* line 1, ../sass/components/_dropdowns.scss */
-.dropdown {
-  font-size: 12px;
-  font-weight: 700;
-}
-/* line 5, ../sass/components/_dropdowns.scss */
-.dropdown a {
+/* line 2, ../sass/components/_dropdowns.scss */
+.dropdown-menu a {
   display: block;
   text-decoration: none;
 }
-/* line 10, ../sass/components/_dropdowns.scss */
-.dropdown .show {
+/* line 7, ../sass/components/_dropdowns.scss */
+.dropdown-menu.show {
   display: block;
   -webkit-animation: fadeIn 0.15s;
   -moz-animation: fadeIn 0.15s;
@@ -803,7 +798,7 @@ label {
   animation: fadeIn 0.15s;
 }
 
-/* line 16, ../sass/components/_dropdowns.scss */
+/* line 13, ../sass/components/_dropdowns.scss */
 .dropdown-toggle {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -811,15 +806,11 @@ label {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  line-height: 50px;
-  /* Dropdown arrow */
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
 }
 /* line 20, ../sass/components/_dropdowns.scss */
-.dropdown-toggle:hover, .dropdown-toggle:hover:after {
-  border-top-color: #fff;
-  color: #fff;
-}
-/* line 26, ../sass/components/_dropdowns.scss */
 .dropdown-toggle:after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -830,27 +821,71 @@ label {
   position: relative;
   top: -1px;
 }
+/* line 31, ../sass/components/_dropdowns.scss */
+.dropdown-toggle:hover:after {
+  border-top-color: #fff;
+  color: #fff;
+}
 
-/* line 38, ../sass/components/_dropdowns.scss */
+/* line 37, ../sass/components/_dropdowns.scss */
 .dropdown-menu {
   background: #fff;
   border: 1px solid #cccccc;
-  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
   display: none;
+  font-size: 0.75em;
   list-style: none;
-  padding: 0.4em 0;
+  padding: 0.41667em 0;
   position: absolute;
   margin-top: -5px;
-  right: 1em;
-  width: 140px;
-  z-index: 2000;
+  right: 0.75em;
+  min-width: 140px;
+  z-index: 1000;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
 }
-/* line 52, ../sass/components/_dropdowns.scss */
+/* line 54, ../sass/components/_dropdowns.scss */
 .dropdown-menu a {
-  padding: 0.4em 2em;
+  color: #333333;
+  padding: 0.41667em 2em;
+}
+/* line 58, ../sass/components/_dropdowns.scss */
+.dropdown-menu a:hover {
+  background: #f18c06;
+}
+/* line 63, ../sass/components/_dropdowns.scss */
+.dropdown-menu hr {
+  background: #bbbbbb;
+  border: 0;
+  height: 1px;
+}
+/* line 70, ../sass/components/_dropdowns.scss */
+.dropdown-menu:before {
+  border: 0.58333em solid transparent;
+  border-top: 0;
+  border-bottom-color: #ccc;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  bottom: 100%;
+  right: 0.58333em;
+}
+/* line 79, ../sass/components/_dropdowns.scss */
+.dropdown-menu:after {
+  border: 0.5em solid transparent;
+  border-top: 0;
+  border-bottom-color: #fff;
+  bottom: 100%;
+  right: 0.66667em;
+}
+/* line 87, ../sass/components/_dropdowns.scss */
+.dropdown-menu:before, .dropdown-menu:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
 }
 
 /* line 1, ../sass/components/_header.scss */
@@ -894,23 +929,22 @@ label {
 /* line 31, ../sass/components/_header.scss */
 #user-menu {
   float: right;
+  line-height: 50px;
 }
-/* line 34, ../sass/components/_header.scss */
+/* line 35, ../sass/components/_header.scss */
 #user-menu ul a {
-  color: #222;
-  font-weight: 400;
+  line-height: 1.5;
 }
 /* line 38, ../sass/components/_header.scss */
 #user-menu ul a:hover {
-  background: #888;
   color: #fff;
 }
 
-/* line 45, ../sass/components/_header.scss */
+/* line 44, ../sass/components/_header.scss */
 a#menu-toggle {
   color: #bbb;
 }
-/* line 48, ../sass/components/_header.scss */
+/* line 47, ../sass/components/_header.scss */
 a#menu-toggle:hover {
   color: #fff;
 }

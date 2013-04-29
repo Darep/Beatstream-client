@@ -1,13 +1,10 @@
-.dropdown {
-    font-size: 12px;
-    font-weight: 700;
-
+.dropdown-menu {
     a {
         display: block;
         text-decoration: none;
     }
 
-    .show {
+    &.show {
         display: block;
         @include animation(fadeIn .15s);
     }
@@ -15,14 +12,11 @@
 
 .dropdown-toggle {
     @include disable-select;
-    line-height: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
 
-    &:hover, &:hover:after {
-        border-top-color: #fff;
-        color: #fff;
-    }
-
-    /* Dropdown arrow */
+    // Dropdown arrow
     &:after {
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;
@@ -33,23 +27,66 @@
         position: relative;
         top: -1px;
     }
+
+    &:hover:after {
+        border-top-color: #fff;
+        color: #fff;
+    }
 }
 
 .dropdown-menu {
-    background:#fff;
-    border:1px solid #ccc;
-    border-radius: 4px;
-    display:none;
-    list-style:none;
-    padding:.4em 0;
-    position:absolute;
-    margin-top:-5px;
-    right:1em;
-    width:140px;
-    z-index:2000;
+    background: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: em(6, 12);
+    display: none;
+    font-size: em(12);
+    list-style: none;
+    padding: em(5, 12) 0;
+    position: absolute;
+    margin-top: -5px;
+    right: em(9, 12);
+    min-width: 140px;
+    z-index: 1000;
     @include box-shadow(0 5px 10px rgba(0,0,0, 0.2));
+    @include background-clip(padding-box);
 
     a {
-        padding: .4em 2em;
+        color: $color-text;
+        padding: em(5, 12) 2em;
+
+        &:hover {
+            background: $color-orange;
+        }
+    }
+
+    hr {
+        background: $color-light;
+        border: 0;
+        height: 1px;
+    }
+
+    // Dropdown arrow
+    &:before {
+        border: em(7, 12) solid transparent;
+        border-top: 0;
+        border-bottom-color: #ccc;
+        border-bottom-color: rgba(0, 0, 0, 0.2);
+        bottom: 100%;
+        right: em(7, 12);
+    }
+
+    &:after {
+        border: em(6, 12) solid transparent;
+        border-top: 0;
+        border-bottom-color: #fff;
+        bottom: 100%;
+        right: em(8, 12);
+    }
+
+    &:before, &:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
     }
 }
