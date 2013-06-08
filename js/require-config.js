@@ -1,4 +1,16 @@
 var require = {
+    paths: {
+        'jquery': 'vendor/jquery.min',
+        'jquery-ui': 'vendor/jquery-ui',
+        'mediator': 'vendor/mediator.min',
+        'pathjs': 'vendor/path.min',
+        'slickgrid': 'vendor/SlickGrid/slick.grid',
+        'soundmanager2': 'vendor/SoundManager2/script/soundmanager2-nodebug-jsmin',
+        'store': 'vendor/store.min',
+        'transparency': 'vendor/transparency.min',
+        'underscore': 'vendor/underscore-min'
+    },
+
     shim: {
         'helpers/helpers': {
             deps: ['jquery']
@@ -14,26 +26,12 @@ var require = {
         },
         'soundmanager2': {},
         'soundmanager2-audiomodule': {
-            deps: 'soundmanager2'
+            deps: ['soundmanager2']
         },
         'jquery-ui': {
-            deps: [
-                'jquery'
-            ]
+            deps: ['jquery']
         }
 
-    },
-
-    paths: {
-        'jquery': 'vendor/jquery.min',
-        'jquery-ui': 'vendor/jquery-ui',
-        'mediator': 'vendor/mediator.min',
-        'pathjs': 'vendor/path.min',
-        'slickgrid': 'vendor/SlickGrid/slick.grid',
-        'soundmanager2': 'vendor/SoundManager2/script/soundmanager2-nodebug-jsmin',
-        'store': 'vendor/store.min',
-        'transparency': 'vendor/transparency.min',
-        'underscore': 'vendor/underscore-min'
     },
 
     urlArgs: "ts=" + new Date().getTime(),

@@ -1,4 +1,4 @@
-require([
+define([
     'lib/resizer',
     'lib/api',
     'lib/lastfm',
@@ -12,32 +12,24 @@ require([
     'soundmanager2'
 ], function (Resizer, Api, LastFM, UserMenuListener, UserMenu, Player, PlaylistManager, Preloader, Sidebar) {
 
-    var resizer, api, audio, lastfm, usermenu, songlist, sidebar,
-        player, playlistManager, login, preloader, options;
+    function App(options) {
+        options = $.extend({
+            apiBase: '/api/v1/'
+        }, options);
 
-    options = {
-        apiUrl: '/api/v1/'
-    };
+        Api.setBaseUrl(options.apiBase);
+    }
 
-    api = new Api({ url: options.apiUrl });
-
-    // Check if we are authenticated
-    var req = api.getProfile({ cache: true });
-
-    req.fail(function () {
-        // FIXME: show a login dialog and use API to log in
-        window.location = '/login';
-    });
-
-    req.success(function (profile) {
-        usermenu            = new UserMenu({ el: $('#user-menu'), name: profile.username });
-        usermenu_listener   = new UserMenuListener();
-        player              = new Player({ el: $('.app-now-playing') });
-        playlistManager     = new PlaylistManager({ el: $('.main-wrap'), api: api });
-        sidebar             = new Sidebar({ el: $('.app-nav') });
-
-        resizer   = new Resizer();
-        lastfm    = new LastFM({ api: api });
+    App.prototype.start = function () {
+        var profile             = Api.getProfile(),
+            usermenu            = new UserMenu({ el: $('#user-menu'), name: profile.username }),
+            usermenu_listener   = new UserMenuListener(),
+            player              = new Player({ el: $('.app-now-playing') }),
+            playlistManager     = new PlaylistManager({ el: $('.main-wrap') }),
+            sidebar             = new Sidebar({ el: $('.app-nav') }),
+            resizer             = new Resizer(),
+            lastfm              = new LastFM(),
+            preloader;
 
         resizer.resize();
 
@@ -47,5 +39,9 @@ require([
             audioPromise: player.start(),
             medialibraryPromise: playlistManager.getAllMusic()
         });
-    });
+
+        return this;
+    };
+
+    return App;
 });

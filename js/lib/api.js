@@ -3,32 +3,41 @@ define([
 ],
 function (mediator) {
 
-    var Api = function (args) {
-        this.baseUrl = args.url || "";
+    function Api() {
         this.cache = {};
+        this.baseUrl = '';
+    }
 
-        // Remove trailing "/"
-        if (this.baseUrl.charAt(this.baseUrl.length - 1) == "/") {
-            this.baseUrl = this.baseUrl.slice(0, -1);
+    Api.prototype.setBaseUrl = function(url) {
+        if (!url) {
+            // url is not a string or is an empty string
+            return;
         }
+
+        // Remove trailing slash, if present
+        if (url.charAt(url.length - 1) === '/') {
+            url = url.slice(0, -1);
+        }
+
+        this.baseUrl = url;
     };
 
-    Api.prototype.getProfile = function (opts) {
-        var self = this;
 
-        if (self.cache.hasOwnProperty('getProfile')) {
-            return self.cache['getProfile'];
+    Api.prototype.getProfile = function (opts) {
+        if (this.cache.hasOwnProperty('getProfile')) {
+            return this.cache['getProfile'];
         } else {
-            var req = $.ajax({
-                type: 'GET',
-                url: this.baseUrl + '/profile',
-                dataType: 'json',
-                errorHandler: errorHandler
-            });
+            var _this = this,
+                req = $.ajax({
+                    type: 'GET',
+                    url: this.baseUrl + '/profile',
+                    dataType: 'json',
+                    errorHandler: errorHandler
+                });
 
             req.success(function (data) {
                 if (opts.cache) {
-                    self.cache['getProfile'] = data;
+                    _this.cache['getProfile'] = data;
                 }
             });
 
@@ -142,12 +151,12 @@ function (mediator) {
     function errorHandler(req, textStatus, errorThrown) {
         console.log('Api AJAX error:');
         console.log(req);
-        var self = this;
+        var _this = this;
         if (req.status === 401) {
             // TODO: can we do this without using the mediator?
             mediator.publish('error:noAuth');
         }
     }
 
-    return Api;
+    return new Api();
 });

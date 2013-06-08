@@ -1,14 +1,14 @@
 define([
     'lib/mediator',
+    'lib/api',
     'views/controls/playlistview',
     'views/controls/searchfield',
     'helpers/playlistmanager-helpers'
 ],
-function (mediator, PlaylistView, SearchField) {
+function (mediator, Api, PlaylistView, SearchField) {
 
     function PlaylistManager(args) {
         this.el = args.el;
-        this.api = args.api;
         this.currentPlaylist = [];
 
         this.playlistView = new PlaylistView('#slickgrid');
@@ -33,10 +33,10 @@ function (mediator, PlaylistView, SearchField) {
     }
 
     PlaylistManager.prototype.getAllMusic = function() {
-        return this.api.getAllMusic().done(function (data) {
+        return Api.getAllMusic().done(function (data) {
             var allMusic;
 
-            var transformPath = this.api.getSongURI.bind(this.api);
+            var transformPath = Api.getSongURI.bind(Api);
 
             allMusic = data.map(function (song) {
                 song.path = transformPath(song.path);

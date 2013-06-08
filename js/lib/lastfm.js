@@ -1,13 +1,13 @@
 define([
-    'lib/mediator'
+    'lib/mediator',
+    'lib/api'
 ],
-function (mediator) {
+function (mediator, Api) {
 
     var DEFAULT_SCROBBLE_TIME = 4*60;  // default 4 min scrobble time
     var RETRY_TIME = 4000;
 
     var LastFM = function (args) {
-        this.api = args.api;
         this.song = null;
         this.scrobble_time = DEFAULT_SCROBBLE_TIME;
         this.song_scrobbled = false;
@@ -51,7 +51,7 @@ function (mediator) {
             return;
         }
 
-        var req = this.api.scrobble(this.song.artist, this.song.title);
+        var req = Api.scrobble(this.song.artist, this.song.title);
         this.song_scrobbled = true;
 
         req.done(function () {
@@ -67,7 +67,7 @@ function (mediator) {
     };
 
     LastFM.prototype.updateNowPlaying = function (song) {
-        var req = this.api.updateNowPlaying(song.artist, song.title);
+        var req = Api.updateNowPlaying(song.artist, song.title);
 
         req.error(function () {
             // TODO: do error recovery
