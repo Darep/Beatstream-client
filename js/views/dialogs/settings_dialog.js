@@ -1,5 +1,8 @@
-define([],
-function () {
+define([
+    'lib/api'
+],
+function (Api) {
+
     var SettingsDialog = function (args) {
         this.el = args.el || undefined;
 
@@ -7,12 +10,15 @@ function () {
     };
 
     SettingsDialog.prototype.show = function () {
+        var _this = this;
+
         this.el.addClass('show');
 
-        // TODO: fill dialog form with profile data
-
-        this.el.find('.settings-username').val('Dummy username');
-        this.el.find('.settings-email').val('user@dummy.com');
+        Api.getProfile({ forceRefresh: true }).done(function (profile) {
+            console.log(profile);
+            _this.el.find('.settings-username').val(profile.username);
+            _this.el.find('.settings-email').val(profile.email);
+        });
     };
 
     SettingsDialog.prototype.hide = function () {
