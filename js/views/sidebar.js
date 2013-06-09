@@ -8,18 +8,20 @@ function (mediator, api) {
 
     var NEW_PLAYLIST_NAME = 'New playlist';
 
-    var Sidebar = function (args) {
-        this.el = args.el || undefined;
+    function Sidebar(args) {
+        var _this = this;
 
-        this.hookSidebarEvents();
+        this.el = $('.app-nav');
 
         // Enterprise Bus events!
-        mediator.subscribe('playlists:allMusic', function (data) {
+        mediator.subscribe('playlist:allMusic', function (data) {
             // update "All music" song count on sidebar
             var count = commify( parseInt( data.length, 10 ) );
-            $sidebar.find('.all-music .count').text(count);
+            _this.el.find('.all-music .count').text(count);
         });
-    };
+
+        this.hookSidebarEvents();
+    }
 
     Sidebar.prototype.hookSidebarEvents = function () {
         // show "All music" on click

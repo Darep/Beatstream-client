@@ -33,18 +33,21 @@ function (mediator, Api, PlaylistView, SearchField) {
     }
 
     PlaylistManager.prototype.getAllMusic = function() {
-        return Api.getAllMusic().done(function (data) {
-            var allMusic;
+        var _this = this;
 
-            var transformPath = Api.getSongURI.bind(Api);
+        return Api.getAllMusic().done(function (data) {
+            var transformPath = Api.getSongURI.bind(Api),
+                allMusic;
 
             allMusic = data.map(function (song) {
                 song.path = transformPath(song.path);
                 return song;
             });
 
-            this.setPlaylist(allMusic);
-        }.bind(this));
+            mediator.publish('playlist:allMusic', allMusic);
+
+            _this.setPlaylist(allMusic);
+        });
     };
 
     PlaylistManager.prototype.setPlaylist = function (playlist) {
