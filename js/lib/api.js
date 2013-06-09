@@ -23,17 +23,16 @@ function (mediator) {
     };
 
 
+    // ---- User ---------------------------------------------------------------
+
     Api.prototype.getProfile = function (opts) {
-        if (this.cache.hasOwnProperty('getProfile')) {
+        opts = opts || {};
+
+        if (this.cache.hasOwnProperty('getProfile') && !opts.forceRefresh) {
             return this.cache['getProfile'];
         } else {
             var _this = this,
-                req = $.ajax({
-                    type: 'GET',
-                    url: this.baseUrl + '/profile',
-                    dataType: 'json',
-                    errorHandler: errorHandler
-                });
+                req = ajax('/profile');
 
             req.success(function (data) {
                 if (opts.cache) {
@@ -47,63 +46,47 @@ function (mediator) {
 
 
     Api.prototype.logIn = function (username, password) {
-        return $.ajax({
+        return ajax('/auth', {
             type: 'POST',
-            url: this.baseUrl + '/auth',
-            data: { username: username, password: password },
-            errorHandler: errorHandler
+            data: { username: username, password: password }
         });
     };
 
+
+    // ---- Playlists ----------------------------------------------------------
 
     Api.prototype.getAllMusic = function () {
-        return $.ajax({
-            url: this.baseUrl + '/songs',
-            dataType: 'json',
-            error: errorHandler
-        });
+        return ajax('/songs');
     };
-
 
     Api.prototype.getPlaylist = function (name) {
-        return $.ajax({
-            url: this.baseUrl + '/playlists/' + encodeURIComponent(name),
-            dataType: 'json',
-            error: errorHandler
-        });
+        return ajax('/playlists/' + encodeURIComponent(name));
     };
-
 
     Api.prototype.createPlaylist = function (name) {
-        return $.ajax({
+        return ajax('/playlists', {
             type: 'POST',
-            url: this.baseUrl + '/playlists',
-            data: { name: name },
-            error: errorHandler
+            data: { name: name }
         });
     };
-
 
     Api.prototype.addToPlaylist = function (playlist, songs) {
         // TODO: finish this
-        return $.ajax({
+        return ajax('/playlists/' + encodeURIComponent(playlist), {
             type: 'POST',
-            url: this.baseUrl + '/playlists/' + encodeURIComponent(playlist),
-            data: songs,
-            error: errorHandler
+            data: songs
         });
     };
-
 
     Api.prototype.setPlaylistSongs = function (playlist, songs) {
         // TODO: finish this
-        return $.ajax({
-            type: 'PUT',
-            url: this.baseUrl + '/playlists/' + encodeURIComponent(playlist),
-            error: errorHandler
+        return ajax('/playlists/' + encodeURIComponent(playlist), {
+            type: 'PUT'
         });
     };
 
+
+    // ---- Songs --------------------------------------------------------------
 
     Api.prototype.getSongURI = function (path) {
         var result;
@@ -118,15 +101,14 @@ function (mediator) {
     };
 
 
-    // LastFM API:
+    // ---- LastFM -------------------------------------------------------------
 
     Api.prototype.updateNowPlaying = function (artist, title) {
         var data = 'artist=' + encodeURIComponent(artist) +
                    '&title=' + encodeURIComponent(title);
 
-        return $.ajax({
+        return ajax('/now-playing', {
             type: 'PUT',
-            url: this.baseUrl + '/now-playing',
             dataType: 'text',
             data: data
         });
@@ -137,16 +119,39 @@ function (mediator) {
         var data = 'artist=' + encodeURIComponent(artist) +
                    '&title=' + encodeURIComponent(title);
 
-        return $.ajax({
+        return ajax('/scrobble', {
             type: 'POST',
-            url: this.baseUrl + '/scrobble',
-            dataType: 'text',
+            dataType: text,
             data: data
         });
     };
 
 
-    // Private:
+    // ---- Media library ------------------------------------------------------
+
+
+    Api.prototype.refreshMediaLibrary = function () {
+        return ajax('/songs', {
+            type: 'POST'
+        });
+    };
+
+
+    // ---- Helpers ------------------------------------------------------------
+
+    Api.prototype.getURL = function(url) {
+        // If it's an absolute URL, return it
+        if (url.indexOf('http') === 0) {
+            return url;
+        }
+
+        return this.baseUrl + url;
+    };
+
+
+    // ---- Init ---------------------------------------------------------------
+
+    var TehApi = new Api();
 
     function errorHandler(req, textStatus, errorThrown) {
         console.log('Api AJAX error:');
@@ -158,5 +163,44 @@ function (mediator) {
         }
     }
 
-    return new Api();
+    function ajax() {
+        var url, args;
+
+        // See if we got just an argument object or an url & arguments
+        if (arguments.length === 1) {
+          if (typeof arguments[0] === 'string') {
+                url = arguments[0];
+                args = {};
+            } else {
+                args = arguments[0];
+                url = args.url;
+                delete args.url;
+            }
+        } else if (arguments.length === 2) {
+            url = arguments[0];
+            args = arguments[1];
+        }
+
+        // Default to GET
+        if (!args.type) {
+            args.type = 'GET';
+        }
+
+        // Default to JSON with GET
+        if (!args.dataType && args.type === 'GET') {
+            args.dataType = 'json';
+        }
+
+        // Add a global error handler
+        if (!args.errorHandler) {
+            args.errorHandler = errorHandler;
+        }
+
+        return $.ajax(TehApi.getURL(url), args);
+    }
+
+    // Add a convenient shortcut to a general use ajax function
+    TehApi.ajax = ajax;
+
+    return TehApi;
 });
