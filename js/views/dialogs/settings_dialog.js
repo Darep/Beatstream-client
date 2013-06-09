@@ -3,8 +3,8 @@ define([
 ],
 function (Api) {
 
-    var SettingsDialog = function (args) {
-        this.el = args.el || undefined;
+    var SettingsDialog = function () {
+        this.el = $('#dialog-settings');
 
         this.el.find('.close').on('click', this.hide.bind(this));
     };
