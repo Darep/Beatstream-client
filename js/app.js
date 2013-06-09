@@ -35,7 +35,6 @@ define([
 
         // Start preloading
         preloader = new Preloader({
-            el: $('.preloader'),
             audioPromise: player.start(),
             medialibraryPromise: playlistManager.getAllMusic()
         });

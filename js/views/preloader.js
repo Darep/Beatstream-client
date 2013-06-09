@@ -6,7 +6,7 @@ define([
     var Preloader = function (args) {
         var audioStart, playlistLoad;
 
-        this.el = args.el;
+        this.el = $('.preloader');
         this.errorStack = [];
 
         audioStart = args.audioPromise;
