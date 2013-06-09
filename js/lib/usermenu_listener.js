@@ -1,20 +1,22 @@
 define([
-    'lib/mediator',
-    'views/dialogs/settings_dialog'
+  'lib/mediator',
+  'views/dialogs/settings_dialog',
+  'views/refresh_view'
 ],
-function (mediator, SettingsDialog) {
-    var UserMenuListener = function(args) {
-        mediator.subscribe('usermenu:click', handleUserMenuClick);
-    };
+function (mediator, SettingsDialog, RefreshView) {
+  var UserMenuListener = function() {
+    mediator.subscribe('usermenu:click', handleUserMenuClick);
+  };
 
-    function handleUserMenuClick(element) {
-        if (element == 'settings-link') {
-            var settingsDialog = new SettingsDialog({
-                el: $('#dialog-settings')
-            });
-            settingsDialog.show();
-        }
+  function handleUserMenuClick(element) {
+    if (element == 'settings-link') {
+      new SettingsDialog().show();
+    } else if (element == 'refresh-link') {
+      new RefreshView().show();
+    } else {
+      console.log('clicked usermenu element: ' + element);
     }
+  }
 
-    return UserMenuListener;
+  return UserMenuListener;
 });

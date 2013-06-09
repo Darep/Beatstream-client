@@ -520,6 +520,20 @@ classes should alter those!
   float: right;
 }
 
+/* line 23, ../sass/components/_common.scss */
+.clearfix, .app-top {
+  *zoom: 1;
+}
+/* line 11, ../sass/globals/_mixins.scss */
+.clearfix:before, .app-top:before, .clearfix:after, .app-top:after {
+  content: "";
+  display: table;
+}
+/* line 15, ../sass/globals/_mixins.scss */
+.clearfix:after, .app-top:after {
+  clear: both;
+}
+
 /* line 1, ../sass/components/_icons.scss */
 .icon, [class|="icon"] {
   background: url("/img/icons.png") no-repeat;
@@ -911,17 +925,18 @@ label {
 /* line 11, ../sass/components/_header.scss */
 .logo {
   color: #f1f1f1;
+  display: inline-block;
   font: 700 30px/55px 'PT Sans', sans-serif;
-  float: left;
   position: relative;
   text-shadow: 0 1px 3px #000;
+  vertical-align: middle;
 }
-/* line 18, ../sass/components/_header.scss */
+/* line 19, ../sass/components/_header.scss */
 .logo a {
   color: inherit;
   text-decoration: none;
 }
-/* line 23, ../sass/components/_header.scss */
+/* line 24, ../sass/components/_header.scss */
 .logo small {
   font-size: 0.5em;
   position: absolute;
@@ -929,29 +944,56 @@ label {
   right: -40px;
 }
 
-/* line 31, ../sass/components/_header.scss */
-#user-menu {
-  float: right;
-  line-height: 50px;
+/* line 32, ../sass/components/_header.scss */
+.status-bar {
+  display: inline-block;
+  margin-right: 1em;
+  vertical-align: middle;
 }
-/* line 35, ../sass/components/_header.scss */
+/* line 37, ../sass/components/_header.scss */
+.status-bar img {
+  opacity: .7;
+  vertical-align: middle;
+}
+/* line 42, ../sass/components/_header.scss */
+.status-bar p, .status-bar span {
+  color: #bbb;
+  font-size: 0.75em;
+}
+/* line 47, ../sass/components/_header.scss */
+.status-bar .show {
+  display: inline-block;
+}
+
+/* line 52, ../sass/components/_header.scss */
+.media-library-refresh, .media-library-refresh-done, .media-library-refresh-fail {
+  display: none;
+}
+
+/* line 56, ../sass/components/_header.scss */
+#user-menu {
+  display: inline-block;
+  line-height: 50px;
+  vertical-align: middle;
+}
+/* line 61, ../sass/components/_header.scss */
 #user-menu ul {
   margin-top: -5px;
 }
-/* line 38, ../sass/components/_header.scss */
+/* line 64, ../sass/components/_header.scss */
 #user-menu ul a {
   line-height: 1.5;
 }
-/* line 41, ../sass/components/_header.scss */
+/* line 67, ../sass/components/_header.scss */
 #user-menu ul a:hover {
   color: #fff;
 }
 
-/* line 48, ../sass/components/_header.scss */
+/* line 74, ../sass/components/_header.scss */
 a#menu-toggle {
   color: #bbb;
 }
-/* line 51, ../sass/components/_header.scss */
+/* line 77, ../sass/components/_header.scss */
 a#menu-toggle:hover {
   color: #fff;
 }

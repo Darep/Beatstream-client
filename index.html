@@ -33,14 +33,31 @@
             <a href="/">Beatstream</a>
             <small>alpha</small>
         </h1>
-        <div class="dropdown" id="user-menu">
-            <a class="dropdown-toggle username" id="menu-toggle">&hellip;</a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a id="settings-link">Settings&hellip;</a></li>
-                <li><a id="refresh-link">Refresh media library&hellip;</a></li>
-                <li class="divider"><hr/></li>
-                <li><a class="logout-link">Log out</a></li>
-            </ul>
+        <div class="right">
+            <div class="status-bar">
+                <div class="media-library-refresh">
+                    <img src="img/preloader.gif" alt="">
+                    <span>Refreshing media library&hellip;</span>
+                </div>
+                <div class="media-library-refresh-done">
+                    <i class="icon-tick"></i>
+                    <span>Done!</span>
+                </div>
+                <div class="media-library-refresh-fail">
+                    <i class="icon-notify"></i>
+                    <span>Refresh failed!</span>
+                    <a href="#" class="dismiss-warning">&times;</a>
+                </div>
+            </div>
+            <div class="dropdown" id="user-menu">
+                <a class="dropdown-toggle username" id="menu-toggle">&hellip;</a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a id="settings-link">Settings&hellip;</a></li>
+                    <li><a id="refresh-link">Refresh media library&hellip;</a></li>
+                    <li class="divider"><hr/></li>
+                    <li><a class="logout-link">Log out</a></li>
+                </ul>
+            </div>
         </div>
     </header>
     <div class="main-wrap">
@@ -99,7 +116,7 @@
             </div>
         </div>
     </div>
-    <div class="app-now-playing">
+    <div class="app-bottom app-now-playing">
         <h5 id="player-song"><span class="label">Current song:</span> <span class="track">None</span></h5>
         <div id="player-controls">
             <div id="player-buttons">

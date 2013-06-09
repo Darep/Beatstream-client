@@ -10,10 +10,11 @@
 
 .logo {
     color:#f1f1f1;
+    display: inline-block;
     font: 700 30px/55px 'PT Sans', sans-serif;
-    float: left;
     position: relative;
     text-shadow:0 1px 3px #000;
+    vertical-align: middle;
 
     a {
         color: inherit;
@@ -28,9 +29,34 @@
     }
 }
 
+.status-bar {
+    display: inline-block;
+    margin-right: 1em;
+    vertical-align: middle;
+
+    img {
+        opacity: .7;
+        vertical-align: middle;
+    }
+
+    p, span {
+        color: #bbb;
+        font-size: em(12);
+    }
+
+    .show {
+        display: inline-block;
+    }
+}
+
+.media-library-refresh, .media-library-refresh-done, .media-library-refresh-fail {
+    display: none;
+}
+
 #user-menu {
-    float: right;
+    display: inline-block;
     line-height: 50px;
+    vertical-align: middle;
 
     ul {
         margin-top: -5px;

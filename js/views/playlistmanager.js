@@ -10,6 +10,7 @@ function (mediator, Api, PlaylistView, SearchField) {
     function PlaylistManager() {
         this.el = $('.main-wrap');
         this.currentPlaylist = [];
+        this.allMusic = [];
 
         this.playlistView = new PlaylistView('#slickgrid');
         this.searchField = new SearchField(this.el.find('.search'));
@@ -18,10 +19,11 @@ function (mediator, Api, PlaylistView, SearchField) {
         mediator.subscribe('app:resize', this.playlistView.resizeCanvas.bind(this.playlistView));
         mediator.subscribe('playlist:showPlaylistAndSong', this.showPlaylistAndSong.bind(this));
         mediator.subscribe('player:songStarted', this.setCurrentSong.bind(this));
+        mediator.subscribe('medialibrary:refresh', this.setAllMusic.bind(this));
 
         // Playlist View events
         this.playlistView.events.onSongSelect = function (song) {
-            // this.setPlaylist( this.playlistView.getCurrentPlaylist() );
+            // this.setCurrentPlaylist( this.playlistView.getCurrentPlaylist() );
             // mediator.publish('playlist:setPlaylist', this.currentPlaylist);
             mediator.publish('playlist:setSong', song);
         }.bind(this);
@@ -32,29 +34,34 @@ function (mediator, Api, PlaylistView, SearchField) {
         }.bind(this);
     }
 
+    PlaylistManager.prototype.setAllMusic = function(data) {
+        var transformPath = Api.getSongURI.bind(Api);
+
+        this.allMusic = data.map(function (song) {
+            song.path = transformPath(song.path);
+            return song;
+        });
+
+        mediator.publish('playlist:allMusic', this.allMusic);
+
+        this.setCurrentPlaylist(this.allMusic);
+        this.updateHeader('All music', this.allMusic.length);
+    };
+
     PlaylistManager.prototype.getAllMusic = function() {
         var _this = this;
 
         return Api.getAllMusic().done(function (data) {
-            var transformPath = Api.getSongURI.bind(Api),
-                allMusic;
-
-            allMusic = data.map(function (song) {
-                song.path = transformPath(song.path);
-                return song;
-            });
-
-            mediator.publish('playlist:allMusic', allMusic);
-
-            _this.setPlaylist(allMusic);
+            _this.setAllMusic(data);
         });
     };
 
-    PlaylistManager.prototype.setPlaylist = function (playlist) {
+    PlaylistManager.prototype.setCurrentPlaylist = function (playlist) {
         this.currentPlaylist = playlist;
 
         this.playlistView.setItems(playlist);
-        this.updateHeader('All music', playlist.length);
+
+        // TODO: update playlist header here!
 
         mediator.publish('playlist:setPlaylist', playlist);
     };
@@ -65,8 +72,9 @@ function (mediator, Api, PlaylistView, SearchField) {
             songCount = 0;
         }
 
-        var prettyCount = commify( parseInt(songCount, 10) );
-        var header = this.el.find('.playlist-header');
+        var prettyCount = commify( parseInt(songCount, 10) ),
+            header = this.el.find('.playlist-header');
+
         header.find('.title').html(name);
         header.find('.count').text(prettyCount);
         header.find('.songs-text').html( pluralize(songCount, 'song', 'songs') );
