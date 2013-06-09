@@ -6,12 +6,13 @@ function ($, mediator) {
     var CLASS_OPEN = 'open';
 
     var UserMenu = function (args) {
-        this.menu = args.el;
-        this.menuToggle = this.menu.find('> .dropdown-toggle');
-        this.actualMenu = this.menu.find('ul');
+        this.el = $('#user-menu');
+
+        this.menuToggle = this.el.find('> .dropdown-toggle');
+        this.actualMenu = this.el.find('ul');
 
         // show username
-        this.menu.find('.username').text(args.name);
+        this.el.find('.username').text(args.name);
 
         // events
         $(document).click(this.handleClicks.bind(this));
@@ -31,13 +32,13 @@ function ($, mediator) {
             mediator.publish('usermenu:click', e.target.id);
 
             // Close menu
-            this.menu.removeClass(CLASS_OPEN);
+            this.el.removeClass(CLASS_OPEN);
         } else if (e.target == this.menuToggle[0] || target.parents().index(this.menuToggle) != -1) {
             // Show/hide menu on press of the toggle
-            this.menu.toggleClass(CLASS_OPEN);
+            this.el.toggleClass(CLASS_OPEN);
         } else if(this.isOutside(target)) {
             // Close menu if click outside menu
-            this.menu.removeClass(CLASS_OPEN);
+            this.el.removeClass(CLASS_OPEN);
         }
     };
 
@@ -47,7 +48,7 @@ function ($, mediator) {
     };
 
     UserMenu.prototype.isOutside = function (target) {
-        return target != this.menu && target.parents().index(this.menu) == -1;
+        return target != this.el && target.parents().index(this.el) == -1;
     };
 
     return UserMenu;

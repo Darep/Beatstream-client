@@ -22,11 +22,11 @@ define([
 
     App.prototype.start = function () {
         var profile             = Api.getProfile(),
-            usermenu            = new UserMenu({ el: $('#user-menu'), name: profile.username }),
+            usermenu            = new UserMenu({ name: profile.username }),
             usermenu_listener   = new UserMenuListener(),
-            player              = new Player({ el: $('.app-now-playing') }),
-            playlistManager     = new PlaylistManager({ el: $('.main-wrap') }),
-            sidebar             = new Sidebar({ el: $('.app-nav') }),
+            player              = new Player(),
+            playlistManager     = new PlaylistManager(),
+            sidebar             = new Sidebar(),
             resizer             = new Resizer(),
             lastfm              = new LastFM(),
             preloader;

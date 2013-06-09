@@ -7,8 +7,8 @@ define([
 ],
 function (mediator, Api, PlaylistView, SearchField) {
 
-    function PlaylistManager(args) {
-        this.el = args.el;
+    function PlaylistManager() {
+        this.el = $('.main-wrap');
         this.currentPlaylist = [];
 
         this.playlistView = new PlaylistView('#slickgrid');

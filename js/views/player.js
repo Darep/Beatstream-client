@@ -9,7 +9,9 @@ define([
     var DEFAULT_VOLUME = 20;
 
     var Player = function (args) {
-        this.el = args.el || undefined;
+        args = args || {};
+
+        this.el = $('.app-now-playing');
         this.audio = undefined;
 
         this.playbackHistory = [];
