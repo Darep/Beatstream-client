@@ -37,8 +37,8 @@ function (mediator, Api, PlaylistView, SearchField) {
     PlaylistManager.prototype.setAllMusic = function(data) {
         var transformPath = Api.getSongURI.bind(Api);
 
-        this.allMusic = data.map(function (song) {
-            song.path = transformPath(song.path);
+        this.allMusic = data.songs.map(function (song) {
+            song.path = transformPath(song);
             return song;
         });
 

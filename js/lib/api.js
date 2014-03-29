@@ -88,16 +88,8 @@ function (mediator) {
 
     // ---- Songs --------------------------------------------------------------
 
-    Api.prototype.getSongURI = function (path) {
-        var result;
-
-        // Remove leading "/"
-        if (path.charAt(0) == "/") {
-            path = path.substr(1);
-        }
-
-        result = this.baseUrl + '/songs/play/?file=' + encodeURIComponent(path);
-        return result;
+    Api.prototype.getSongURI = function (song) {
+        return this.baseUrl + '/songs/' + song.id + '/play';
     };
 
 
